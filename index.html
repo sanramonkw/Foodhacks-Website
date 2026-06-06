@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food Hacks — Premium Natural Culinary Sprays</title>
+<link rel="icon" href="assets/images/brand/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="theme-light">
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">
+    <!-- INSERT UPLOADED IMAGE [logo.png] HERE -->
+    <img src="assets/images/brand/logo.png" alt="Food Hacks" onerror="this.outerHTML='<span style=\'font-family:Playfair Display,serif;font-size:20px;font-weight:700;color:#56b85a\'>Food Hacks</span>'">
+  </a>
+  <div class="nav-center">
+    <a href="#products" data-i18n="nav.products">Products</a>
+    <a href="#about" data-i18n="nav.story">Our Story</a>
+    <a href="#why" data-i18n="nav.why">Why Us</a>
+    <a href="#faq" data-i18n="nav.faq">FAQs</a>
+    <a href="#refund" data-i18n="nav.refund">Refund Policy</a>
+    <a href="#contact" data-i18n="nav.contact">Contact</a>
+  </div>
+  <div class="nav-right">
+    <button class="lang-btn btn btn-ghost" id="langBtnD" onclick="toggleLang()">عربي</button>
+    <a href="https://thiafa.com/en/products?name=food+hacks" target="_blank" rel="noopener" class="btn btn-primary" data-shop-link style="padding:10px 22px;font-size:13px"><span data-i18n="btn.orderNow">Order Now</span> <span class="arrow">→</span></a>
+  </div>
+  <div class="burger" id="burger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ═══ MOBILE NAV ═══ -->
+<div class="mob-nav" id="mobNav">
+  <a href="#products" onclick="closeNav()" data-i18n="nav.products">Products</a>
+  <a href="#about" onclick="closeNav()" data-i18n="nav.story">Our Story</a>
+  <a href="#why" onclick="closeNav()" data-i18n="nav.why">Why Us</a>
+  <a href="#faq" onclick="closeNav()" data-i18n="nav.faq">FAQs</a>
+  <a href="#refund" onclick="closeNav()" data-i18n="nav.refund">Refund Policy</a>
+  <a href="#contact" onclick="closeNav()" data-i18n="nav.contact">Contact</a>
+  <a href="https://thiafa.com/en/products?name=food+hacks" target="_blank" rel="noopener" class="btn btn-primary" data-shop-link style="margin-top:8px"><span data-i18n="btn.orderNow">Order Now</span> <span class="arrow">→</span></a>
+  <button class="lang-btn btn btn-ghost" id="langBtnM" onclick="toggleLang()">عربي</button>
+  <div class="mob-socials">
+    <a href="https://www.instagram.com/foodhacksco" target="_blank">Instagram</a>
+    <a href="https://x.com/FoodHackskw" target="_blank">Twitter</a>
+    <a href="https://snapchat.com/t/nXtO2N8V" target="_blank">Snapchat</a>
+  </div>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="top">
+  <div class="hero-bg">
+    <picture>
+      <source media="(max-width: 767px)" srcset="assets/images/products/olive-oil.png">
+      <img src="assets/images/home/banner.png" alt="Food Hacks Premium Culinary Sprays" id="heroBg">
+    </picture>
+  </div>
+  <div class="hero-content">
+    <div class="wrap">
+      <div class="hero-pill">
+        <div class="pulse"></div>
+        <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,237,230,.9)">100% Natural · Kuwait's Finest</span>
+      </div>
+      <h1>Cook Smarter.<br><span class="it">Eat Better.</span><br>Live Well.</h1>
+      <p class="hero-sub">Premium culinary sprays crafted from nature's finest — zero additives, maximum flavour, one precise spray at a time.</p>
+      <div class="hero-btns">
+        <a href="#products" class="btn btn-primary" style="font-size:15px;padding:15px 30px">Explore Products <span class="arrow">→</span></a>
+        <a href="#about" class="btn btn-ghost">Our Story</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <strong>100%</strong>
+          <span data-i18n="stat.natural">Natural</span>
+        </div>
+        <div class="hero-stat">
+          <strong>0</strong>
+          <span data-i18n="stat.additives">Additives</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MARQUEE ═══ -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="mtag">100% Natural <span class="mdot"></span></span>
+    <span class="mtag">Zero Additives <span class="mdot"></span></span>
+    <span class="mtag">Premium Grade <span class="mdot"></span></span>
+    <span class="mtag">Gulf-Wide Delivery <span class="mdot"></span></span>
+    <span class="mtag">Cold Pressed <span class="mdot"></span></span>
+    <span class="mtag">Chef Approved <span class="mdot"></span></span>
+    <span class="mtag">Healthy Cooking <span class="mdot"></span></span>
+    <span class="mtag">Kuwait's Finest <span class="mdot"></span></span>
+    <span class="mtag">100% Natural <span class="mdot"></span></span>
+    <span class="mtag">Zero Additives <span class="mdot"></span></span>
+    <span class="mtag">Premium Grade <span class="mdot"></span></span>
+    <span class="mtag">Gulf-Wide Delivery <span class="mdot"></span></span>
+    <span class="mtag">Cold Pressed <span class="mdot"></span></span>
+    <span class="mtag">Chef Approved <span class="mdot"></span></span>
+    <span class="mtag">Healthy Cooking <span class="mdot"></span></span>
+    <span class="mtag">Kuwait's Finest <span class="mdot"></span></span>
+  </div>
+</div>
+
+<!-- ═══ PRODUCTS ═══ -->
+<section class="section products" id="products">
+  <div class="wrap">
+    <div class="section-hdr reveal">
+      <div class="gline"></div>
+      <span class="eyebrow" data-i18n="sec.range">Our Range</span>
+      <h2 class="section-title" data-i18n-html="sec.rangeTitle">Three Icons.<br>Infinite Flavour.</h2>
+    </div>
+    <div class="products-grid">
+
+      <!-- SAFFRON -->
+      <div class="pcard reveal d1">
+        <div class="pbadge green-b" data-i18n="p1.badge">Bestseller</div>
+        <div class="pimg pimg-saffron">
+          <!-- INSERT UPLOADED IMAGE [saffron.png] HERE -->
+          <img src="assets/images/products/saffron.png" alt="Saffron Spray 200mL">
+        </div>
+        <div class="pinfo">
+          <div class="pvol" data-i18n="p1.vol">200 mL · Precision Spray</div>
+          <h3 class="pname" data-i18n="p1.name">Saffron Spray</h3>
+          <p class="pdesc" data-i18n="p1.desc">The world's most precious spice, now in its most elegant form. Infuse rice, meats and desserts with authentic saffron warmth — in a single press.</p>
+          <div class="ptags">
+            <span class="ptag" data-i18n="p1.tag1">100% Natural</span>
+            <span class="ptag" data-i18n="p1.tag2">Saffron Infused</span>
+            <span class="ptag" data-i18n="p1.tag3">200mL</span>
+          </div>
+          <div class="pcta">
+            <a href="https://thiafa.com/en/products?name=food+hacks" target="_blank" rel="noopener" class="plink" data-shop-link><span data-i18n="btn.orderNow">Order Now</span> <span class="arrow">→</span></a>
+            <span style="font-size:11px;font-family:'Space Mono',monospace;color:var(--muted)">KW</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- OLIVE OIL -->
+      <div class="pcard reveal d2">
+        <div class="pbadge green-b" data-i18n="p2.badge">Most Popular</div>
+        <div class="pimg pimg-olive">
+          <!-- INSERT UPLOADED IMAGE [olive-oil.png] HERE -->
+          <img src="assets/images/products/olive-oil.png" alt="Extra Virgin Olive Oil Spray 200mL">
+        </div>
+        <div class="pinfo">
+          <div class="pvol" data-i18n="p2.vol">200 mL · Precision Spray</div>
+          <h3 class="pname" data-i18n="p2.name">Extra Virgin Olive Oil Spray</h3>
+          <p class="pdesc" data-i18n="p2.desc">Cold-pressed, first-harvest extra virgin olive oil in a precision spray. Use less, taste more — for grilling, baking, salads, and everything between.</p>
+          <div class="ptags">
+            <span class="ptag" data-i18n="p2.tag1">Cold Pressed</span>
+            <span class="ptag" data-i18n="p2.tag2">Extra Virgin</span>
+            <span class="ptag" data-i18n="p2.tag3">200mL</span>
+          </div>
+          <div class="pcta">
+            <a href="https://thiafa.com/en/products?name=food+hacks" target="_blank" rel="noopener" class="plink" data-shop-link><span data-i18n="btn.orderNow">Order Now</span> <span class="arrow">→</span></a>
+            <span style="font-size:11px;font-family:'Space Mono',monospace;color:var(--muted)">KW</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRUFFLE -->
+      <div class="pcard gold-card reveal d3">
+        <div class="pbadge gold-b" data-i18n="p3.badge">Premium</div>
+        <div class="pimg pimg-truffle">
+          <!-- INSERT UPLOADED IMAGE [truffle.png] HERE -->
+          <img src="assets/images/products/truffle.png" alt="Truffle Flavoured EVOO Spray 125mL">
+        </div>
+        <div class="pinfo">
+          <div class="pvol" data-i18n="p3.vol">125 mL · Precision Spray</div>
+          <h3 class="pname" data-i18n="p3.name">Truffle Flavoured EVOO Spray</h3>
+          <p class="pdesc" data-i18n="p3.desc">Michelin-worthy depth, now at home. Black truffle essence blended with cold-pressed extra virgin olive oil — a finishing spray that transforms everything it touches.</p>
+          <div class="ptags">
+            <span class="ptag" data-i18n="p3.tag1">Black Truffle</span>
+            <span class="ptag" data-i18n="p3.tag2">EVOO Base</span>
+            <span class="ptag" data-i18n="p3.tag3">125mL</span>
+          </div>
+          <div class="pcta">
+            <a href="https://thiafa.com/en/products?name=food+hacks" target="_blank" rel="noopener" class="plink gold" data-shop-link><span data-i18n="btn.orderNow">Order Now</span> <span class="arrow">→</span></a>
+            <span style="font-size:11px;font-family:'Space Mono',monospace;color:var(--muted)">KW</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHY US ═══ -->
+<section class="section why" id="why">
+  <div class="wrap">
+    <div class="section-hdr reveal" style="text-align:center">
+      <div class="gline" style="margin:0 auto 12px"></div>
+      <span class="eyebrow" data-i18n="why.eyebrow">The Food Hacks Difference</span>
+      <h2 class="section-title" style="margin-top:8px" data-i18n="why.title">Why Thousands Choose Us</h2>
+    </div>
+    <div class="why-grid">
+      <div class="wcard reveal d1">
+        <div class="wicon">🌿</div>
+        <h3>100% Natural</h3>
+        <p>No artificial additives, preservatives or chemicals. Just pure, honest ingredients as nature intended.</p>
+      </div>
+      <div class="wcard reveal d2">
+        <div class="wicon">🎯</div>
+        <h3>Precision Spray</h3>
+        <p>Coat pans, salads and proteins evenly — use up to 80% less oil without sacrificing a drop of flavour.</p>
+      </div>
+      <div class="wcard reveal d3">
+        <div class="wicon">👨‍🍳</div>
+        <h3>Chef-Grade Quality</h3>
+        <p>Sourced and formulated to professional culinary standards. Restaurant results from your own kitchen.</p>
+      </div>
+      <div class="wcard reveal d4">
+        <div class="wicon">❤️</div>
+        <h3>Health First</h3>
+        <p>Lower-calorie cooking without compromise. Heart-healthy fats and zero trans fats in every spray.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section class="section about" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-img-wrap">
+          <!-- INSERT UPLOADED IMAGE [products-group.png] HERE -->
+          <img src="assets/images/home/products-group.png" alt="Food Hacks Products on Grass">
+        </div>
+        <div class="about-float">
+          <div>
+            <div class="af-num">100%</div>
+          </div>
+          <div class="af-text">Pure &<br>Natural</div>
+        </div>
+      </div>
+      <div class="about-text reveal d2">
+        <div class="gline"></div>
+        <span class="eyebrow" data-i18n="about.eyebrow">Our Story</span>
+        <h2 class="section-title" style="margin-top:10px;margin-bottom:20px" data-i18n="about.title">Born from a Passion for Healthier Cooking</h2>
+        <p>Food Hacks was founded with one simple mission: to make healthy, flavourful cooking accessible to everyone — without the mess, waste, or hassle of traditional oil pouring.</p>
+        <p>We took nature's finest — premium olive oils, rare saffron, and exquisite truffle — and reimagined how they reach your plate. Our precision spray technology delivers exactly the right amount, every time.</p>
+        <div class="about-pillars">
+          <div class="pillar">
+            <div class="pillar-ico">🌍</div>
+            <h4>Our Vision</h4>
+            <p>To lead the Gulf in healthy, innovative cooking solutions</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-ico">🏆</div>
+            <h4>Our Mission</h4>
+            <p>Premium quality accessible to every home kitchen</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-ico">🌱</div>
+            <h4>Natural Sourcing</h4>
+            <p>Ingredients hand-selected from the finest global origins</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-ico">✨</div>
+            <h4>Innovation</h4>
+            <p>Pioneering spray technology for the modern kitchen</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMPANY ═══ -->
+<section class="company reveal">
+  <div class="wrap">
+    <div class="company-card">
+      <!-- INSERT UPLOADED IMAGE [san-ramon.png] HERE -->
+      <img src="assets/images/about/san-ramon.png" alt="San Ramon General Trading & Contracting Company">
+      <div class="company-body">
+        <div class="gline"></div>
+        <span class="eyebrow" style="display:block;margin-bottom:10px" data-i18n="company.eyebrow">Our Parent Company</span>
+        <h2 data-i18n="company.title">Backed by San Ramon General Trading</h2>
+        <p style="margin-top:14px">Food Hacks is proudly distributed by San Ramon General Trading & Contracting Co. — a trusted name in the Gulf with decades of experience bringing quality products to homes across Kuwait and the wider region.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LIFESTYLE ═══ -->
+<section class="section lifestyle">
+  <div class="wrap">
+    <div class="section-hdr reveal" style="text-align:center">
+      <div class="gline" style="margin:0 auto 12px"></div>
+      <span class="eyebrow" data-i18n="life.eyebrow">In the Wild</span>
+      <h2 class="section-title" style="margin-top:8px" data-i18n="life.title">Crafted for Every Kitchen</h2>
+    </div>
+    <div class="life-grid reveal d1">
+      <div class="life-big">
+        <!-- INSERT UPLOADED IMAGE [fh-products.png] HERE -->
+        <img src="assets/images/about/fh-products.png" alt="Food Hacks product range">
+        <div class="life-big-label">Full Range</div>
+      </div>
+      <div class="life-subs">
+        <div class="life-sub">
+          <!-- INSERT UPLOADED IMAGE [olive-oil.png] HERE -->
+          <img src="assets/images/products/olive-oil.png" alt="Olive Oil Spray" style="object-position:center">
+          <div class="life-sub-label">EVOO Spray</div>
+        </div>
+        <div class="life-sub">
+          <!-- INSERT UPLOADED IMAGE [saffron.png] HERE -->
+          <img src="assets/images/products/saffron.png" alt="Saffron Spray" style="object-position:center">
+          <div class="life-sub-label">Saffron Spray</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta-sec">
+  <div class="wrap">
+    <div class="cta-box reveal">
+      <span class="eyebrow" data-i18n="cta.eyebrow">Ready to Upgrade Your Kitchen?</span>
+      <h2 style="margin-top:14px">Start Cooking the<br><em>Food Hacks</em> Way</h2>
+      <p style="margin-top:16px">Join thousands of home cooks and chefs across Kuwait who've discovered the smarter, healthier way to cook. Order today and taste the difference.</p>
+      <div class="cta-actions">
+        <a href="https://thiafa.com/en/products?name=food+hacks" target="_blank" rel="noopener" class="btn btn-primary" data-shop-link style="font-size:16px;padding:16px 36px">Shop the Range <span class="arrow">→</span></a>
+        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ FAQ ═══ -->
+<section class="section faq-section" id="faq">
+  <div class="wrap">
+    <div class="section-hdr reveal" style="text-align:center">
+      <div class="gline" style="margin:0 auto 12px"></div>
+      <span class="eyebrow" data-i18n="faq.eyebrow">Common Questions</span>
+      <h2 class="section-title" style="margin-top:8px" data-i18n="faq.title">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list reveal d1">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <h3 data-i18n="faq.q1">What makes Food Hacks healthy?</h3>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a"><p data-i18n="faq.a1">It allows you to use less oil than traditional methods, reducing calories and fat in your food — without sacrificing flavour.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <h3 data-i18n="faq.q2">Can the spray withstand high heat?</h3>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a"><p data-i18n="faq.a2">Yes — our sprays are designed to withstand normal cooking temperatures, making them ideal for pan-frying, baking, grilling, and more.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <h3 data-i18n="faq.q3">What is the delivery time?</h3>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a"><p data-i18n="faq.a3">Orders are typically delivered within 24 hours of confirmation. Timelines may vary by location and order conditions.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <h3 data-i18n="faq.q4">Are there any artificial flavors or preservatives?</h3>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a"><p data-i18n="faq.a4">None. Our products are free from artificial flavors, coloring, and preservatives — a genuinely healthy cooking option with no unwanted chemicals.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <h3 data-i18n="faq.q5">Can I use Food Hacks spray before cooking?</h3>
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a"><p data-i18n="faq.a5">Absolutely. It's ideal for spritzing foods before grilling or baking to enhance flavour and prevent sticking.</p></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ REFUND POLICY ═══ -->
+<section class="section policy-section" id="refund">
+  <div class="wrap">
+    <div class="section-hdr reveal" style="text-align:center">
+      <div class="gline" style="margin:0 auto 12px"></div>
+      <span class="eyebrow" data-i18n="refund.eyebrow">Policies</span>
+      <h2 class="section-title" style="margin-top:8px" data-i18n="refund.title">Return &amp; Refund Policy</h2>
+    </div>
+    <div class="policy-content reveal d1">
+      <article class="policy-block">
+        <h3 data-i18n="refund.block1.title">Replacement and Refund within 14 Days</h3>
+        <p data-i18n="refund.block1.intro">If you changed your mind about your Food Hacks purchase, you can request a replacement or refund under the following conditions:</p>
+        <ul>
+          <li data-i18n="refund.block1.li1">Timeframe: Contact us within 14 days of purchase.</li>
+          <li data-i18n="refund.block1.li2">Condition: Make sure your product is still in its original, unopened condition.</li>
+          <li data-i18n="refund.block1.li3">Proof of Purchase: Have your receipt or proof of purchase handy.</li>
+          <li data-i18n="refund.block1.li4">Shipping Fees: Please note that shipping fees are non-refundable.</li>
+        </ul>
+        <p data-i18n="refund.block1.outro">To initiate a return or exchange, simply contact our customer service team with your order details and reason for return. We will guide you through the steps to return your item.</p>
+      </article>
+      <article class="policy-block">
+        <h3 data-i18n="refund.block2.title">Manufacturing defect (within 30 days)</h3>
+        <p data-i18n="refund.block2.intro">We care about quality at Food Hacks. If you notice any manufacturing hiccups, we are here to make it right:</p>
+        <ul>
+          <li data-i18n="refund.block2.li1">Timeframe: Let us know within 30 days of purchase.</li>
+          <li data-i18n="refund.block2.li2">Condition: The issue must be related to a manufacturing defect.</li>
+          <li data-i18n="refund.block2.li3">Proof of Purchase: Keep your receipt or proof of purchase handy.</li>
+        </ul>
+        <p data-i18n="refund.block2.p1">Send us a message with your order details and a description of the issue. Our team will provide instructions on how to fix the problem, whether it's a replacement or a refund.</p>
+        <p data-i18n="refund.block2.p2">To address a manufacturing issue, please contact our customer service team with a description of the problem and your order details. We will assess the issue and guide you through the next steps.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section class="section contact" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-left reveal">
+        <div class="gline"></div>
+        <span class="eyebrow" data-i18n="contact.eyebrow">Get In Touch</span>
+        <h2 class="section-title" style="margin-top:10px">We'd Love to<br>Hear From You</h2>
+        <p style="margin-top:16px">Questions about our products, bulk orders, or interested in stocking Food Hacks in your store? We're here and happy to help.</p>
+        <div>
+          <div class="citem">
+            <div class="cico">📞</div>
+            <div>
+              <div class="clabel">Phone</div>
+              <div class="cval"><a href="tel:96522204332">+965 2220 4332</a></div>
+            </div>
+          </div>
+          <div class="citem">
+            <div class="cico">✉️</div>
+            <div>
+              <div class="clabel">Email</div>
+              <div class="cval"><a href="mailto:info@foodhacks.co">info@foodhacks.co</a></div>
+            </div>
+          </div>
+          <div class="citem">
+            <div class="cico">📍</div>
+            <div>
+              <div class="clabel">Location</div>
+              <div class="cval">Kuwait City, Kuwait</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form class="contact-form reveal d2" id="contactForm" novalidate onsubmit="sendMsg(event)">
+        <h3 data-i18n="form.title">Send a Message</h3>
+        <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="frow" style="margin-top:24px">
+          <div class="fg">
+            <label for="contactFirstName" data-i18n="form.firstName">First Name</label>
+            <input type="text" id="contactFirstName" name="firstName" data-i18n-placeholder="form.firstNamePh" placeholder="Ahmed" required>
+          </div>
+          <div class="fg">
+            <label for="contactLastName" data-i18n="form.lastName">Last Name</label>
+            <input type="text" id="contactLastName" name="lastName" data-i18n-placeholder="form.lastNamePh" placeholder="Al-Rashid" required>
+          </div>
+        </div>
+        <div class="fg">
+          <label for="contactEmail" data-i18n="form.email">Email</label>
+          <input type="email" id="contactEmail" name="email" data-i18n-placeholder="form.emailPh" placeholder="you@example.com" required>
+        </div>
+        <div class="fg">
+          <label for="contactSubject" data-i18n="form.subject">Subject</label>
+          <input type="text" id="contactSubject" name="subject" data-i18n-placeholder="form.subjectPh" placeholder="Product enquiry…" required>
+        </div>
+        <div class="fg">
+          <label for="contactMessage" data-i18n="form.message">Message</label>
+          <textarea id="contactMessage" name="message" data-i18n-placeholder="form.messagePh" placeholder="Tell us how we can help…" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;font-size:15px" id="sendBtn"><span data-i18n="form.send">Send Message</span> <span class="arrow">→</span></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="fbrand">
+        <!-- INSERT UPLOADED IMAGE [logo.png] HERE -->
+        <img src="assets/images/brand/logo.png" alt="Food Hacks" class="footer-logo" onerror="this.style.display='none'">
+        <p class="ftagline">Premium natural culinary sprays crafted for the modern kitchen. 100% natural, zero additives.</p>
+        <div class="fsocials">
+          <a href="https://www.instagram.com/foodhacksco" target="_blank" class="fsoc" title="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://x.com/FoodHackskw" target="_blank" class="fsoc" title="Twitter/X">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://www.facebook.com/Foodhackskwt/" target="_blank" class="fsoc" title="Facebook">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://snapchat.com/t/nXtO2N8V" target="_blank" class="fsoc" title="Snapchat">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.065.001C9.177-.026 5.868 1.279 4.13 4.57c-.75 1.444-.633 3.048-.636 4.638-.222.107-.454.157-.69.174-.3.02-.6-.023-.89-.1-.28-.073-.66-.018-.724.308-.066.337.268.61.524.755.358.2.743.356 1.143.426.065.013.128.023.187.042-.14.347-.33.667-.545.966-.428.6-1.03 1.05-1.724 1.228-.262.067-.537.086-.8.148-.13.032-.265.085-.344.2-.17.253.03.567.23.72.54.415 1.18.67 1.846.754.046.007.09.02.136.027.058.158.085.33.195.462.13.152.32.218.505.218.16 0 .322-.043.473-.11.392-.178.77-.398 1.21-.446.374-.04.743.082 1.06.27.48.286.866.71 1.33.998.552.343 1.21.52 1.877.52.667 0 1.325-.177 1.877-.52.464-.288.85-.712 1.33-.998.317-.188.686-.31 1.06-.27.44.048.818.268 1.21.446.152.067.313.11.473.11.185 0 .375-.066.505-.218.11-.132.137-.304.195-.462.046-.007.09-.02.136-.027.666-.084 1.306-.34 1.846-.754.2-.153.4-.467.23-.72-.08-.115-.214-.168-.344-.2-.263-.062-.538-.08-.8-.148-.694-.178-1.296-.628-1.724-1.228-.215-.3-.404-.62-.545-.966.06-.02.122-.03.187-.042.4-.07.785-.225 1.143-.426.256-.145.59-.418.524-.755-.064-.326-.444-.38-.724-.308-.29.077-.59.12-.89.1-.236-.017-.468-.067-.69-.174-.003-1.59.114-3.194-.636-4.638C18.132 1.28 14.953-.026 12.065 0z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="fcol">
+        <h4 data-i18n="footer.products">Products</h4>
+        <ul>
+          <li><a href="https://thiafa.com/en/products?name=food+hacks" target="_blank" rel="noopener" data-shop-link data-i18n="footer.saffron">Saffron Spray</a></li>
+          <li><a href="https://thiafa.com/en/products?name=food+hacks" target="_blank" rel="noopener" data-shop-link data-i18n="footer.olive">Olive Oil Spray</a></li>
+          <li><a href="https://thiafa.com/en/products?name=food+hacks" target="_blank" rel="noopener" data-shop-link data-i18n="footer.truffle">Truffle EVOO Spray</a></li>
+          <li><a href="https://thiafa.com/en/products?name=food+hacks" target="_blank" rel="noopener" data-shop-link data-i18n="footer.shopAll">Shop All</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4 data-i18n="footer.company">Company</h4>
+        <ul>
+          <li><a href="#about" data-i18n="footer.about">About Us</a></li>
+          <li><a href="#why" data-i18n="footer.whyFh">Why Food Hacks</a></li>
+          <li><a href="#faq" data-i18n="nav.faq">FAQs</a></li>
+          <li><a href="#refund" data-i18n="footer.refund">Refund Policy</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4 data-i18n="footer.contactCol">Contact</h4>
+        <ul>
+          <li><a href="tel:96522204332">+965 2220 4332</a></li>
+          <li><a href="mailto:info@foodhacks.co">info@foodhacks.co</a></li>
+          <li><a href="#contact" data-i18n="footer.sendMsg">Send a Message</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-i18n="footer.copyright">© 2026 Food Hacks. All rights reserved.</p>
+      <p data-i18n-html="footer.distributed">Distributed by <a href="https://srkw.co" target="_blank" rel="noopener">San Ramon General Trading & Contracting Co.</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
