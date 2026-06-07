@@ -39,8 +39,10 @@ body.theme-light{
 body.theme-light .nav.scrolled{background:rgba(255,255,255,.94);box-shadow:0 1px 24px rgba(34,45,42,.08)}
 body.theme-light .nav.scrolled .nav-center a{color:#000}
 body.theme-light .nav.scrolled .nav-center a:hover{color:var(--green-d)}
-body.theme-light .nav.scrolled .nav-right .btn-ghost{color:#000;border-color:rgba(0,0,0,.2)}
-body.theme-light .nav.scrolled .nav-right .btn-ghost:hover{color:var(--green-d);border-color:var(--green)}
+body.theme-light .nav.scrolled .nav-right .btn-ghost,
+body.theme-light .nav.menu-open .nav-right .btn-ghost{color:#000;border-color:rgba(0,0,0,.2)}
+body.theme-light .nav.scrolled .nav-right .btn-ghost:hover,
+body.theme-light .nav.menu-open .nav-right .btn-ghost:hover{color:var(--green-d);border-color:var(--green)}
 /* Mobile header: light over hero, black when bar has background or menu is open */
 body.theme-light .nav:not(.scrolled) .burger:not(.open) span{background:rgba(240,237,230,.92)}
 body.theme-light .nav.scrolled .burger span,
@@ -121,8 +123,8 @@ h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif;line-height:1.15}
 .burger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
 .burger.open span:nth-child(3){transform:rotate(-45deg) translate(4.5px,-4.5px)}
 
-/* Mobile overlay */
-.mob-nav{position:fixed;inset:0;background:var(--bg);z-index:800;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:32px;transform:translateY(-100%);transition:transform .5s cubic-bezier(.77,0,.175,1);overflow:hidden}
+/* Mobile overlay — pad below fixed header so first link isn't covered */
+.mob-nav{position:fixed;inset:0;background:var(--bg);z-index:800;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;gap:28px;padding:calc(var(--nav-h) + 28px) 20px max(32px,env(safe-area-inset-bottom,0px));transform:translateY(-100%);transition:transform .5s cubic-bezier(.77,0,.175,1);overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .mob-nav.open{transform:translateY(0)}
 .mob-nav a{font-family:'Playfair Display',serif;font-size:clamp(28px,7vw,44px);font-weight:700;color:var(--text);transition:color var(--trans);text-align:center}
 .mob-nav a:hover{color:var(--green)}
@@ -130,13 +132,21 @@ h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif;line-height:1.15}
 .mob-socials a{font-size:12px;font-family:'Space Mono',monospace;color:var(--muted);transition:color var(--trans)}
 .mob-socials a:hover{color:var(--green)}
 
-@media(min-width:768px){
+@media(min-width:1024px){
   :root{--nav-h:76px}
   .nav{padding:18px 40px}
   .nav-logo img{height:38px}
   .nav-center{display:flex}
   .nav-right{display:flex}
   .burger{display:none}
+}
+
+@media(max-width:1023px){
+  body.theme-light .nav:not(.scrolled):not(.menu-open) .burger:not(.open) span{background:#1a2421}
+  body.theme-light .nav:not(.scrolled):not(.menu-open) .nav-right .btn-ghost{color:#1a2421;border-color:rgba(34,45,42,.28)}
+  .nav-right{display:flex}
+  .nav-right .btn-primary{display:none}
+  .burger{margin-inline-start:10px}
 }
 
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -197,7 +207,6 @@ h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif;line-height:1.15}
   .hero-btns .btn-primary{background:transparent;color:#1a2421;border-color:#1a2421;box-shadow:none}
   .hero-btns .btn-primary:hover{background:rgba(34,45,42,.06);color:var(--green-d);border-color:var(--green-d);box-shadow:none;transform:none}
   .hero-stats{margin-top:auto;border-top:1px solid var(--border);padding-bottom:max(20px,env(safe-area-inset-bottom,0px))}
-  body.theme-light .nav:not(.scrolled):not(.menu-open) .burger:not(.open) span{background:#1a2421}
 }
 
 @media(min-width:768px){
@@ -433,7 +442,7 @@ html[dir="rtl"] .nav{flex-direction:row-reverse}
 html[dir="rtl"] .nav-logo{margin-inline-start:auto;margin-inline-end:0}
 html[dir="rtl"] .nav-center{flex-direction:row-reverse}
 html[dir="rtl"] .nav-right{flex-direction:row-reverse;margin:0}
-html[dir="rtl"] .burger{margin:0}
+html[dir="rtl"] .burger{margin:0;margin-inline-start:10px}
 html[dir="rtl"] .hero-content{text-align:right;direction:rtl}
 html[dir="rtl"] .hero-btns{flex-direction:row-reverse}
 html[dir="rtl"] .hero-pill{flex-direction:row-reverse}

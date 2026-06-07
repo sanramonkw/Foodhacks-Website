@@ -2,16 +2,16 @@
 
 | Path | Source |
 |------|--------|
-| `images/brand/logo.png` | Site logo |
-| `images/brand/favicon.png` | Favicon |
-| `images/home/banner.png` | Home hero banner — desktop (three products) |
-| `images/products/olive-oil.png` | Home hero — mobile (olive oil bottle) |
-| `images/home/products-group.png` | Home intro product group |
-| `images/products/saffron.png` | Saffron spray |
-| `images/products/olive-oil.png` | Olive oil spray |
-| `images/products/truffle.png` | Truffle olive oil spray |
-| `images/about/fh-products.png` | About page — products photo |
-| `images/about/san-ramon.png` | About page — San Ramon factory |
+| `images/brand/logo.webp` | Site logo |
+| `images/brand/favicon.webp` | Favicon |
+| `images/home/banner.webp` | Home hero banner — desktop (three products) |
+| `images/products/olive-oil.webp` | Home hero — mobile (olive oil bottle) |
+| `images/home/products-group.webp` | Home intro product group |
+| `images/products/saffron.webp` | Saffron spray |
+| `images/products/olive-oil.webp` | Olive oil spray |
+| `images/products/truffle.webp` | Truffle olive oil spray |
+| `images/about/fh-products.webp` | About page — products photo |
+| `images/about/san-ramon.webp` | About page — San Ramon factory |
 
 Images were exported from [foodhacks.co](https://foodhacks.co/) for offline static hosting.
 

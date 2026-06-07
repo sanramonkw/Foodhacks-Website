@@ -241,7 +241,7 @@ function applyLang(lang) {
     : 'Premium natural culinary sprays crafted for the modern kitchen. 100% natural, zero additives.';
 
   // Lang buttons
-  document.querySelectorAll('#langBtnD,#langBtnM').forEach(b => { b.textContent = lang === 'ar' ? 'EN' : 'عربي'; });
+  document.querySelectorAll('.lang-btn').forEach(b => { b.textContent = lang === 'ar' ? 'EN' : 'عربي'; });
 
   const hero = document.querySelector('.hero');
   if (hero) hero.classList.add('ready');
