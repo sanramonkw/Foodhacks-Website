@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ProductCard from '../components/ProductCard.astro';
+
+const products = (await getCollection('products')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const itemList = {
+  '@type': 'ItemList',
+  '@id': 'https://foodhacks.co/products/#itemlist',
+  name: 'Food Hacks Products',
+  itemListElement: products.map((p, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: `https://foodhacks.co/product/${p.id}/`,
+    name: p.data.title,
+  })),
+};
+---
+
+<BaseLayout
+  title="Our Products - Food Hacks"
+  description="The Food Hacks range: Saffron Spray, Extra Virgin Olive Oil Spray, and Truffle Flavoured Extra Virgin Olive Oil Spray — 100% natural non-stick cooking sprays."
+  schema={[itemList]}
+>
+  <PageHero title="Our Products" chapter="02" chapterName="The Sprays" />
+
+  <!-- the tasting table: three numbered specimens, staggered like a
+       magazine feature spread -->
+  <section class="mx-auto max-w-[1240px] px-5 py-16 md:px-8 md:py-24">
+    <div class="grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+      {products.map((product, i) => (
+        <div class:list={[i === 1 && 'lg:mt-16', i === 2 && 'lg:mt-32']}>
+          <ProductCard product={product} lazy={i > 0} />
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

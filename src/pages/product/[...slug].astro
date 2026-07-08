@@ -1,0 +1,89 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { productPath } from '../../i18n';
+
+export async function getStaticPaths() {
+  const all = await getCollection('products');
+  return all
+    .filter((product) => product.data.lang === 'en')
+    .map((product) => ({
+      params: { slug: product.id },
+      props: {
+        product,
+        // AR counterpart (paired via translationKey) for hreflang + the
+        // العربية switcher. NOTE: live Polylang left the saffron pair
+        // unlinked ("no-translation" — its switcher fell back to the AR
+        // home); we link the real counterpart instead.
+        arCounterpart:
+          all.find(
+            (p) => p.data.lang === 'ar' && p.data.translationKey === product.data.translationKey
+          )?.id ?? null,
+      },
+    }));
+}
+
+interface Props {
+  product: CollectionEntry<'products'>;
+  arCounterpart: string | null;
+}
+const { product, arCounterpart } = Astro.props;
+const { Content } = await render(product);
+const altHref = arCounterpart ? productPath('ar', arCounterpart) : undefined;
+
+const productSchema = {
+  '@type': 'Product',
+  '@id': `https://foodhacks.co/product/${product.id}/#product`,
+  name: product.data.title,
+  image: new URL(product.data.image, 'https://foodhacks.co').href,
+  description: product.data.description,
+  brand: { '@type': 'Brand', name: 'Food Hacks' },
+  manufacturer: { '@id': 'https://foodhacks.co/#organization' },
+  offers: {
+    '@type': 'Offer',
+    url: product.data.orderUrl,
+    availability: 'https://schema.org/InStock',
+  },
+};
+---
+
+<BaseLayout
+  title={`${product.data.title} - Food Hacks`}
+  description={product.data.description}
+  ogImage={product.data.image}
+  ogType="product"
+  schema={[productSchema]}
+  altHref={altHref}
+>
+  <!-- Green title banner, as on the live product pages: .section-page with a
+       white .line (100×2px, 20px auto margins) under the 35px h1 -->
+  <section class="m-5 rounded-card bg-brand px-6 pb-5 pt-[140px] text-center">
+    <h1 class="py-[15px] text-[35px] leading-[44px] !text-white">{product.data.title}</h1>
+    <div class="mx-auto my-5 h-[2px] w-[100px] rounded-[10px] bg-white"></div>
+  </section>
+
+  <!-- The live product pages have no body content below the banner (empty in
+       the WP REST API too); this composed section is a deliberate rebuild
+       addition — see CLAUDE.md content notes. -->
+  <section class="mx-auto max-w-[1180px] px-4 py-[60px]">
+    <div class="grid items-center gap-10 md:grid-cols-2">
+      <img
+        src={product.data.image}
+        alt={product.data.title}
+        width="1024"
+        height="1024"
+        class="mx-auto w-full max-w-[520px]"
+      />
+      <div>
+        <p class="font-head2 text-sm uppercase tracking-wide text-brand">{product.data.size}</p>
+        <div class="mt-4 space-y-4 [&_p]:leading-relaxed">
+          <Content />
+        </div>
+        <a href={product.data.orderUrl} target="_blank" rel="noopener" class="btn-brand mt-8">
+          Order Now
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

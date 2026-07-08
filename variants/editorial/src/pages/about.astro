@@ -1,0 +1,125 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+
+const aboutPage = {
+  '@type': 'AboutPage',
+  '@id': 'https://foodhacks.co/about/',
+  url: 'https://foodhacks.co/about/',
+  name: 'About us - Food Hacks',
+  about: { '@id': 'https://foodhacks.co/#organization' },
+};
+---
+
+<BaseLayout title="About us - Food Hacks" schema={[aboutPage]}>
+  <PageHero title="About us" subtitle="Who We Are" chapter="01" chapterName="The Idea" />
+
+  <!-- About Food Hacks (copy verbatim) — editorial spread: photo plate left,
+       running text right with a serif lede -->
+  <section class="mx-auto max-w-[1240px] px-5 py-16 md:px-8 md:py-24">
+    <h2 class="text-[clamp(1.8rem,3.5vw,2.75rem)]">About Food Hacks</h2>
+    <div class="mt-10 grid gap-12 md:mt-14 md:grid-cols-12 md:gap-8">
+      <figure class="md:col-span-5">
+        <div class="bg-oat p-8">
+          <img
+            src="/images/fh-products.png"
+            alt="About Food Hacks — product range"
+            width="897"
+            height="897"
+            loading="lazy"
+            class="mx-auto w-full max-w-[440px] mix-blend-multiply"
+          />
+        </div>
+        <figcaption class="kicker mt-4">The Food Hacks range</figcaption>
+      </figure>
+
+      <div class="space-y-5 md:col-span-6 md:col-start-7">
+        <p class="font-serif text-[clamp(1.15rem,2vw,1.4rem)] font-[440] leading-[1.55]">
+          Welcome to Food Hacks, where we reinvent the art of cooking.
+        </p>
+        <hr class="rule-green w-12" />
+        <p class="max-w-[62ch]">
+          Discover the cooking spray that is changing the game of cooking. Designed to be your
+          essential kitchen companion, it offers an innovative and easy solution to all your
+          cooking needs.
+        </p>
+        <p class="max-w-[62ch]">
+          At Food Hacks, we focus on simplifying the cooking process by offering healthy and easy
+          methods. We are here to make every meal an opportunity to enjoy and experience something
+          new in the kitchen.
+        </p>
+        <p class="max-w-[62ch]">
+          Cook healthy and easy with Food Hacks spray. This product allows you to use a small
+          amount of oil evenly, reducing mess and promoting a healthy lifestyle. Monitor your
+          calorie intake effectively and enjoy delicious food without the need for large amounts
+          of oil.
+        </p>
+        <p class="max-w-[62ch]">Food Hacks spray has several aspects that make it an attractive choice for many people:</p>
+
+        <!-- the four numbered aspects, set like a recipe card's steps -->
+        <ol class="!mt-8 space-y-0 border-t border-hairline">
+          <li class="grid grid-cols-[3rem_1fr] gap-2 border-b border-hairline py-4">
+            <span class="faq-no" aria-hidden="true">1.</span>
+            <p class="text-[15px] leading-[1.7]">&#8288;Ideal Size: The size of the spray allows you to use it easily in the kitchen without taking up a lot of space or being heavy.</p>
+          </li>
+          <li class="grid grid-cols-[3rem_1fr] gap-2 border-b border-hairline py-4">
+            <span class="faq-no" aria-hidden="true">2.</span>
+            <p class="text-[15px] leading-[1.7]">&#8288;Non-stick Experience: Food Hacks spray is characterized by its ability to provide a non-stick cooking experience, reducing the need to use excessive oils or fats.</p>
+          </li>
+          <li class="grid grid-cols-[3rem_1fr] gap-2 border-b border-hairline py-4">
+            <span class="faq-no" aria-hidden="true">3.</span>
+            <p class="text-[15px] leading-[1.7]">&#8288;Multiple Use: It can be used for several purposes in cooking, from spraying ingredients with oil to improving the overall flavor of foods.</p>
+          </li>
+          <li class="grid grid-cols-[3rem_1fr] gap-2 border-b border-hairline py-4">
+            <span class="faq-no" aria-hidden="true">4.</span>
+            <p class="text-[15px] leading-[1.7]">&#8288;Low Calories: The spray helps reduce the amount of oil or fat used, which contributes to reducing the calories in food.</p>
+          </li>
+        </ol>
+
+        <p class="max-w-[62ch]">
+          These features make Food Hacks spray a useful choice for those looking to improve their
+          cooking experience in healthy and practical ways.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Factory (copy verbatim) — mirrored spread -->
+  <section class="mx-auto max-w-[1240px] border-t border-hairline px-5 py-16 md:px-8 md:py-24">
+    <h2 class="text-[clamp(1.8rem,3.5vw,2.75rem)]">Our Factory</h2>
+    <div class="mt-10 grid gap-12 md:mt-14 md:grid-cols-12 md:gap-8">
+      <div class="space-y-5 md:col-span-6">
+        <p class="font-serif text-[clamp(1.1rem,1.9vw,1.3rem)] font-[440] leading-[1.55]">
+          San Ramon is a leading brand from Kuwait, known for providing world-class products and
+          services. The company has an extensive distribution network that gives it a unique
+          competitive advantage.
+        </p>
+        <hr class="rule-green w-12" />
+        <p class="max-w-[62ch]">
+          San Ramon was established in 2004, launching its first division in the field of producing
+          oil and gas products. Then, in 2012, the company entered the food and beverage market,
+          becoming the owner and manufacturer of several famous brands such as Karak Tea, Honey
+          Al-Shahd, Food Hacks, and Food Experts.
+        </p>
+        <p class="max-w-[62ch]">
+          In 2013, San Ramon expanded its portfolio to include beauty products, followed by the
+          opening of the cafes and restaurants division in 2015. In 2018, the company added the
+          interior design division to its portfolio, with its continuous aspirations to expand its
+          scope and establish new partnerships in the near future.
+        </p>
+      </div>
+
+      <figure class="md:col-span-5 md:col-start-8">
+        <img
+          src="/images/san_20remon.png"
+          alt="San Ramon factory"
+          width="1494"
+          height="940"
+          loading="lazy"
+          class="w-full border border-hairline"
+        />
+        <figcaption class="kicker mt-4 text-right">San Ramon &mdash; Kuwait, est. 2004</figcaption>
+      </figure>
+    </div>
+  </section>
+</BaseLayout>

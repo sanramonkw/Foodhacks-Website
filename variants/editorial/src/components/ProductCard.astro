@@ -1,0 +1,51 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  product: CollectionEntry<'products'>;
+  /** Link the card to the product detail page (true) or the external shop (false) */
+  linkToDetail?: boolean;
+  /** Lazy-load the render (default true) */
+  lazy?: boolean;
+}
+const { product, linkToDetail = true, lazy = true } = Astro.props;
+const href = linkToDetail ? `/product/${product.id}/` : product.data.orderUrl;
+const no = String(product.data.order).padStart(2, '0');
+---
+
+<!-- EDITORIAL MINIMAL tasting-feature entry: numbered specimen — hairline
+     top rule, "No. 01" small caps, render on a warm oat plate with generous
+     whitespace, serif title, size as a caption line. Green appears only in
+     the numeral and the hover rule. -->
+<a
+  href={href}
+  target={linkToDetail ? undefined : '_blank'}
+  rel={linkToDetail ? undefined : 'noopener'}
+  class="group block"
+>
+  <div class="flex items-baseline justify-between border-t border-ink pt-3">
+    <span class="kicker">No. <span class="num">{no}</span></span>
+    <span
+      aria-hidden="true"
+      class="kicker !text-brand-deep opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+    >
+      View &#8594;
+    </span>
+  </div>
+
+  <div class="mt-5 bg-oat px-8 py-12 transition-colors duration-300 group-hover:bg-[#eee8d9]">
+    <img
+      src={product.data.image}
+      alt={product.data.title}
+      width="550"
+      height="550"
+      loading={lazy ? 'lazy' : 'eager'}
+      class="mx-auto aspect-square w-full max-w-[300px] border border-hairline object-cover mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-[1.025] motion-reduce:transition-none"
+    />
+  </div>
+
+  <h3 class="mt-6 max-w-[24ch] text-[1.2rem] leading-snug transition-colors duration-200 group-hover:text-brand-deep">
+    {product.data.title}
+  </h3>
+  <p class="kicker mt-3">{product.data.size} &mdash; 100% Natural</p>
+</a>

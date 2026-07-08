@@ -1,0 +1,24 @@
+---
+// BOLD variant page hero: navy gradient-mesh field with dotted grid texture,
+// oversized uppercase display h1, optional sticker-pill subtitle, diagonal
+// bottom edge. Sits behind the fixed header like the original .section-page.
+interface Props {
+  title: string;
+  subtitle?: string;
+}
+const { title, subtitle } = Astro.props;
+---
+
+<section class="on-dark mesh-navy diag-bottom relative overflow-hidden px-6 pb-[calc(3.5vw+56px)] pt-[150px] text-center text-white">
+  <div class="dotgrid pointer-events-none absolute inset-0" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-[1180px]">
+    {subtitle && (
+      <p class="sticker mb-6 rotate-[-2deg] text-lime">{subtitle}</p>
+    )}
+    <h1 class="display mx-auto max-w-5xl text-[clamp(44px,7vw,92px)] text-white">
+      {title}
+    </h1>
+    <div class="mx-auto mt-7 h-[4px] w-[110px] rounded-full bg-brand"></div>
+    <slot />
+  </div>
+</section>

@@ -1,0 +1,21 @@
+---
+// Reproduction of the theme's .section-page banner: green (#8dbf44) block,
+// margin 20px / radius 20px, padding-top 140px (its top edge sits behind the
+// fixed 90px header), white 35px h1; optional h3 subtitle pill
+// (span with rgba(0,0,0,0.1) background, radius 30px).
+interface Props {
+  title: string;
+  subtitle?: string;
+}
+const { title, subtitle } = Astro.props;
+---
+
+<section class="m-5 rounded-card bg-brand px-6 pb-5 pt-[140px] text-center">
+  <h1 class="py-[15px] text-[35px] leading-[44px] !text-white">{title}</h1>
+  {subtitle && (
+    <h3 class="m-[10px] mb-[30px] text-[16px] !text-white">
+      <span class="rounded-[30px] bg-black/10 px-5 py-1.5">{subtitle}</span>
+    </h3>
+  )}
+  <slot />
+</section>

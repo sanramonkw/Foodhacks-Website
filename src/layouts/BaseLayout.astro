@@ -1,0 +1,131 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { dirFor, t, type Lang } from '../i18n';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Absolute-path OG image, defaults to home banner */
+  ogImage?: string;
+  ogType?: string;
+  /** Extra JSON-LD graph nodes (Product, FAQPage, ...) */
+  schema?: Record<string, unknown>[];
+  /** Page language — drives lang/dir, og:locale and hreflang direction */
+  lang?: Lang;
+  /** Path of this page's counterpart in the other language (for hreflang + nav switcher) */
+  altHref?: string;
+}
+
+const {
+  title,
+  ogImage = '/images/Banner_20Home_20Page.png',
+  ogType = 'website',
+  schema = [],
+  lang = 'en',
+  altHref,
+} = Astro.props;
+
+const description = Astro.props.description ?? t[lang].tagline;
+
+const site = Astro.site ?? new URL('https://foodhacks.co');
+const canonical = new URL(Astro.url.pathname, site).href;
+const ogImageAbs = new URL(ogImage, site).href;
+const altAbs = altHref ? new URL(altHref, site).href : undefined;
+
+// hreflang pairs (live WP emitted en + ar; x-default added, pointing at the EN page)
+const hreflangs: { hreflang: string; href: string }[] = [];
+if (altAbs) {
+  const enHref = lang === 'en' ? canonical : altAbs;
+  const arHref = lang === 'ar' ? canonical : altAbs;
+  hreflangs.push(
+    { hreflang: 'en', href: enHref },
+    { hreflang: 'ar', href: arHref },
+    { hreflang: 'x-default', href: enHref },
+  );
+}
+
+const ogLocale = lang === 'ar' ? 'ar_AR' : 'en_US';
+const ogLocaleAlt = altAbs ? (lang === 'ar' ? 'en_US' : 'ar_AR') : undefined;
+
+const organization = {
+  '@type': 'Organization',
+  '@id': `${site.href}#organization`,
+  name: 'Food Hacks',
+  alternateName: 'فود هاكز',
+  url: site.href,
+  logo: {
+    '@type': 'ImageObject',
+    url: new URL('/images/logo.png', site).href,
+  },
+  sameAs: [
+    'https://x.com/FoodHackskw',
+    'https://www.instagram.com/foodhacksco',
+    'https://www.facebook.com/Foodhackskwt/',
+    'https://snapchat.com/t/nXtO2N8V',
+  ],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+965-22204332',
+    email: 'info@foodhacks.co',
+    contactType: 'customer service',
+  },
+  parentOrganization: { '@type': 'Organization', name: 'San Ramon' },
+};
+
+const website = {
+  '@type': 'WebSite',
+  '@id': `${site.href}#website`,
+  url: site.href,
+  name: t[lang].siteName,
+  publisher: { '@id': `${site.href}#organization` },
+  inLanguage: lang === 'ar' ? 'ar' : 'en-US',
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [organization, website, ...schema],
+};
+---
+
+<!doctype html>
+<html lang={lang} dir={dirFor(lang)}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {hreflangs.map((l) => <link rel="alternate" hreflang={l.hreflang} href={l.href} />)}
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Open Graph -->
+    <meta property="og:locale" content={ogLocale} />
+    {ogLocaleAlt && <meta property="og:locale:alternate" content={ogLocaleAlt} />}
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={t[lang].siteName} />
+    <meta property="og:image" content={ogImageAbs} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbs} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body class="min-h-screen bg-white text-black antialiased">
+    <Header lang={lang} altHref={altHref} />
+    <main>
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

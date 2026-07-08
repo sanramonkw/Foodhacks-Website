@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+
+const aboutPage = {
+  '@type': 'AboutPage',
+  '@id': 'https://foodhacks.co/about/',
+  url: 'https://foodhacks.co/about/',
+  name: 'About us - Food Hacks',
+  about: { '@id': 'https://foodhacks.co/#organization' },
+};
+---
+
+<BaseLayout title="About us - Food Hacks" schema={[aboutPage]}>
+  <PageHero title="About us" subtitle="Who We Are" />
+
+  <!-- About Food Hacks (copy verbatim) -->
+  <section class="mx-auto max-w-[1180px] px-6 py-20">
+    <div class="reveal text-center">
+      <h2 class="text-[32px] md:text-[40px]">About Food Hacks</h2>
+      <div class="hairline mx-auto mt-6 w-40"></div>
+    </div>
+    <div class="mt-12 grid items-start gap-12 md:grid-cols-2">
+      <div class="reveal md:sticky md:top-28">
+        <div class="plinth-card p-3">
+          <img
+            src="/images/fh-products.png"
+            alt="About Food Hacks — product range"
+            width="897"
+            height="897"
+            loading="lazy"
+            class="w-full rounded-[14px] mix-blend-multiply"
+          />
+        </div>
+        <div class="floor-shadow mx-auto mt-5 w-2/3" aria-hidden="true"></div>
+      </div>
+      <div class="reveal space-y-4 leading-[1.9] text-ink/85" style="--reveal-delay: 0.1s">
+        <p class="font-display text-[21px] font-[460] leading-snug text-ink"><b class="font-[460]">Welcome to Food Hacks, where we reinvent the art of cooking.</b></p>
+        <p>
+          Discover the cooking spray that is changing the game of cooking. Designed to be your
+          essential kitchen companion, it offers an innovative and easy solution to all your
+          cooking needs.
+        </p>
+        <p>
+          At Food Hacks, we focus on simplifying the cooking process by offering healthy and easy
+          methods. We are here to make every meal an opportunity to enjoy and experience something
+          new in the kitchen.
+        </p>
+        <p>
+          Cook healthy and easy with Food Hacks spray. This product allows you to use a small
+          amount of oil evenly, reducing mess and promoting a healthy lifestyle. Monitor your
+          calorie intake effectively and enjoy delicious food without the need for large amounts
+          of oil.
+        </p>
+        <p>Food Hacks spray has several aspects that make it an attractive choice for many people:</p>
+        <p>1.&#8288; &#8288;Ideal Size: The size of the spray allows you to use it easily in the kitchen without taking up a lot of space or being heavy.</p>
+        <p>2.&#8288; &#8288;Non-stick Experience: Food Hacks spray is characterized by its ability to provide a non-stick cooking experience, reducing the need to use excessive oils or fats.</p>
+        <p>3.&#8288; &#8288;Multiple Use: It can be used for several purposes in cooking, from spraying ingredients with oil to improving the overall flavor of foods.</p>
+        <p>4.&#8288; &#8288;Low Calories: The spray helps reduce the amount of oil or fat used, which contributes to reducing the calories in food.</p>
+        <p>
+          These features make Food Hacks spray a useful choice for those looking to improve their
+          cooking experience in healthy and practical ways.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Factory (copy verbatim) — warm linen band -->
+  <section class="bg-linen">
+    <div class="mx-auto max-w-[1180px] px-6 py-20">
+      <div class="reveal text-center">
+        <h2 class="text-[32px] md:text-[40px]">Our Factory</h2>
+        <div class="hairline mx-auto mt-6 w-40"></div>
+      </div>
+      <div class="mt-12 grid items-center gap-12 md:grid-cols-2">
+        <div class="reveal order-last md:order-first space-y-4 leading-[1.9] text-ink/85">
+          <p class="font-display text-[21px] font-[460] leading-snug text-ink">
+            <b class="font-[460]">
+              San Ramon is a leading brand from Kuwait, known for providing world-class products and
+              services. The company has an extensive distribution network that gives it a unique
+              competitive advantage.
+            </b>
+          </p>
+          <p>
+            San Ramon was established in 2004, launching its first division in the field of producing
+            oil and gas products. Then, in 2012, the company entered the food and beverage market,
+            becoming the owner and manufacturer of several famous brands such as Karak Tea, Honey
+            Al-Shahd, Food Hacks, and Food Experts.
+          </p>
+          <p>
+            In 2013, San Ramon expanded its portfolio to include beauty products, followed by the
+            opening of the cafes and restaurants division in 2015. In 2018, the company added the
+            interior design division to its portfolio, with its continuous aspirations to expand its
+            scope and establish new partnerships in the near future.
+          </p>
+        </div>
+        <div class="reveal" style="--reveal-delay: 0.1s">
+          <div class="plinth-card p-3">
+            <img
+              src="/images/san_20remon.png"
+              alt="San Ramon factory"
+              width="1494"
+              height="940"
+              loading="lazy"
+              class="w-full rounded-[14px] object-cover"
+            />
+          </div>
+          <div class="floor-shadow mx-auto mt-5 w-2/3" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

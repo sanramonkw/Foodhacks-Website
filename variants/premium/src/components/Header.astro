@@ -1,0 +1,72 @@
+---
+// Same nav items + external Order Now link as the master (menu-main-menu-en).
+// Premium expression: fixed deep-navy glass bar, cream nav, the logo (green +
+// black mark) sits on a small ivory "label plate" so the mark stays intact
+// against the dark field. Order Now becomes the single green jewel CTA.
+const nav = [
+  { label: 'Home', href: '/' },
+  { label: 'About us', href: '/about/' },
+  { label: 'Our Products', href: '/products/' },
+  { label: 'Contact Us', href: '/contact/' },
+  { label: 'Return & Refund Policy', href: '/return-refund-policy/' },
+  { label: 'FAQs', href: '/faqs/' },
+];
+const orderUrl = 'https://srkw.co/en/product-category/food-hacks/';
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+
+<header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[rgba(6,31,58,0.82)] backdrop-blur-md">
+  <div class="mx-auto flex max-w-[1180px] items-center justify-between gap-6 px-5 py-3">
+    <a href="/" title="Food Hacks" rel="home" class="shrink-0 rounded-[12px] bg-ivory px-3 py-1.5 shadow-[0_6px_18px_-8px_rgba(0,0,0,0.5)]">
+      <img src="/images/logo.png" alt="Food Hacks" class="h-auto w-[104px]" width="640" height="300" />
+    </a>
+
+    <nav class="hidden items-center gap-7 lg:flex" aria-label="Main">
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          class:list={['nav-link', isActive(item.href) && 'nav-link-current']}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
+      <a
+        href={orderUrl}
+        target="_blank"
+        rel="noopener"
+        class="btn-lux !px-6 !py-2.5 !text-[13px]"
+      >
+        Order Now
+      </a>
+    </nav>
+
+    <!-- mobile nav -->
+    <details class="relative lg:hidden">
+      <summary class="cursor-pointer list-none rounded-[10px] border border-white/20 p-2 text-xl text-cream" aria-label="Open menu">&#9776;</summary>
+      <nav class="absolute right-0 mt-3 w-72 rounded-[16px] border border-white/15 bg-[rgba(6,31,58,0.96)] p-5 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)] backdrop-blur-md" aria-label="Mobile">
+        <ul class="space-y-4">
+          {nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={[
+                  'block font-head2 text-[15px]',
+                  isActive(item.href) ? 'text-brand-hover' : 'text-cream',
+                ]}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+          <li class="pt-2">
+            <a href={orderUrl} target="_blank" rel="noopener" class="btn-lux w-full !py-3 !text-[14px]">Order Now</a>
+          </li>
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>

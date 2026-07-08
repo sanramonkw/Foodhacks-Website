@@ -1,0 +1,71 @@
+---
+// Real nav from the live site (menu-main-menu-en), labels verbatim.
+// EDITORIAL MINIMAL: understated text masthead — small logo, letterspaced
+// small-caps nav, hairline bottom rule. Static (not fixed) like a journal
+// masthead; mobile menu stays a zero-JS native <details>.
+const nav = [
+  { label: 'Home', href: '/' },
+  { label: 'About us', href: '/about/' },
+  { label: 'Our Products', href: '/products/' },
+  { label: 'Contact Us', href: '/contact/' },
+  { label: 'Return & Refund Policy', href: '/return-refund-policy/' },
+  { label: 'FAQs', href: '/faqs/' },
+];
+const orderUrl = 'https://srkw.co/en/product-category/food-hacks/';
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+
+<header class="border-b border-hairline bg-paper">
+  <div class="mx-auto flex max-w-[1240px] items-center justify-between gap-6 px-5 py-5 md:px-8">
+    <a href="/" title="Food Hacks" rel="home" class="shrink-0">
+      <img src="/images/logo.png" alt="Food Hacks" class="h-auto w-[104px]" width="640" height="300" />
+    </a>
+
+    <nav class="hidden flex-wrap items-center justify-end gap-x-7 gap-y-2 lg:flex" aria-label="Main">
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          class:list={['nav-link', isActive(item.href) && 'nav-link-current']}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
+      <a href={orderUrl} target="_blank" rel="noopener" class="nav-link">
+        Order Now <span aria-hidden="true" class="text-brand-deep">&#8599;</span>
+      </a>
+    </nav>
+
+    <!-- mobile nav — native details, zero JS -->
+    <details class="relative lg:hidden">
+      <summary class="nav-link cursor-pointer list-none px-1 py-2 [&::-webkit-details-marker]:hidden">
+        Menu
+      </summary>
+      <nav
+        class="absolute right-0 z-50 mt-3 w-72 border border-hairline bg-paper p-6 shadow-[0_16px_40px_rgba(27,27,22,0.08)]"
+        aria-label="Mobile"
+      >
+        <ul class="space-y-4">
+          {nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={['nav-link block', isActive(item.href) && 'nav-link-current']}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+          <li class="border-t border-hairline pt-4">
+            <a href={orderUrl} target="_blank" rel="noopener" class="nav-link block">
+              Order Now <span aria-hidden="true" class="text-brand-deep">&#8599;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>

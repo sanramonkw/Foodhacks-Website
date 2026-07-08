@@ -1,0 +1,89 @@
+---
+// Footer content verbatim from the master (live-site footer widgets + socials).
+// Premium expression: the deep-navy atmosphere closes the page; cream text,
+// green hairlines under serif column titles, green jewel icon buttons.
+const socials = [
+  { label: 'X (Twitter)', href: 'https://x.com/FoodHackskw', icon: 'x' },
+  { label: 'Instagram', href: 'https://www.instagram.com/foodhacksco', icon: 'instagram' },
+  { label: 'Facebook', href: 'https://www.facebook.com/Foodhackskwt/', icon: 'facebook' },
+  { label: 'Snapchat', href: 'https://snapchat.com/t/nXtO2N8V', icon: 'snapchat' },
+];
+const year = new Date().getFullYear();
+const circle =
+  'inline-flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-full bg-brand text-ink-deep transition-colors duration-[400ms]';
+---
+
+<footer class="atmosphere relative text-cream">
+  <div class="hairline absolute inset-x-0 top-0" aria-hidden="true"></div>
+  <div class="mx-auto grid max-w-[1180px] gap-12 px-6 pb-14 pt-20 md:grid-cols-12">
+    <div class="md:col-span-3">
+      <h3 class="mb-[15px] font-display text-[19px] !text-cream">About Food Hacks</h3>
+      <div class="hairline-left mb-[26px]"></div>
+      <p class="my-[15px] text-[14px] leading-[26px] text-cream/75">
+        Food Hacks offers innovative non-stick cooking sprays that combine quality and versatility
+        to make every meal more delicious and easy.
+      </p>
+    </div>
+
+    <div class="md:col-span-3">
+      <h3 class="mb-[15px] font-display text-[19px] !text-cream">Subscribe To Our Newsletter</h3>
+      <div class="hairline-left mb-[26px]"></div>
+      <p class="my-[15px] text-[14px] leading-[26px] text-cream/75">
+        Join our newsletter to stay up to date on features and releases.
+      </p>
+    </div>
+
+    <div class="md:col-span-4">
+      <h3 class="mb-[15px] font-display text-[19px] !text-cream">Follow us on</h3>
+      <div class="hairline-left mb-[26px]"></div>
+      <ul class="flex items-center gap-3">
+        {socials.map((s) => (
+          <li>
+            <a href={s.href} target="_blank" rel="noopener" aria-label={s.label}
+               class:list={[circle, 'hover:bg-brand-hover']}>
+              {s.icon === 'x' && (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93Zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.41Z"/></svg>
+              )}
+              {s.icon === 'instagram' && (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.88 5.88 0 0 0-2.13 1.38A5.88 5.88 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.8.72 1.47 1.38 2.13a5.88 5.88 0 0 0 2.13 1.38c.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.88 5.88 0 0 0 2.13-1.38 5.88 5.88 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.88 5.88 0 0 0-1.38-2.13A5.88 5.88 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0Zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84Zm0 10.15A4 4 0 1 1 16 12a4 4 0 0 1-4 4Zm7.85-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44Z"/></svg>
+              )}
+              {s.icon === 'facebook' && (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.09 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.55-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.49h-2.8V24C19.61 23.09 24 18.1 24 12.07Z"/></svg>
+              )}
+              {s.icon === 'snapchat' && (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.03.01c-3.06 0-5.77 2.1-6.35 5.06-.16.85-.12 2.23-.09 3.35l.01.5c-.19.1-.51.19-.98.09-.36-.08-.74-.26-1.1-.42a1.07 1.07 0 0 0-.44-.09c-.5 0-.92.34-1 .8-.06.34.05.84 1 1.29.12.06.27.11.43.17.55.2 1.38.51 1.6 1.05.11.28.06.63-.16 1.05l-.01.02c-.08.18-1.92 4.34-6.01 5.02-.32.05-.55.34-.53.66.01.09.03.19.07.28.31.72 1.6 1.24 3.95 1.6.08.16.16.5.22.74.05.24.11.48.19.74.08.28.3.61.85.61.22 0 .47-.05.76-.11.42-.09.94-.2 1.6-.2.36 0 .74.03 1.12.1.74.12 1.38.57 2.11 1.09 1.05.74 2.24 1.58 4.05 1.58l.16-.01.19.01c1.81 0 3-.84 4.05-1.59.73-.51 1.36-.96 2.1-1.08.38-.07.76-.1 1.12-.1.63 0 1.13.08 1.6.18.32.07.57.1.78.1h.04c.4 0 .69-.22.8-.6.08-.25.13-.49.19-.73.05-.23.14-.58.22-.74 2.35-.36 3.63-.88 3.94-1.59.04-.09.07-.19.07-.29a.63.63 0 0 0-.53-.66c-4.09-.67-5.93-4.83-6.01-5.01l-.01-.03c-.22-.42-.27-.77-.16-1.05.21-.54 1.04-.84 1.59-1.05.16-.06.31-.11.43-.17.7-.33 1.05-.73 1.04-1.19-.01-.37-.29-.7-.71-.83l-.01-.01a1.29 1.29 0 0 0-.48-.09c-.11 0-.28.01-.44.09-.39.18-.74.35-1.06.42-.44.09-.75 0-.94-.09l.01-.59c.03-1.1.07-2.47-.09-3.31C17.85 2.1 15.13.01 12.06.01h-.03Z"/></svg>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="md:col-span-2">
+      <h3 class="mb-[15px] font-display text-[19px] !text-cream">Get in touch</h3>
+      <div class="hairline-left mb-[26px]"></div>
+      <p class="my-[15px] text-[14px] leading-[26px]">
+        <a href="tel:+96522204332" class="flex items-center gap-3 text-cream/85 transition-colors duration-[400ms] hover:text-brand-hover">
+          <span class={circle}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.85 21 3 13.15 3 3.5a1 1 0 0 1 1-1H7.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.24 1.02l-2.21 2.2Z"/></svg>
+          </span>
+          +965 22204332
+        </a>
+      </p>
+      <p class="my-[15px] text-[14px] leading-[26px]">
+        <a href="mailto:info@foodhacks.co" class="flex items-center gap-3 text-cream/85 transition-colors duration-[400ms] hover:text-brand-hover">
+          <span class={circle}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6L22 7"/></svg>
+          </span>
+          info@foodhacks.co
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <div class="mx-auto max-w-[1180px] border-t border-white/10 px-6 py-8 text-center">
+    <p class="text-[14px] leading-[24px] text-cream/60">
+      &copy; {year} <a href="/" title="Food Hacks" rel="home" class="text-cream/85 transition-colors duration-[400ms] hover:text-brand-hover">Food Hacks</a>. All rights reserved.
+    </p>
+  </div>
+</footer>

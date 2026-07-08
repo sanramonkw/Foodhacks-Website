@@ -1,0 +1,106 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductCard from '../components/ProductCard.astro';
+
+const products = (await getCollection('products')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<BaseLayout title="Home - Food Hacks">
+  <!-- Immersive full-viewport hero — the deep-navy gourmet-pantry field.
+       Copy is the master's verbatim brand intro; the range render is staged
+       in an arched frame like a fine-foods portrait. -->
+  <section class="atmosphere relative overflow-hidden">
+    <div class="atmosphere-texture pointer-events-none absolute inset-0 opacity-60" aria-hidden="true"></div>
+    <div class="relative mx-auto grid min-h-[92svh] max-w-[1180px] items-center gap-14 px-6 pb-16 pt-[130px] md:grid-cols-[7fr_5fr] md:pt-[150px]">
+      <div class="reveal in">
+        <p class="eyebrow text-brand-hover">Innovative non-stick cooking sprays</p>
+        <h1 class="mt-6 text-[56px] leading-[1.02] !text-cream md:text-[84px]">
+          Food Hacks
+        </h1>
+        <div class="hairline-left mt-8"></div>
+        <p class="mt-8 max-w-xl text-[17px] leading-[1.9] text-cream/80">
+          Food Hacks offers innovative non-stick cooking sprays that combine quality and
+          versatility to make every meal more delicious and easy. Enjoy a variety of products
+          including our Extra Virgin Olive Oil Spray, our Premium Truffle Olive Oil Spray, and our
+          Premium Saffron Spray. Each product is made with 100% natural ingredients, helping you
+          prepare healthy, delicious meals using less fat. Make your cooking experience even more
+          special with Food Hacks!
+        </p>
+        <div class="mt-10 flex flex-wrap items-center gap-4">
+          <a href="/about/" class="btn-lux">read more</a>
+          <a href="/products/" class="btn-ghost">Our Products</a>
+        </div>
+      </div>
+
+      <div class="reveal in relative mx-auto w-full max-w-[380px]" style="--reveal-delay: 0.15s">
+        <div class="levitate">
+          <img
+            src="/images/products.png"
+            alt="Food Hacks cooking spray range — Saffron, Extra Virgin Olive Oil and Truffle sprays"
+            width="900"
+            height="1440"
+            fetchpriority="high"
+            class="w-full rounded-t-[999px] rounded-b-[24px] border border-white/20 object-cover shadow-[0_60px_120px_-40px_rgba(0,0,0,0.8)]"
+          />
+        </div>
+        <div class="floor-shadow mx-auto mt-6 w-3/4 opacity-80" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Atmospheric kitchen-scene strip (the master's hero banner, recast as a
+       cinematic interlude under a navy veil) -->
+  <div class="relative h-[220px] overflow-hidden md:h-[300px]" aria-hidden="true">
+    <img
+      src="/images/Banner_20Home_20Page.png"
+      alt=""
+      width="3306"
+      height="1036"
+      loading="lazy"
+      class="h-full w-full object-cover"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-ink-deep/70 via-ink/30 to-cream/10"></div>
+  </div>
+
+  <!-- Our Vision — a serif reading moment on warm linen (copy verbatim) -->
+  <section class="bg-linen">
+    <div class="mx-auto max-w-[900px] px-6 py-24 text-center">
+      <div class="reveal">
+        <h2 class="text-[40px] md:text-[52px]">Our Vision</h2>
+        <div class="hairline mx-auto mt-7 w-40"></div>
+        <p class="mt-10 text-left text-[17px] leading-[2] text-ink/85 md:text-center">
+          To be a leader in providing healthy and easy cooking solutions, maki achieving maximum
+          health bene ng healthy food accessible and easy for everyone without any hassle. We are
+          committed to developing innovative products and technologies that contribute to promoting
+          healthy lifestyles, with a focus on using natural ingredients and cooking practices that
+          ensure preserving nutritional values and good taste. Our goal is to enable our customers
+          to enjoy delicious and healthy food with minimal effort, while fits.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Products — bottles staged on ivory plinths against the navy field -->
+  <section class="atmosphere relative overflow-hidden">
+    <div class="atmosphere-texture pointer-events-none absolute inset-0 opacity-50" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-[1180px] px-6 py-24">
+      <div class="reveal text-center">
+        <h3 class="font-display text-[36px] font-[420] !text-cream md:text-[44px]">Our Products</h3>
+        <div class="hairline mx-auto mt-6 w-40"></div>
+      </div>
+      <div class="mt-14 grid gap-8 md:grid-cols-3">
+        {products.map((product, i) => (
+          <div class="reveal" style={`--reveal-delay: ${i * 0.12}s`}>
+            <ProductCard product={product} />
+          </div>
+        ))}
+      </div>
+      <p class="reveal mt-14 text-center">
+        <a href="/products/" class="btn-lux">Shop All</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

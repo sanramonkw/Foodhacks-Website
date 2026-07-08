@@ -1,0 +1,77 @@
+---
+// Real nav from the live site (menu-main-menu-en / menu-main-menu-ar).
+// "Order Now" / "اطلب الان" is the external shop link (a plain menu item on
+// the live site, not a button). The last item is the Polylang language
+// switcher: "العربية" on EN pages, "EN" on AR pages — it links to the
+// current page's counterpart in the other language (altHref).
+import { nav, orderUrl, routes, switcher, t, type Lang } from '../i18n';
+
+interface Props {
+  lang?: Lang;
+  /** Counterpart of the current page in the other language (switcher target) */
+  altHref?: string;
+}
+const { lang = 'en' } = Astro.props;
+const other: Lang = lang === 'en' ? 'ar' : 'en';
+const altHref = Astro.props.altHref ?? routes.home[other];
+const items = nav[lang];
+const sw = switcher[lang];
+
+const home = routes.home[lang];
+const path = decodeURI(Astro.url.pathname);
+const isActive = (href: string) =>
+  href === home ? path === decodeURI(home) : path.startsWith(decodeURI(href));
+const isHome = path === decodeURI(home);
+---
+
+<!-- live #header: fixed, solid white, box-shadow 0 0 14px rgba(0,0,0,0.2),
+     logo 150px wide with 10px vertical margins (header ≈ 90px tall).
+     No spacer below: like the live theme, page content tucks behind it
+     (home hero uses mt, .section-page blocks start 20px from the top). -->
+<header class="fixed inset-x-0 top-0 z-50 bg-white shadow-[0_0_14px_rgba(0,0,0,0.2)]">
+  <div class="mx-auto flex max-w-[1180px] items-center justify-between px-4 py-[10px]">
+    <a href={home} title={t[lang].siteName} rel="home" class="shrink-0">
+      <img src="/images/logo.png" alt={t[lang].siteName} class="w-[150px] h-auto" width="640" height="300" />
+    </a>
+
+    <nav class="hidden items-center gap-8 lg:flex" aria-label="Main">
+      {items.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            'nav-link',
+            /* current item is green on inner pages, black on home (#header.thisHome) */
+            isActive(item.href) && !isHome && 'nav-link-current',
+          ]}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
+      <a href={orderUrl[lang]} target="_blank" rel="noopener" class="nav-link">{t[lang].orderNow}</a>
+      <a href={altHref} lang={other} hreflang={sw.hreflang} class="nav-link">{sw.label}</a>
+    </nav>
+
+    <!-- mobile nav -->
+    <details class="relative lg:hidden">
+      <summary class="cursor-pointer list-none p-2 text-2xl" aria-label={t[lang].openMenu}>&#9776;</summary>
+      <nav class="absolute end-0 mt-2 w-64 rounded-[12px] border border-rule bg-white p-4 shadow-lg" aria-label="Mobile">
+        <ul class="space-y-3">
+          {items.map((item) => (
+            <li>
+              <a href={item.href} class:list={['block', isActive(item.href) ? 'text-brand' : 'text-black']}>
+                {item.label}
+              </a>
+            </li>
+          ))}
+          <li>
+            <a href={orderUrl[lang]} target="_blank" rel="noopener" class="block text-black">{t[lang].orderNow}</a>
+          </li>
+          <li>
+            <a href={altHref} lang={other} hreflang={sw.hreflang} class="block text-black">{sw.label}</a>
+          </li>
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>

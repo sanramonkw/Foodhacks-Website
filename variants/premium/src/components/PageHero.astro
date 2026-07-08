@@ -1,0 +1,22 @@
+---
+// Premium page banner: a deep-navy atmosphere band (in place of the master's
+// flat green block) with a serif display h1, the green hairline signature,
+// and an optional glass subtitle pill.
+interface Props {
+  title: string;
+  subtitle?: string;
+}
+const { title, subtitle } = Astro.props;
+---
+
+<section class="atmosphere relative overflow-hidden px-6 pb-16 pt-[150px] text-center md:pb-20 md:pt-[180px]">
+  <div class="atmosphere-texture pointer-events-none absolute inset-0 opacity-60" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-[1180px]">
+    {subtitle && (
+      <p class="eyebrow mb-5 text-brand-hover">{subtitle}</p>
+    )}
+    <h1 class="mx-auto max-w-3xl text-[40px] leading-[1.1] !text-cream md:text-[56px]">{title}</h1>
+    <div class="hairline mx-auto mt-8 w-40"></div>
+    <slot />
+  </div>
+</section>

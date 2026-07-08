@@ -1,0 +1,83 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const products = await getCollection('products');
+  return products.map((product) => ({
+    params: { slug: product.id },
+    props: { product },
+  }));
+}
+
+interface Props {
+  product: CollectionEntry<'products'>;
+}
+const { product } = Astro.props;
+const { Content } = await render(product);
+
+const productSchema = {
+  '@type': 'Product',
+  '@id': `https://foodhacks.co/product/${product.id}/#product`,
+  name: product.data.title,
+  image: new URL(product.data.image, 'https://foodhacks.co').href,
+  description: product.data.description,
+  brand: { '@type': 'Brand', name: 'Food Hacks' },
+  manufacturer: { '@id': 'https://foodhacks.co/#organization' },
+  offers: {
+    '@type': 'Offer',
+    url: product.data.orderUrl,
+    availability: 'https://schema.org/InStock',
+  },
+};
+---
+
+<BaseLayout
+  title={`${product.data.title} - Food Hacks`}
+  description={product.data.description}
+  ogImage={product.data.image}
+  ogType="product"
+  schema={[productSchema]}
+>
+  <!-- Immersive product atelier: one continuous navy atmosphere — the bottle
+       staged on an ivory plinth, its details in a glass panel beside it. -->
+  <section class="atmosphere relative overflow-hidden">
+    <div class="atmosphere-texture pointer-events-none absolute inset-0 opacity-50" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-[1180px] px-6 pb-24 pt-[150px] md:pt-[170px]">
+      <div class="reveal in text-center">
+        <p class="eyebrow text-brand-hover">{product.data.size}</p>
+        <h1 class="mx-auto mt-5 max-w-3xl text-[34px] leading-[1.15] !text-cream md:text-[48px]">
+          {product.data.title}
+        </h1>
+        <div class="hairline mx-auto mt-8 w-40"></div>
+      </div>
+
+      <div class="mt-16 grid items-center gap-12 md:grid-cols-2">
+        <div class="reveal in mx-auto w-full max-w-[440px]" style="--reveal-delay: 0.1s">
+          <div class="plinth-card p-4">
+            <img
+              src={product.data.image}
+              alt={product.data.title}
+              width="1024"
+              height="1024"
+              fetchpriority="high"
+              class="w-full rounded-[14px] mix-blend-multiply"
+            />
+          </div>
+          <div class="floor-shadow mx-auto mt-6 w-2/3 opacity-90" aria-hidden="true"></div>
+        </div>
+
+        <div class="reveal in glass-panel p-8 md:p-10" style="--reveal-delay: 0.2s">
+          <div class="hairline-left"></div>
+          <div class="mt-6 space-y-4 text-[16px] leading-[1.95] text-cream/85 [&_p]:leading-[1.95]">
+            <Content />
+          </div>
+          <a href={product.data.orderUrl} target="_blank" rel="noopener" class="btn-lux mt-9">
+            Order Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

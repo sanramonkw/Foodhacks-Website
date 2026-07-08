@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+
+<BaseLayout
+  title="Return & Refund Policy - Food Hacks"
+  description="Food Hacks return and refund policy: replacements and refunds within 14 days, and manufacturing-defect resolution within 30 days."
+>
+  <PageHero title="Return & Refund Policy" chapterName="Appendix" />
+
+  <!-- appendix column: narrow measure, serif clause headings, hairline
+       rules between clauses, green list markers (copy verbatim) -->
+  <section class="mx-auto max-w-[1240px] px-5 py-16 md:px-8 md:py-24">
+    <div class="mx-auto max-w-[680px]">
+      <h2 class="font-serif text-[clamp(1.4rem,2.5vw,1.9rem)] font-[460]">
+        Replacement and Refund within 14 Days
+      </h2>
+      <hr class="rule-green mt-5 w-12" />
+      <p class="mt-7">
+        If you changed your mind about your Food Hacks purchase, you can request a replacement or
+        refund under the following conditions:
+      </p>
+      <ul class="mt-6 space-y-3 border-y border-hairline py-6 pl-5 marker:text-brand-deep [&>li]:list-disc [&>li]:pl-1">
+        <li>Timeframe: Contact us within 14 days of purchase.</li>
+        <li>Condition: Make sure your product is still in its original, unopened condition.</li>
+        <li>Proof of Purchase: Have your receipt or proof of purchase handy.</li>
+        <li>Shipping Fees: Please note that shipping fees are non-refundable.</li>
+      </ul>
+      <p class="mt-6">
+        To initiate a return or exchange, simply contact our customer service team with your order
+        details and reason for return. We will guide you through the steps to return it again.
+      </p>
+
+      <hr class="rule my-14" />
+
+      <h2 class="font-serif text-[clamp(1.4rem,2.5vw,1.9rem)] font-[460]">
+        Manufacturing defect (within 30 days)
+      </h2>
+      <hr class="rule-green mt-5 w-12" />
+      <p class="mt-7">
+        We care about quality at Food Hacks. If you notice any manufacturing hiccups, we are here to
+        make it right:
+      </p>
+      <ul class="mt-6 space-y-3 border-y border-hairline py-6 pl-5 marker:text-brand-deep [&>li]:list-disc [&>li]:pl-1">
+        <li>Timeframe: Let us know within 30 days of purchase.</li>
+        <li>Condition: The issue must be related to a manufacturing defect.</li>
+        <li>Proof of Purchase: Keep your receipt or proof of purchase handy.</li>
+      </ul>
+      <p class="mt-6">
+        Send us a message with your order details and a description of the issue. Our team will
+        provide instructions on how to fix the problem, whether it&rsquo;s a replacement or a refund..
+      </p>
+      <p class="mt-4">
+        To address a manufacturing issue, please contact our customer service team with a description
+        of the problem and your order details. We will assess the issue and guide you through the
+        next steps.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

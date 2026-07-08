@@ -1,0 +1,184 @@
+@import "tailwindcss";
+
+/*
+  Design tokens extracted verbatim from the live WordPress theme
+  (wp-content/themes/foodhacks-wp/style.css, "Theme Name: Food Hacks").
+*/
+@theme {
+  /* brand colors */
+  --color-brand: #8dbf44;          /* .txt-green / .bg-green / buttons / accordion borders */
+  --color-brand-hover: #acd76e;    /* .panel-projects:hover product-card bg */
+  --color-ink: #092e52;            /* .section-bg1 .content h1, .txt-blue3 (unused on rebuilt pages) */
+  --color-footer: #f2f2f2;         /* footer .bg-gray (light gray, black text) */
+  --color-faq-panel: #e6ffc2;      /* .panel-faq open-answer background */
+  --color-rule: #d9d9d9;           /* hr color */
+  --color-link-hover: #404040;     /* a:hover */
+  --color-nav-hover: #787878;      /* #header nav a:hover / .active */
+
+  /* typography — self-hosted IBM Plex Sans Arabic, as on the WP theme */
+  --font-body: "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;      /* FontBody */
+  --font-head: "IBM Plex Sans Arabic Bold", "IBM Plex Sans Arabic", sans-serif;   /* FontHead */
+  --font-head2: "IBM Plex Sans Arabic Medium", "IBM Plex Sans Arabic", sans-serif;/* FontHead2 */
+
+  /* layout feel from the theme */
+  --radius-card: 20px;             /* section-page / footer rounded blocks */
+  --radius-btn: 12px;              /* .btn-default */
+}
+
+/* @font-face — same four cuts the theme self-hosts */
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("/fonts/IBMPlexSansArabic-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("/fonts/IBMPlexSansArabic-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans Arabic Medium";
+  src: url("/fonts/IBMPlexSansArabic-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans Arabic Bold";
+  src: url("/fonts/IBMPlexSansArabic-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* base — mirrors body/p/h rules of the original theme */
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: #000;
+  background: #fff;
+}
+/* theme: h1,h2,h3 { FontHead } then h3,h4,h5,h6 { FontHead2 } — so h3 ends up FontHead2.
+   Headings have no color rule in the theme; they inherit body #000. */
+h1, h2 {
+  font-family: var(--font-head);
+}
+h3, h4, h5, h6 {
+  font-family: var(--font-head2);
+}
+p {
+  line-height: 27px;
+}
+::selection {
+  color: #fff;
+  background: #333;
+}
+
+/* .btn-default reproduction: green pill, slide-to-black hover gradient */
+.btn-brand {
+  display: inline-block;
+  border: 0;
+  background: linear-gradient(to right, var(--color-brand) 50%, #000 50%);
+  background-size: 203% 103%;
+  background-position: left bottom;
+  color: #fff;
+  border-radius: var(--radius-btn);
+  padding: 15px 30px;
+  font-size: 15px;
+  font-family: var(--font-head2);
+  text-align: center;
+  transition: all 0.3s ease-out;
+  cursor: pointer;
+}
+.btn-brand:hover,
+.btn-brand:focus {
+  background-position: right bottom;
+  color: #fff;
+  transition: all 0.6s ease-out;
+}
+
+/* header nav link: black, hover #787878 with animated green underline
+   (.navbar-nav > li > a + its :after rule in the theme) */
+.nav-link {
+  font-family: var(--font-head2);
+  font-size: 15px;
+  color: #000;
+  transition: color 0.3s;
+}
+.nav-link:hover,
+.nav-link:focus {
+  color: var(--color-nav-hover);
+}
+.nav-link::after {
+  display: block;
+  content: '';
+  padding-top: 10px;
+  border-bottom: 1px solid var(--color-brand);
+  transform: scaleX(0);
+  transition: transform 250ms ease-in-out;
+}
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+/* live WP marks the current page's menu item green (except on the homepage,
+   where #header.thisHome forces black — Header.astro only adds this class
+   off-home) */
+.nav-link-current {
+  color: var(--color-brand);
+}
+
+/* FAQ accordion — reproduction of the theme's .accordion / .panel-faq,
+   on native <details>/<summary> */
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 20px 15px;
+  border-bottom: 1px solid var(--color-brand);
+  transition: 0.4s;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item summary::after {
+  content: '\2795'; /* heavy plus sign, as in the theme */
+  font-size: 12px;
+  float: inline-end; /* logical: right in LTR, left on the RTL /ar/ pages */
+  margin-inline-start: 5px;
+}
+.faq-item[open] summary::after {
+  content: '\2796'; /* heavy minus sign */
+}
+.faq-item .faq-answer {
+  padding: 20px;
+  background-color: var(--color-faq-panel);
+  border-radius: 16px;
+  margin-top: 15px;
+}
+
+/* contact form fields — reproduction of the theme's .wpcf7-form input/textarea */
+.field-line {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  padding: 10px;
+  width: 100%;
+  color: #000;
+  border-radius: 0;
+  margin-bottom: 10px;
+  font-size: inherit;
+}
+.field-line:focus {
+  border: 0;
+  color: #000;
+  background: #bff2fa;
+  box-shadow: none;
+  outline: none;
+  border-radius: 8px;
+}
+textarea.field-line {
+  max-height: 160px;
+}

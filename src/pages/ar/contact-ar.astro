@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { routes, t } from '../../i18n';
+
+const contactPage = {
+  '@type': 'ContactPage',
+  '@id': 'https://foodhacks.co/ar/contact-ar/',
+  url: 'https://foodhacks.co/ar/contact-ar/',
+  name: 'للتواصل - فود هاكز',
+  inLanguage: 'ar',
+  about: { '@id': 'https://foodhacks.co/#organization' },
+};
+---
+
+<BaseLayout title="للتواصل - فود هاكز" lang="ar" altHref={routes.contact.en} schema={[contactPage]}>
+  <PageHero title="للتواصل" subtitle="تواصل معنا" />
+
+  <section class="mx-auto max-w-[1180px] px-4 py-[60px]">
+    <div class="grid gap-12 md:grid-cols-[4fr_1fr_7fr]">
+      <div>
+        <h5 class="text-[18px]">
+          <a href="tel:+96522204332" class="inline-flex items-center gap-2 transition-colors hover:text-link-hover">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.85 21 3 13.15 3 3.5a1 1 0 0 1 1-1H7.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.24 1.02l-2.21 2.2Z"/></svg>
+            <span dir="ltr">{t.ar.phoneDisplay}</span>
+          </a>
+        </h5>
+        <hr class="my-5 border-rule" />
+        <h5 class="text-[18px]">
+          <a href="mailto:info@foodhacks.co" class="inline-flex items-center gap-2 transition-colors hover:text-link-hover">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6L22 7"/></svg>
+            info@foodhacks.co
+          </a>
+        </h5>
+      </div>
+
+      <div class="hidden md:block"></div>
+
+      <!-- original .section-light card with underline-style CF7 fields -->
+      <div class="rounded-[16px] border border-black/10 bg-white/90 px-[30px] py-5 shadow-[0_8px_16px_rgba(0,0,0,0.05)]">
+        <h4 class="my-[15px] text-[22px]">تواصلك معنا يسرّنا! نرجو منك تخصيص بعض الوقت لتعبئة النموذج أدناه لنساعدك بشكل أفضل:</h4>
+        <!--
+          TODO: the WP site used Contact Form 7 + reCAPTCHA v3. This static form
+          needs a backend: wire `action` to the shared form-relay Worker
+          (see DEPLOYMENT.md) before launch — same as the EN form.
+        -->
+        <form method="post" action="#" class="mt-6 space-y-4">
+          <input type="text" name="your-name" placeholder="الاسم الكامل" required maxlength="400" class="field-line" />
+          <input type="email" name="your-email" placeholder="البريد الإلكتروني" required maxlength="400" class="field-line" />
+          <input type="tel" name="your-phone" placeholder="رقم الهاتف" required maxlength="400" class="field-line" />
+          <textarea name="your-message" placeholder="الرسالة" rows="6" maxlength="2000" class="field-line"></textarea>
+          <!-- live CF7 submit: full-width, 20px font, 20px padding -->
+          <button type="submit" class="btn-brand w-full !p-5 !text-[20px]">إرسال</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,49 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+
+const faqs = (await getCollection('faqs')).sort((a, b) => a.data.order - b.data.order);
+const rendered = await Promise.all(
+  faqs.map(async (faq) => ({ faq, Content: (await render(faq)).Content }))
+);
+
+// FAQPage rich-result schema (big GEO/SEO win over the WP accordion)
+const faqSchema = {
+  '@type': 'FAQPage',
+  '@id': 'https://foodhacks.co/faqs/#faq',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.data.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.body?.trim() ?? '' },
+  })),
+};
+---
+
+<BaseLayout
+  title="FAQs - Food Hacks"
+  description="Frequently asked questions about Food Hacks healthy non-stick cooking sprays: ingredients, heat resistance, delivery, and usage."
+  schema={[faqSchema]}
+>
+  <PageHero title="FAQs" chapter="03" chapterName="Questions" />
+
+  <!-- Q&A column — numbered questions on hairline rules, answers set off
+       with a green rule, like a magazine advice column. Native <details>,
+       zero JS. -->
+  <section class="mx-auto max-w-[1240px] px-5 py-16 md:px-8 md:py-24">
+    <div class="mx-auto max-w-[820px]">
+      {rendered.map(({ faq, Content }, i) => (
+        <details class="faq-item">
+          <summary>
+            <span class="faq-no" aria-hidden="true">Q{String(i + 1).padStart(2, '0')}</span>
+            <span class="faq-q">{faq.data.question}</span>
+            <span class="faq-marker" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-answer">
+            <Content />
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

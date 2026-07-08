@@ -1,0 +1,74 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { routes } from '../i18n';
+
+const products = (await getCollection('products', (p) => p.data.lang === 'en')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<BaseLayout title="Home - Food Hacks" altHref={routes.home.ar}>
+  <!-- Hero banner (original .section-bg1): full-bleed, square corners,
+       offset below the 90px fixed header (77px on mobile per the theme) -->
+  <section
+    class="mt-[77px] h-[320px] bg-cover bg-center md:mt-[90px] md:h-[500px]"
+    style="background-image: url('/images/Banner_20Home_20Page.png');"
+    role="img"
+    aria-label="Food Hacks — innovative non-stick cooking sprays"
+  >
+  </section>
+
+  <!-- About intro (original .home-about, verbatim copy from live homepage) -->
+  <section class="mx-auto max-w-[1180px] px-4 py-[60px]">
+    <div class="grid items-center gap-10 md:grid-cols-2">
+      <div class="text-center">
+        <img
+          src="/images/products.png"
+          alt="Food Hacks cooking spray range"
+          width="900"
+          height="1440"
+          class="mx-auto max-h-[520px] w-auto"
+        />
+      </div>
+      <div>
+        <h2 class="my-[15px] text-[44px] text-brand">Food Hacks</h2>
+        <p class="mt-5">
+          Food Hacks offers innovative non-stick cooking sprays that combine quality and
+          versatility to make every meal more delicious and easy. Enjoy a variety of products
+          including our Extra Virgin Olive Oil Spray, our Premium Truffle Olive Oil Spray, and our
+          Premium Saffron Spray. Each product is made with 100% natural ingredients, helping you
+          prepare healthy, delicious meals using less fat. Make your cooking experience even more
+          special with Food Hacks!
+        </p>
+        <a href="/about/" class="btn-brand mt-6">read more</a>
+      </div>
+    </div>
+
+    <!-- Our Vision (original .content2.bg-green: 10/12-width green block,
+         20px radius, 30px padding, white 44px h2; copy verbatim) -->
+    <div class="mx-auto mt-14 w-full rounded-card bg-brand p-[30px] text-white md:w-10/12">
+      <h2 class="my-[15px] text-[44px] !text-white">Our Vision</h2>
+      <p class="mt-4">
+        To be a leader in providing healthy and easy cooking solutions, maki achieving maximum
+        health bene ng healthy food accessible and easy for everyone without any hassle. We are
+        committed to developing innovative products and technologies that contribute to promoting
+        healthy lifestyles, with a focus on using natural ingredients and cooking practices that
+        ensure preserving nutritional values and good taste. Our goal is to enable our customers
+        to enjoy delicious and healthy food with minimal effort, while fits.
+      </p>
+    </div>
+  </section>
+
+  <!-- Products grid (live: h3 36px FontHead2 heading, .panel-projects cards) -->
+  <section class="mx-auto max-w-[1180px] px-4 pb-16">
+    <h3 class="mb-5 text-center text-[36px]">Our Products</h3>
+    <div class="mt-10 grid gap-[30px] md:grid-cols-3">
+      {products.map((product) => <ProductCard product={product} />)}
+    </div>
+    <p class="mt-10 text-center">
+      <a href="/products/" class="btn-brand">Shop All</a>
+    </p>
+  </section>
+</BaseLayout>

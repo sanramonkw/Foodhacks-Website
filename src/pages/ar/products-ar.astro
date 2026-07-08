@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { productPath, routes } from '../../i18n';
+
+const products = (await getCollection('products', (p) => p.data.lang === 'ar')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const itemList = {
+  '@type': 'ItemList',
+  '@id': 'https://foodhacks.co/ar/products-ar/#itemlist',
+  name: 'منتجات فود هاكز',
+  inLanguage: 'ar',
+  itemListElement: products.map((p, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: new URL(productPath('ar', p.id), 'https://foodhacks.co').href,
+    name: p.data.title,
+  })),
+};
+---
+
+<BaseLayout
+  title="منتجاتنا - فود هاكز"
+  lang="ar"
+  altHref={routes.products.en}
+  schema={[itemList]}
+>
+  <PageHero title="منتجاتنا" />
+
+  <!-- live /ar/products-ar/: just the 3 .panel-projects cards, no extra button -->
+  <section class="mx-auto max-w-[1180px] px-4 py-[60px]">
+    <div class="grid gap-[30px] md:grid-cols-3">
+      {products.map((product) => <ProductCard product={product} />)}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,94 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const products = await getCollection('products');
+  return products.map((product) => ({
+    params: { slug: product.id },
+    props: { product },
+  }));
+}
+
+interface Props {
+  product: CollectionEntry<'products'>;
+}
+const { product } = Astro.props;
+const { Content } = await render(product);
+const no = String(product.data.order).padStart(2, '0');
+
+const productSchema = {
+  '@type': 'Product',
+  '@id': `https://foodhacks.co/product/${product.id}/#product`,
+  name: product.data.title,
+  image: new URL(product.data.image, 'https://foodhacks.co').href,
+  description: product.data.description,
+  brand: { '@type': 'Brand', name: 'Food Hacks' },
+  manufacturer: { '@id': 'https://foodhacks.co/#organization' },
+  offers: {
+    '@type': 'Offer',
+    url: product.data.orderUrl,
+    availability: 'https://schema.org/InStock',
+  },
+};
+---
+
+<BaseLayout
+  title={`${product.data.title} - Food Hacks`}
+  description={product.data.description}
+  ogImage={product.data.image}
+  ogType="product"
+  schema={[productSchema]}
+>
+  <!-- chapter head: kicker + serif title over a hairline -->
+  <section class="border-b border-hairline">
+    <div class="mx-auto max-w-[1240px] px-5 pb-12 pt-16 md:px-8 md:pb-16 md:pt-24">
+      <p class="kicker">
+        <span class="num">02</span> <span aria-hidden="true">&mdash;</span> The Sprays
+        <span aria-hidden="true">&nbsp;&middot;&nbsp;</span> No. <span class="num">{no}</span>
+      </p>
+      <h1 class="mt-5 max-w-[18ch] text-[clamp(2.2rem,5.5vw,4.5rem)]">{product.data.title}</h1>
+    </div>
+  </section>
+
+  <!-- tasting-note spread: large render with breathing room, caption-style
+       description column. (The live product pages have no body content —
+       this composed section is a deliberate rebuild addition, see CLAUDE.md.) -->
+  <section class="mx-auto max-w-[1240px] px-5 py-16 md:px-8 md:py-24">
+    <div class="grid gap-12 md:grid-cols-12 md:gap-8">
+      <figure class="md:col-span-6">
+        <div class="bg-oat px-10 py-16">
+          <img
+            src={product.data.image}
+            alt={product.data.title}
+            width="1024"
+            height="1024"
+            loading="eager"
+            fetchpriority="high"
+            class="mx-auto aspect-square w-full max-w-[420px] border border-hairline object-cover mix-blend-multiply"
+          />
+        </div>
+        <figcaption class="kicker mt-4">No. <span class="num">{no}</span> &mdash; {product.data.size}</figcaption>
+      </figure>
+
+      <div class="md:col-span-5 md:col-start-8 md:self-center">
+        <p class="kicker">{product.data.size}</p>
+        <hr class="rule-green mt-4 w-12" />
+        <div class="mt-7 max-w-[52ch] space-y-4 font-serif text-[1.15rem] font-[380] leading-[1.7] [&_p]:leading-[1.7]">
+          <Content />
+        </div>
+        <p class="mt-10">
+          <a href={product.data.orderUrl} target="_blank" rel="noopener" class="link-action">
+            Order Now <span class="arrow" aria-hidden="true">&#8599;</span>
+          </a>
+        </p>
+
+        <hr class="rule mt-12" />
+        <p class="mt-6">
+          <a href="/products/" class="link-ink text-[14px]">Back to Our Products</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

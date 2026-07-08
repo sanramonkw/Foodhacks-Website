@@ -1,0 +1,44 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  product: CollectionEntry<'products'>;
+  /** Link the card to the product detail page (true) or the external shop (false) */
+  linkToDetail?: boolean;
+}
+const { product, linkToDetail = true } = Astro.props;
+const href = linkToDetail ? `/product/${product.id}/` : product.data.orderUrl;
+---
+
+<!-- Premium staging: ivory plinth card — the render sits in a soft studio
+     frame (the renders carry a near-white studio bg, so the frame blends),
+     with an elliptical floor shadow, serif navy title, and a quiet hover
+     lift + green keyline reveal. -->
+<a
+  href={href}
+  target={linkToDetail ? undefined : '_blank'}
+  rel={linkToDetail ? undefined : 'noopener'}
+  class="plinth-card group block p-3 text-center"
+>
+  <div class="overflow-hidden rounded-[14px] pt-2">
+    <img
+      src={product.data.image}
+      alt={product.data.title}
+      width="550"
+      height="550"
+      loading="lazy"
+      class="plinth-img w-full object-contain mix-blend-multiply"
+    />
+    <div class="floor-shadow mx-auto -mt-4 w-1/2" aria-hidden="true"></div>
+  </div>
+  <div class="px-4 pb-6 pt-5">
+    <p class="eyebrow text-[10px] text-brand-deep">{product.data.size}</p>
+    <h3 class="mx-auto mt-2 min-h-[58px] max-w-[300px] font-display text-[20px] font-[460] leading-snug !text-ink">
+      {product.data.title}
+    </h3>
+    <div class="card-reveal mx-auto mt-1 flex items-center justify-center gap-2 text-brand-deep" aria-hidden="true">
+      <span class="hairline-left !w-8"></span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15m0 0-6-6m6 6-6 6"/></svg>
+    </div>
+  </div>
+</a>

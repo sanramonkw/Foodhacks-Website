@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+
+<BaseLayout
+  title="Return & Refund Policy - Food Hacks"
+  description="Food Hacks return and refund policy: replacements and refunds within 14 days, and manufacturing-defect resolution within 30 days."
+>
+  <PageHero title="Return & Refund Policy" subtitle="Fair and simple" />
+
+  <section class="mx-auto max-w-4xl space-y-8 px-4 pb-24 pt-16">
+    <!-- 14-day card -->
+    <div class="tile reveal border-2 border-ink bg-white p-8 shadow-[8px_8px_0_rgba(141,191,68,0.9)] md:p-10">
+      <div class="flex items-baseline gap-4">
+        <span class="display text-[clamp(40px,5vw,64px)] text-brand-deep" aria-hidden="true">14</span>
+        <p class="font-head text-[19px] text-ink"><b>Replacement and Refund within 14 Days</b></p>
+      </div>
+      <p class="mt-5">
+        If you changed your mind about your Food Hacks purchase, you can request a replacement or
+        refund under the following conditions:
+      </p>
+      <ul class="mt-4 list-disc space-y-2 pl-6 marker:text-brand-deep">
+        <li>Timeframe: Contact us within 14 days of purchase.</li>
+        <li>Condition: Make sure your product is still in its original, unopened condition.</li>
+        <li>Proof of Purchase: Have your receipt or proof of purchase handy.</li>
+        <li>Shipping Fees: Please note that shipping fees are non-refundable.</li>
+      </ul>
+      <p class="mt-5">
+        To initiate a return or exchange, simply contact our customer service team with your order
+        details and reason for return. We will guide you through the steps to return it again.
+      </p>
+    </div>
+
+    <!-- 30-day card -->
+    <div class="on-dark tile reveal reveal-d1 mesh-navy relative overflow-hidden p-8 text-white md:p-10">
+      <div class="dotgrid pointer-events-none absolute inset-0" aria-hidden="true"></div>
+      <div class="relative">
+        <div class="flex items-baseline gap-4">
+          <span class="display text-[clamp(40px,5vw,64px)] text-brand" aria-hidden="true">30</span>
+          <p class="font-head text-[19px] text-white"><b>Manufacturing defect (within 30 days)</b></p>
+        </div>
+        <p class="mt-5 text-white/85">
+          We care about quality at Food Hacks. If you notice any manufacturing hiccups, we are here to
+          make it right:
+        </p>
+        <ul class="mt-4 list-disc space-y-2 pl-6 text-white/85 marker:text-brand">
+          <li>Timeframe: Let us know within 30 days of purchase.</li>
+          <li>Condition: The issue must be related to a manufacturing defect.</li>
+          <li>Proof of Purchase: Keep your receipt or proof of purchase handy.</li>
+        </ul>
+        <p class="mt-5 text-white/85">
+          Send us a message with your order details and a description of the issue. Our team will
+          provide instructions on how to fix the problem, whether it&rsquo;s a replacement or a refund..
+        </p>
+        <p class="mt-4 text-white/85">
+          To address a manufacturing issue, please contact our customer service team with a description
+          of the problem and your order details. We will assess the issue and guide you through the
+          next steps.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

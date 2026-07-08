@@ -1,0 +1,48 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { routes } from '../../i18n';
+
+const faqs = (await getCollection('faqs', (f) => f.data.lang === 'ar')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+const rendered = await Promise.all(
+  faqs.map(async (faq) => ({ faq, Content: (await render(faq)).Content }))
+);
+
+const faqSchema = {
+  '@type': 'FAQPage',
+  '@id': 'https://foodhacks.co/ar/faqs-ar/#faq',
+  inLanguage: 'ar',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.data.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.body?.trim() ?? '' },
+  })),
+};
+---
+
+<BaseLayout
+  title="الأسئلة الشائعة - فود هاكز"
+  lang="ar"
+  altHref={routes.faqs.en}
+  schema={[faqSchema]}
+>
+  <PageHero title="الأسئلة الشائعة" />
+
+  <!-- live: .accordion buttons (green bottom border, ➕/➖) in a 10/12 column,
+       open answers in a light-green #e6ffc2 rounded panel (.panel-faq) -->
+  <section class="mx-auto max-w-[1180px] px-4 py-[60px]">
+    <div class="mx-auto w-full md:w-10/12">
+      {rendered.map(({ faq, Content }) => (
+        <details class="faq-item">
+          <summary>{faq.data.question}</summary>
+          <div class="faq-answer">
+            <Content />
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

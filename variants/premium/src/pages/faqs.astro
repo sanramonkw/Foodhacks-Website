@@ -1,0 +1,42 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+
+const faqs = (await getCollection('faqs')).sort((a, b) => a.data.order - b.data.order);
+const rendered = await Promise.all(
+  faqs.map(async (faq) => ({ faq, Content: (await render(faq)).Content }))
+);
+
+// FAQPage rich-result schema (big GEO/SEO win over the WP accordion)
+const faqSchema = {
+  '@type': 'FAQPage',
+  '@id': 'https://foodhacks.co/faqs/#faq',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.data.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.body?.trim() ?? '' },
+  })),
+};
+---
+
+<BaseLayout
+  title="FAQs - Food Hacks"
+  description="Frequently asked questions about Food Hacks healthy non-stick cooking sprays: ingredients, heat resistance, delivery, and usage."
+  schema={[faqSchema]}
+>
+  <PageHero title="FAQs" />
+
+  <!-- refined ledger accordion — native <details>, serif questions,
+       the brand's light-green open panel kept as the answer surface -->
+  <section class="mx-auto max-w-[820px] px-6 py-20">
+    {rendered.map(({ faq, Content }, i) => (
+      <details class="faq-item reveal" style={`--reveal-delay: ${i * 0.06}s`}>
+        <summary>{faq.data.question}</summary>
+        <div class="faq-answer">
+          <Content />
+        </div>
+      </details>
+    ))}
+  </section>
+</BaseLayout>
