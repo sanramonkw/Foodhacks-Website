@@ -6,6 +6,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import { routes } from '../../i18n';
+import { withBase } from '../../utils/paths';
 
 const products = (await getCollection('products', (p) => p.data.lang === 'ar')).sort(
   (a, b) => a.data.order - b.data.order
@@ -17,7 +18,7 @@ const products = (await getCollection('products', (p) => p.data.lang === 'ar')).
        offset below the 90px fixed header (77px on mobile per the theme) -->
   <section
     class="mt-[77px] h-[320px] bg-cover bg-center md:mt-[90px] md:h-[500px]"
-    style="background-image: url('/images/Banner_20Home_20Page.png');"
+    style={`background-image: url('${withBase('/images/Banner_20Home_20Page.png')}');`}
     role="img"
     aria-label="فود هاكز — بخاخات طهي مبتكرة غير لاصقة"
   >
@@ -28,7 +29,7 @@ const products = (await getCollection('products', (p) => p.data.lang === 'ar')).
     <div class="grid items-center gap-10 md:grid-cols-2">
       <div class="text-center">
         <img
-          src="/images/products.png"
+          src={withBase('/images/products.png')}
           alt="مجموعة بخاخات الطهي من فود هاكز"
           width="900"
           height="1440"
@@ -44,7 +45,7 @@ const products = (await getCollection('products', (p) => p.data.lang === 'ar')).
           طبيعية 100%، مما يساعدك على تحضير وجبات صحية ولذيذة باستخدام كمية أقل من الدهون. اجعل
           تجربة الطبخ الخاصة بك أكثر تميز مع فود هاكز
         </p>
-        <a href={routes.about.ar} class="btn-brand mt-6">اعرف أكثر</a>
+        <a href={withBase(routes.about.ar)} class="btn-brand mt-6">اعرف أكثر</a>
       </div>
     </div>
 
@@ -70,7 +71,7 @@ const products = (await getCollection('products', (p) => p.data.lang === 'ar')).
       {products.map((product) => <ProductCard product={product} />)}
     </div>
     <p class="mt-10 text-center">
-      <a href={routes.products.ar} class="btn-brand">تسوق كل شيء</a>
+      <a href={withBase(routes.products.ar)} class="btn-brand">تسوق كل شيء</a>
     </p>
   </section>
 </BaseLayout>

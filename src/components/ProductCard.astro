@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { withBase } from '../utils/paths';
 
 interface Props {
   product: CollectionEntry<'products'>;
@@ -8,7 +9,7 @@ interface Props {
 }
 const { product, linkToDetail = true } = Astro.props;
 const base = product.data.lang === 'ar' ? '/ar/product/' : '/product/';
-const href = linkToDetail ? `${base}${product.id}/` : product.data.orderUrl;
+const href = linkToDetail ? withBase(`${base}${product.id}/`) : product.data.orderUrl;
 ---
 
 <!-- Reproduction of the theme's .panel-projects card: green panel, 16px radius,
@@ -21,7 +22,7 @@ const href = linkToDetail ? `${base}${product.id}/` : product.data.orderUrl;
   class="block rounded-[16px] bg-brand p-[5px] text-center transition-all duration-[400ms] hover:bg-brand-hover hover:shadow-[0_0_12px_rgba(0,0,0,0.1)]"
 >
   <img
-    src={product.data.image}
+    src={withBase(product.data.image)}
     alt={product.data.title}
     width="550"
     height="550"

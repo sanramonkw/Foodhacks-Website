@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../../utils/paths';
 import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -60,7 +61,7 @@ const productSchema = {
       <figure class="md:col-span-6">
         <div class="bg-oat px-10 py-16">
           <img
-            src={product.data.image}
+            src={withBase(product.data.image)}
             alt={product.data.title}
             width="1024"
             height="1024"
@@ -86,7 +87,7 @@ const productSchema = {
 
         <hr class="rule mt-12" />
         <p class="mt-6">
-          <a href="/products/" class="link-ink text-[14px]">Back to Our Products</a>
+          <a href={withBase('/products/')} class="link-ink text-[14px]">Back to Our Products</a>
         </p>
       </div>
     </div>

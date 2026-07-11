@@ -5,6 +5,7 @@ import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { productPath, t } from '../../../i18n';
+import { withBase } from '../../../utils/paths';
 
 export async function getStaticPaths() {
   const all = await getCollection('products');
@@ -70,7 +71,7 @@ const productSchema = {
   <section class="mx-auto max-w-[1180px] px-4 py-[60px]">
     <div class="grid items-center gap-10 md:grid-cols-2">
       <img
-        src={product.data.image}
+        src={withBase(product.data.image)}
         alt={product.data.title}
         width="1024"
         height="1024"

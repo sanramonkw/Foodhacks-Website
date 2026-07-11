@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../utils/paths';
 // Footer content verbatim from the live site (footer widgets + socials).
 // BOLD variant: deep-navy gradient field with diagonal top edge, lime widget
 // headings, green sticker social buttons — same 4 widgets + copyright.
@@ -82,7 +83,7 @@ const circle =
 
   <div class="mx-auto mt-12 max-w-[1180px] border-t border-white/15 pt-6 text-center">
     <p class="text-[14px] leading-[24px] text-white/85">
-      &copy; {year} <a href="/" title="Food Hacks" rel="home" class="text-white transition-colors duration-[400ms] hover:text-lime">Food Hacks</a>. All rights reserved.
+      &copy; {year} <a href={withBase('/')} title="Food Hacks" rel="home" class="text-white transition-colors duration-[400ms] hover:text-lime">Food Hacks</a>. All rights reserved.
     </p>
   </div>
 </footer>

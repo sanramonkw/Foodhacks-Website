@@ -5,6 +5,7 @@
 // (radius/margin 20px, padding 80px 0 50px), black text, columns 3/3/4/2,
 // 16px widget h3 + 60×2px green line, green 38px circular icons.
 import { routes, t, type Lang } from '../i18n';
+import { withBase } from '../utils/paths';
 
 interface Props {
   lang?: Lang;
@@ -87,7 +88,7 @@ const circle =
 
   <div class="mx-auto mt-10 max-w-[1180px] text-center">
     <p class="text-[14px] leading-[24px]">
-      &copy; {year} <a href={home} title={t[lang].siteName} rel="home" class="text-black transition-colors duration-[400ms] hover:text-[#999]">{t[lang].siteName}</a>. {t[lang].footerRights}
+      &copy; {year} <a href={withBase(home)} title={t[lang].siteName} rel="home" class="text-black transition-colors duration-[400ms] hover:text-[#999]">{t[lang].siteName}</a>. {t[lang].footerRights}
     </p>
   </div>
 </footer>

@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../utils/paths';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 
@@ -22,7 +23,7 @@ const aboutPage = {
       <figure class="md:col-span-5">
         <div class="bg-oat p-8">
           <img
-            src="/images/fh-products.png"
+            src={withBase('/images/fh-products.png')}
             alt="About Food Hacks — product range"
             width="897"
             height="897"
@@ -111,7 +112,7 @@ const aboutPage = {
 
       <figure class="md:col-span-5 md:col-start-8">
         <img
-          src="/images/san_20remon.png"
+          src={withBase('/images/san_20remon.png')}
           alt="San Ramon factory"
           width="1494"
           height="940"

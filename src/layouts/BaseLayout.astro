@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { dirFor, t, type Lang } from '../i18n';
+import { withBase } from '../utils/paths';
 
 interface Props {
   title: string;
@@ -100,8 +101,8 @@ const jsonLd = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {hreflangs.map((l) => <link rel="alternate" hreflang={l.hreflang} href={l.href} />)}
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" type="image/png" href={withBase('/favicon.png')} />
+    <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
 
     <!-- Open Graph -->
     <meta property="og:locale" content={ogLocale} />

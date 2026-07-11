@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import { routes } from '../i18n';
+import { withBase } from '../utils/paths';
 
 const aboutPage = {
   '@type': 'AboutPage',
@@ -20,7 +21,7 @@ const aboutPage = {
     <h2 class="text-center text-2xl text-brand">About Food Hacks</h2>
     <div class="mt-8 grid items-start gap-10 md:grid-cols-2">
       <img
-        src="/images/fh-products.png"
+        src={withBase('/images/fh-products.png')}
         alt="About Food Hacks — product range"
         width="897"
         height="897"
@@ -62,7 +63,7 @@ const aboutPage = {
     <h2 class="text-center text-2xl text-brand">Our Factory</h2>
     <div class="mt-8 grid items-start gap-10 md:grid-cols-2">
       <img
-        src="/images/san_20remon.png"
+        src={withBase('/images/san_20remon.png')}
         alt="San Ramon factory"
         width="1494"
         height="940"

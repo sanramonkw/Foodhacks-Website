@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../utils/paths';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 
@@ -25,7 +26,7 @@ const aboutPage = {
       <div class="reveal relative">
         <div class="absolute -left-4 -top-4 h-full w-full rounded-[24px] bg-brand/20" aria-hidden="true"></div>
         <img
-          src="/images/fh-products.png"
+          src={withBase('/images/fh-products.png')}
           alt="About Food Hacks — product range"
           width="897"
           height="897"
@@ -76,7 +77,7 @@ const aboutPage = {
 
         <div class="mt-10 grid items-start gap-12 md:grid-cols-2">
           <img
-            src="/images/san_20remon.png"
+            src={withBase('/images/san_20remon.png')}
             alt="San Ramon factory"
             width="1494"
             height="940"
