@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../utils/paths';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 
@@ -24,7 +25,7 @@ const aboutPage = {
       <div class="reveal md:sticky md:top-28">
         <div class="plinth-card p-3">
           <img
-            src="/images/fh-products.png"
+            src={withBase('/images/fh-products.png')}
             alt="About Food Hacks — product range"
             width="897"
             height="897"
@@ -97,7 +98,7 @@ const aboutPage = {
         <div class="reveal" style="--reveal-delay: 0.1s">
           <div class="plinth-card p-3">
             <img
-              src="/images/san_20remon.png"
+              src={withBase('/images/san_20remon.png')}
               alt="San Ramon factory"
               width="1494"
               height="940"

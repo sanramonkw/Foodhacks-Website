@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import { routes, orderUrl, t } from '../../i18n';
+import { withBase } from '../../utils/paths';
 
 const products = (await getCollection('products', (p) => p.data.lang === 'en')).sort(
   (a, b) => a.data.order - b.data.order
@@ -47,7 +48,7 @@ const tilts = ['-6deg', '4deg', '-2deg'];
 
         <div class="mt-9 flex flex-wrap items-center gap-4">
           <a href={orderUrl.en} target="_blank" rel="noopener" class="btn-cta">{t.en.orderNow}</a>
-          <a href={routes.products.en} class="btn-ghost">Our Products</a>
+          <a href={withBase(routes.products.en)} class="btn-ghost">Our Products</a>
         </div>
       </div>
 
@@ -55,7 +56,7 @@ const tilts = ['-6deg', '4deg', '-2deg'];
       <div class="relative mx-auto h-[430px] w-full max-w-[420px] sm:h-[470px]" aria-hidden="true">
         {products.map((p, i) => (
           <img
-            src={p.data.image}
+            src={withBase(p.data.image)}
             alt=""
             width="512"
             height="512"
@@ -104,7 +105,7 @@ const tilts = ['-6deg', '4deg', '-2deg'];
       <div class="reveal relative order-2 md:order-1">
         <div class="absolute -start-4 -top-4 h-full w-full rounded-[24px] bg-brand/20" aria-hidden="true"></div>
         <img
-          src="/images/products.png"
+          src={withBase('/images/products.png')}
           alt="Food Hacks cooking spray range"
           width="900"
           height="1440"
@@ -123,7 +124,7 @@ const tilts = ['-6deg', '4deg', '-2deg'];
           prepare healthy, delicious meals using less fat. Make your cooking experience even more
           special with Food Hacks!
         </p>
-        <a href={routes.about.en} class="btn-cta mt-8">{t.en.readMore}</a>
+        <a href={withBase(routes.about.en)} class="btn-cta mt-8">{t.en.readMore}</a>
       </div>
     </div>
   </section>
@@ -182,14 +183,14 @@ const tilts = ['-6deg', '4deg', '-2deg'];
             </li>
           ))}
         </ul>
-        <a href={routes.faqs.en} class="btn-ghost mt-6 !px-6 !py-2.5 !text-[13px]">{t.en.allFaqsCta}</a>
+        <a href={withBase(routes.faqs.en)} class="btn-ghost mt-6 !px-6 !py-2.5 !text-[13px]">{t.en.allFaqsCta}</a>
       </div>
 
       <!-- shop-all tile -->
       <div class="reveal reveal-d2">
         <div class="tile tile-hover relative h-full overflow-hidden border-2 border-ink bg-white p-8">
           <p class="display text-[clamp(30px,3vw,44px)] leading-none text-ink">{t.en.makeEveryMealSpecial}</p>
-          <a href={routes.products.en} class="btn-cta mt-8">{t.en.shopAllCta}</a>
+          <a href={withBase(routes.products.en)} class="btn-cta mt-8">{t.en.shopAllCta}</a>
           <span class="sticker absolute -end-3 bottom-6 rotate-[-8deg] text-brand-deep" aria-hidden="true">{t.en.zeroHassle}</span>
         </div>
       </div>

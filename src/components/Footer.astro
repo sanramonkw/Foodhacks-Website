@@ -4,6 +4,7 @@
 // BOLD variant: deep-navy gradient field with diagonal top edge, lime widget
 // headings, green sticker social buttons — same 4 widgets + copyright.
 import { routes, t, type Lang } from '../i18n';
+import { withBase } from '../utils/paths';
 
 interface Props {
   lang?: Lang;
@@ -86,7 +87,7 @@ const circle =
 
   <div class="mx-auto mt-12 max-w-[1180px] border-t border-white/15 pt-6 text-center">
     <p class="text-[14px] leading-[24px] text-white/85">
-      &copy; {year} <a href={home} title={t[lang].siteName} rel="home" class="text-white transition-colors duration-[400ms] hover:text-lime">{t[lang].siteName}</a>. {t[lang].footerRights}
+      &copy; {year} <a href={withBase(home)} title={t[lang].siteName} rel="home" class="text-white transition-colors duration-[400ms] hover:text-lime">{t[lang].siteName}</a>. {t[lang].footerRights}
     </p>
   </div>
 </footer>

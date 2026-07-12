@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../utils/paths';
 // Footer content verbatim from the master (live-site footer widgets + socials).
 // Premium expression: the deep-navy atmosphere closes the page; cream text,
 // green hairlines under serif column titles, green jewel icon buttons.
@@ -83,7 +84,7 @@ const circle =
 
   <div class="mx-auto max-w-[1180px] border-t border-white/10 px-6 py-8 text-center">
     <p class="text-[14px] leading-[24px] text-cream/60">
-      &copy; {year} <a href="/" title="Food Hacks" rel="home" class="text-cream/85 transition-colors duration-[400ms] hover:text-brand-hover">Food Hacks</a>. All rights reserved.
+      &copy; {year} <a href={withBase('/')} title="Food Hacks" rel="home" class="text-cream/85 transition-colors duration-[400ms] hover:text-brand-hover">Food Hacks</a>. All rights reserved.
     </p>
   </div>
 </footer>

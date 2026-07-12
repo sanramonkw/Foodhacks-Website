@@ -8,6 +8,7 @@ import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import { productPath, routes, t } from '../../i18n';
+import { withBase } from '../../utils/paths';
 
 export async function getStaticPaths() {
   const all = await getCollection('products');
@@ -86,14 +87,14 @@ const productSchema = {
           <a href={product.data.orderUrl} target="_blank" rel="noopener" class="btn-cta">
             {t.ar.orderNow}
           </a>
-          <a href={routes.products.ar} class="btn-ghost">{t.ar.allProductsCta}</a>
+          <a href={withBase(routes.products.ar)} class="btn-ghost">{t.ar.allProductsCta}</a>
         </div>
       </div>
 
       <div class="relative mx-auto w-full max-w-[440px]">
         <div class="absolute -start-5 -top-5 h-full w-full rounded-[24px] bg-brand/25 rotate-[3deg]" aria-hidden="true"></div>
         <img
-          src={product.data.image}
+          src={withBase(product.data.image)}
           alt={product.data.title}
           width="1024"
           height="1024"

@@ -10,6 +10,7 @@
 // in the English-only Bold source) so it opens from the correct side in both
 // directions.
 import { nav, orderUrl, routes, switcher, t, type Lang } from '../i18n';
+import { withBase } from '../utils/paths';
 
 interface Props {
   lang?: Lang;
@@ -23,21 +24,24 @@ const items = nav[lang];
 const sw = switcher[lang];
 
 const home = routes.home[lang];
-const path = decodeURI(Astro.url.pathname);
+// Astro.url.pathname includes the base prefix at runtime; strip it so
+// comparisons against the base-agnostic routes above keep working.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const path = decodeURI(Astro.url.pathname).replace(new RegExp(`^${base}`), '') || '/';
 const isActive = (href: string) =>
   href === home ? path === decodeURI(home) : path.startsWith(decodeURI(href));
 ---
 
 <header class="on-dark fixed inset-x-0 top-0 z-50 border-b-2 border-brand/60 bg-ink-deep/95 backdrop-blur-sm">
   <div class="mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-4 py-2.5">
-    <a href={home} title={t[lang].siteName} rel="home" class="shrink-0 rounded-2xl bg-white px-3 py-1.5 shadow-[0_4px_0_rgba(141,191,68,0.6)]">
-      <img src="/images/logo.png" alt={t[lang].siteName} class="h-auto w-[108px]" width="640" height="300" />
+    <a href={withBase(home)} title={t[lang].siteName} rel="home" class="shrink-0 rounded-2xl bg-white px-3 py-1.5 shadow-[0_4px_0_rgba(141,191,68,0.6)]">
+      <img src={withBase('/images/logo.png')} alt={t[lang].siteName} class="h-auto w-[108px]" width="640" height="300" />
     </a>
 
     <nav class="hidden items-center gap-6 xl:gap-7 lg:flex" aria-label="Main">
       {items.map((item) => (
         <a
-          href={item.href}
+          href={withBase(item.href)}
           class:list={['nav-link', isActive(item.href) && 'nav-link-current']}
           aria-current={isActive(item.href) ? 'page' : undefined}
         >
@@ -47,7 +51,7 @@ const isActive = (href: string) =>
       <a href={orderUrl[lang]} target="_blank" rel="noopener" class="btn-cta !px-6 !py-3 !text-[13px]">
         {t[lang].orderNow}
       </a>
-      <a href={altHref} lang={other} hreflang={sw.hreflang} class="nav-link">{sw.label}</a>
+      <a href={withBase(altHref)} lang={other} hreflang={sw.hreflang} class="nav-link">{sw.label}</a>
     </nav>
 
     <!-- mobile nav -->
@@ -63,7 +67,7 @@ const isActive = (href: string) =>
           {items.map((item) => (
             <li>
               <a
-                href={item.href}
+                href={withBase(item.href)}
                 class:list={[
                   'block font-head2 text-[15px]',
                   isActive(item.href) ? 'text-brand' : 'text-white',
@@ -80,7 +84,7 @@ const isActive = (href: string) =>
             </a>
           </li>
           <li>
-            <a href={altHref} lang={other} hreflang={sw.hreflang} class="block text-center font-head2 text-[15px] text-white">
+            <a href={withBase(altHref)} lang={other} hreflang={sw.hreflang} class="block text-center font-head2 text-[15px] text-white">
               {sw.label}
             </a>
           </li>

@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../utils/paths';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProductCard from '../components/ProductCard.astro';
@@ -17,7 +18,7 @@ const products = (await getCollection('products')).sort(
 
     <figure class="mt-10 md:mt-14">
       <img
-        src="/images/Banner_20Home_20Page.png"
+        src={withBase('/images/Banner_20Home_20Page.png')}
         alt="Food Hacks — innovative non-stick cooking sprays"
         width="1920"
         height="700"
@@ -47,7 +48,7 @@ const products = (await getCollection('products')).sort(
           special with Food Hacks!
         </p>
         <p class="mt-9">
-          <a href="/about/" class="link-action">read more <span class="arrow" aria-hidden="true">&#8594;</span></a>
+          <a href={withBase('/about/')} class="link-action">read more <span class="arrow" aria-hidden="true">&#8594;</span></a>
         </p>
       </div>
 
@@ -55,7 +56,7 @@ const products = (await getCollection('products')).sort(
         <figure>
           <div class="bg-oat px-10 py-14">
             <img
-              src="/images/products.png"
+              src={withBase('/images/products.png')}
               alt="Food Hacks cooking spray range"
               width="900"
               height="1440"
@@ -97,7 +98,7 @@ const products = (await getCollection('products')).sort(
 
     <div class="mt-12 flex flex-wrap items-end justify-between gap-6 md:mt-16">
       <h2 class="text-[clamp(2rem,4.5vw,3.25rem)]">Our Products</h2>
-      <a href="/products/" class="link-action">Shop All <span class="arrow" aria-hidden="true">&#8594;</span></a>
+      <a href={withBase('/products/')} class="link-action">Shop All <span class="arrow" aria-hidden="true">&#8594;</span></a>
     </div>
 
     <div class="mt-14 grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">

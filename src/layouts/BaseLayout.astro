@@ -7,6 +7,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { dirFor, orderUrl, t, type Lang } from '../i18n';
+import { withBase } from '../utils/paths';
 
 interface Props {
   title: string;
@@ -34,9 +35,12 @@ const {
 const description = Astro.props.description ?? t[lang].tagline;
 
 const site = Astro.site ?? new URL('https://foodhacks.co');
+// Astro.url.pathname already includes the base prefix at runtime, so the
+// canonical URL needs no extra withBase() — but ogImage/altHref are plain
+// root-relative strings from props/routes and need it applied explicitly.
 const canonical = new URL(Astro.url.pathname, site).href;
-const ogImageAbs = new URL(ogImage, site).href;
-const altAbs = altHref ? new URL(altHref, site).href : undefined;
+const ogImageAbs = new URL(withBase(ogImage), site).href;
+const altAbs = altHref ? new URL(withBase(altHref), site).href : undefined;
 
 // hreflang pairs. Arabic is now the default locale, so x-default points at
 // the AR page (flipped from the pre-promotion layout, which pointed at EN).
@@ -62,7 +66,7 @@ const organization = {
   url: site.href,
   logo: {
     '@type': 'ImageObject',
-    url: new URL('/images/logo.png', site).href,
+    url: new URL(withBase('/images/logo.png'), site).href,
   },
   sameAs: [
     'https://x.com/FoodHackskw',
@@ -107,8 +111,8 @@ const ctaHref = orderUrl[lang];
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {hreflangs.map((l) => <link rel="alternate" hreflang={l.hreflang} href={l.href} />)}
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" type="image/png" href={withBase('/favicon.png')} />
+    <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
 
     <!-- Open Graph -->
     <meta property="og:locale" content={ogLocale} />

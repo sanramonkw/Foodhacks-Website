@@ -105,6 +105,31 @@ npm run build     # -> dist/  (must pass; last verified 2026-07-12, ~20 files: 9
 npm run preview
 ```
 
+### Base-path / deploy targets (`DEPLOY_TARGET`)
+
+`astro.config.mjs` reads one env var, `DEPLOY_TARGET`, to pick the build target:
+
+- **unset (default, production):** `site: 'https://foodhacks.co'`, `base: '/'`. Plain
+  `npm run build` — this is what ships to foodhacks.co. **Never set `DEPLOY_TARGET` for a
+  production build.**
+- **`DEPLOY_TARGET=pages`:** `site: 'https://sanramonkw.github.io'`,
+  `base: '/Foodhacks-Website/'` — used only for the GitHub Pages owner-review deploy (see
+  DEPLOYMENT.md's "GitHub Pages review deploys" section; `npm run build:all` / `deploy:all`).
+
+Every internal href/asset in `src/` goes through `withBase()` (`src/utils/paths.ts`), which
+prefixes a root-relative path with `import.meta.env.BASE_URL` — this is what lets the same
+components/pages serve correctly at the domain root (production) or under
+`/Foodhacks-Website/` (Pages review), with no per-target branching in the components
+themselves. `Header`/`Footer`/`BaseLayout`/`ProductCard` and every page under `src/pages/`
+(both locales) call it for nav links, the logo, product images, favicon/sitemap links, OG
+image URLs and the two legacy-URL redirect stubs. CSS-referenced fonts live in
+`src/assets/fonts/` (not `public/fonts/`) so Vite bundles + base-prefixes them automatically
+via `@font-face` `url()` — no `withBase()` needed there.
+
+`variants/premium/` and `variants/editorial/` each have their own `astro.config.mjs` hardcoded
+to the Pages site (they have no production deploy of their own), unaffected by
+`DEPLOY_TARGET`.
+
 ## Local preview
 
 This site's preview is pinned to **port 4322** (sibling site previews occupy 4321/4323/4324):
@@ -330,14 +355,22 @@ src/pages/              # index.astro (AR home, root), about-ar, products-ar, fa
 src/pages/en/           # index, about, products, faqs, contact, return-refund-policy,
                          # product/[...slug] (EN, all under /en/)
 src/styles/global.css   # @theme tokens (incl. Bold's ink-deep/lime/emerald/brand-deep),
-                         # @font-face, Bold primitives (.display/.mesh-navy/.tile/.reveal/...),
+                         # @font-face (fonts in src/assets/fonts/, Vite-bundled + base-
+                         # prefixed), Bold primitives (.display/.mesh-navy/.tile/.reveal/...),
                          # logical-property rules throughout (no left/right)
-public/                 # images/, fonts/, favicon.png, robots.txt, llms.txt (URLs updated
-                         # for the AR-at-root/EN-under-/en/ scheme)
+src/utils/paths.ts      # withBase() — prefixes root-relative hrefs/assets with BASE_URL
+                         # (production base "/", GitHub Pages review base
+                         # "/Foodhacks-Website/" — see DEPLOY_TARGET below)
+public/                 # images/, favicon.png, robots.txt, llms.txt (URLs updated for the
+                         # AR-at-root/EN-under-/en/ scheme), .nojekyll (lets GitHub Pages
+                         # serve the _astro/ underscore-prefixed asset dir)
+scripts/build-all.sh,    # one-command combined GitHub Pages review build/deploy (master +
+scripts/publish-dist.sh # premium/editorial variants) — see DEPLOYMENT.md
 source-assets/           # originals + MANIFEST.md + raw page snapshots + theme css
 variants/premium/, variants/editorial/   # remaining alternative design explorations
                          # (variants/bold/ no longer exists — promoted to become this
-                         # root project on 2026-07-12)
+                         # root project on 2026-07-12); each has its own astro.config.mjs
+                         # hardcoded to the Pages site, unaffected by DEPLOY_TARGET
 ```
 
 A full pre-promotion snapshot (old white-canvas master, old EN-root/AR-under-`/ar/`

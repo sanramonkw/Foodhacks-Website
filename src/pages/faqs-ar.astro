@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import { routes, t } from '../i18n';
+import { withBase } from '../utils/paths';
 
 const faqs = (await getCollection('faqs', (f) => f.data.lang === 'ar')).sort(
   (a, b) => a.data.order - b.data.order
@@ -50,7 +51,7 @@ const faqSchema = {
       ))}
 
       <p class="mt-10 text-center">
-        <a href={routes.contact.ar} class="btn-cta">{t.ar.stillCurious}</a>
+        <a href={withBase(routes.contact.ar)} class="btn-cta">{t.ar.stillCurious}</a>
       </p>
     </div>
   </section>

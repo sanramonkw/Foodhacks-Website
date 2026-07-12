@@ -12,10 +12,19 @@ runtime, no database, and no admin panel (content lives in this repo, see CLAUDE
   npm run build   # -> dist/ ; expect ~20 files in dist/ (18 real pages: 9 AR + 9 EN)
                   # + 2 legacy-URL redirect stubs (/ar/, /ar/الرئيسية/) + sitemap-index.xml
   ```
-- **No environment variables** are needed (no secrets, no API keys).
-- The canonical origin is hardcoded as `site: 'https://foodhacks.co'` in `astro.config.mjs`
-  (drives canonicals, og:url, sitemap and JSON-LD URLs). Deploy previews will carry
-  production canonicals — fine for previews, but don't index them.
+- **One environment variable, `DEPLOY_TARGET`, controls the build target** (read in
+  `astro.config.mjs`):
+  - **unset (production — the default):** `site: 'https://foodhacks.co'`, `base: '/'`. This
+    is what `npm run build` does with no env var set. **Never set `DEPLOY_TARGET` when
+    building for production** — it would bake `/Foodhacks-Website/`-prefixed canonicals,
+    hreflang, OG/JSON-LD URLs and asset paths into the production site.
+  - **`DEPLOY_TARGET=pages`:** switches to `site: 'https://sanramonkw.github.io'`,
+    `base: '/Foodhacks-Website/'` — used only for the GitHub Pages review deploy (see
+    "GitHub Pages review deploys" below). All internal hrefs/assets go through the
+    `withBase()` helper (`src/utils/paths.ts`), so every root-relative link, image and
+    the CSS-bundled fonts pick up the right prefix automatically at build time.
+- The canonical/OG/JSON-LD URLs otherwise still derive from `Astro.site` — no other secrets
+  or API keys are needed to build.
 
 ## Deploy targets
 
@@ -23,8 +32,36 @@ Anything that serves static files works:
 
 - **Cloudflare Pages / Netlify / Vercel (static)** — build command `npm run build`,
   output dir `dist/`. Recommended: gives you HTTPS, HTTP/2 and redirect support out of the box.
+  Do **not** set `DEPLOY_TARGET` here — production must build with `base: '/'`.
 - **GitHub Pages** — works; put redirects on the host in front if you need real 301s.
 - **Plain nginx/Apache** — copy `dist/` to the docroot.
+
+### GitHub Pages review deploys (owner/reviewer preview only — not production)
+
+The repo also supports a one-command combined preview deploy to
+`https://sanramonkw.github.io/Foodhacks-Website/`, covering the master site (Bold + Arabic-
+first) **and** the `premium`/`editorial` design variants side by side, for owner review only:
+
+```bash
+npm run build:all    # -> scripts/build-all.sh: builds master with DEPLOY_TARGET=pages,
+                      #    builds variants/premium + variants/editorial with their own
+                      #    (always-Pages) astro.config.mjs, assembles dist/ + dist/variants/*
+npm run deploy:all   # -> build:all, then scripts/publish-dist.sh pushes dist/ to gh-pages
+```
+
+- `scripts/build-all.sh` sets `DEPLOY_TARGET=pages` only for the master build; the variants
+  under `variants/premium/` and `variants/editorial/` are always configured for the Pages
+  site regardless of the env var (they have no production deploy target of their own).
+- `scripts/publish-dist.sh` publishes the already-built `dist/` to the `gh-pages` branch
+  (Windows-safe: runs `git add -A` from inside `dist/`, avoiding the `gh-pages` npm package's
+  `ENAMETOOLONG` issue on Windows with large file lists). `public/.nojekyll` is carried into
+  every build so GitHub Pages serves the `_astro/` (underscore-prefixed) asset directory.
+- `npm run deploy` (single-target, no variants) also exists: `astro build && gh-pages -d dist
+  --dotfiles` — set `DEPLOY_TARGET=pages` yourself first if you use this instead of
+  `deploy:all`.
+- This Pages deploy is a **review tool for the owner, not the production host** — the real
+  launch target is `foodhacks.co` via one of the static hosts above, built with
+  `DEPLOY_TARGET` **unset**.
 
 ### Trailing slashes
 
