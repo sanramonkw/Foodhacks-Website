@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { routes, t } from '../i18n';
+
+const aboutPage = {
+  '@type': 'AboutPage',
+  '@id': 'https://foodhacks.co/about-ar/',
+  url: 'https://foodhacks.co/about-ar/',
+  name: 'من نحن - فود هاكز',
+  inLanguage: 'ar',
+  about: { '@id': 'https://foodhacks.co/#organization' },
+};
+---
+
+<BaseLayout title="من نحن - فود هاكز" lang="ar" altHref={routes.about.en} schema={[aboutPage]}>
+  <PageHero title="من نحن" subtitle={t.ar.whoWeAre} />
+
+  <!-- Section 1: عن فود هاكز (copy verbatim) -->
+  <section class="mx-auto max-w-[1180px] px-4 pb-8 pt-16">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <h2 class="display text-[clamp(34px,4vw,56px)] text-ink">عن فود هاكز</h2>
+      <p class="sticker mb-2 rotate-[-2deg] text-brand-deep">{t.ar.reinventingCooking}</p>
+    </div>
+
+    <div class="mt-10 grid items-start gap-12 md:grid-cols-2">
+      <div class="reveal relative">
+        <div class="absolute -start-4 -top-4 h-full w-full rounded-[24px] bg-brand/20" aria-hidden="true"></div>
+        <img
+          src="/images/fh-products.png"
+          alt="من نحن — مجموعة منتجات فود هاكز"
+          width="897"
+          height="897"
+          loading="lazy"
+          class="render-card relative mx-auto w-full max-w-[520px] rotate-[-2deg] bg-white"
+        />
+      </div>
+      <div class="reveal reveal-d1 space-y-4">
+        <p><b>مرحبًا بكم في فود هاكز، حيث نعيد اختراع فن الطبخ.</b></p>
+        <p>
+          اكتشف رذاذ الطبخ الذي يغير لعبة الطبخ. تم تصميمه ليكون رفيقك الأساسي في المطبخ، فهو
+          يوفر حلاً مبتكرًا وسهلاً لجميع احتياجات الطبخ الخاصة بك.
+        </p>
+        <p>
+          في فود هاكز، نركز على تبسيط عملية الطهي من خلال تقديم طرق صحية وسهلة. نحن هنا لنجعل من
+          كل وجبة فرصة للاستمتاع وتجربة شيء جديد في المطبخ.
+        </p>
+        <p>
+          طهي صحي وسهل باستخدام رذاذ فود هاكز. يتيح لك هذا المنتج استخدام كمية صغيرة من الزيت
+          بالتساوي، مما يقلل الفوضى ويعزز نمط حياة صحي. راقب كمية السعرات الحرارية التي تتناولها
+          بشكل فعال واستمتع بالطعام اللذيذ دون الحاجة إلى كميات كبيرة من الزيت.
+        </p>
+        <p>يتمتع رذاذ فود هاكز بعدة جوانب تجعله خيارًا جذابًا للعديد من الأشخاص:</p>
+        <p>. ١- الحجم المثالي: حجم الرذاذ يسمح لك باستخدامه بسهولة في المطبخ دون أن يشغل مساحة كبيرة أو يكون ثقيلًا</p>
+        <p>⁠ ⁠ ٢- تجربة مقاومة للالتصاق: يتميز رذاذ فود هاكز بقدرته على تقديم تجربة طهي غير لاصقة، مما يقلل الحاجة إلى استخدام الزيوت أو الدهون الزائدة.</p>
+        <p>⁠ ٣- متعدد الاستخدامات: يمكن استخدامه لعدة أغراض في الطبخ، بدءًا من رش المكونات بالزيت وحتى تحسين النكهة العامة للأطعمة.</p>
+        <p>⁠٤- قليل السعرات الحرارية: يساعد الرذاذ على تقليل كمية الزيوت أو الدهون المستخدمة، مما يساهم في تقليل السعرات الحرارية الموجودة في الطعام.</p>
+        <p>
+          هذه الميزات تجعل رذاذ فود هاكز خيارًا مفيدًا لأولئك الذين يتطلعون إلى تحسين تجربة
+          الطهي بطرق صحية وعملية.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: مصنعنا (copy verbatim) — navy statement block -->
+  <section class="mx-auto max-w-[1180px] px-4 pb-24 pt-12">
+    <div class="on-dark mesh-navy tile reveal relative overflow-hidden p-8 text-white md:p-14">
+      <div class="dotgrid pointer-events-none absolute inset-0" aria-hidden="true"></div>
+      <div class="relative">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <h2 class="display text-[clamp(34px,4vw,56px)] text-brand">{t.ar.ourFactory}</h2>
+          <p class="sticker mb-2 rotate-[2deg] text-lime">{t.ar.sinceKuwait}</p>
+        </div>
+
+        <div class="mt-10 grid items-start gap-12 md:grid-cols-2">
+          <img
+            src="/images/san_20remon.png"
+            alt="مصنع سان ريمون"
+            width="1494"
+            height="940"
+            loading="lazy"
+            class="render-card mx-auto w-full rotate-[1deg]"
+          />
+          <div class="space-y-4 text-white/85">
+            <p class="text-white">
+              <b>
+                سان ريمون علامة تجارية في الكويت تقدم منتجات وخدمات عالية الجودة محليًا وعالميًا.
+                نحن في سان ريمون نطمح لتقديم منتجاتنا وخدماتنا للجميع وتوسيع شبكة توزيعنا في جميع
+                أنحاء العالم.
+              </b>
+            </p>
+            <p>
+              تبدأ قصتنا في عام 2004 عندما أنشأت شركة سان ريمون أول قسم لها لإنتاج المنتجات في قطاع
+              الغاز والنفط. توسعت شركتنا في عام 2012 لتشمل الأطعمة والمشروبات مع التركيز على الإنتاج
+              والتوزيع. سان ريمون هي الشركة المصنعة الرئيسية للعديد من العلامات التجارية تحت قسم
+              الأطعمة والمشروبات منها &ldquo;شاي كرك&rdquo; و&rdquo;عسل شهد&rdquo; و&rdquo;فود
+              هاكز&rdquo; و&rdquo;فود اكسبرتز&rdquo;. أضافت شركة سان ريمون مزيدًا من التنوع إلى
+              اقسامها في عام 2013 من خلال تقديم منتجات التجميل وفي عام 2015 افتتحت شركة سان ريمون
+              قسم المقاهي والمطاعم لتقدم الخدمات إضافة إلى المنتجات. في عام 2018 أنشأت سان ريمون
+              قسمها الخامس تحت التصميم الداخلي وتطمح للحصول على المزيد من الأقسام والمنتجات في
+              المستقبل القريب
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

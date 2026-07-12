@@ -28,12 +28,80 @@ Snapshot date: 2026-07-02. Raw HTML + theme CSS snapshots live in `source-assets
 - Interactive bits (mobile menu, FAQ accordion) use native `<details>` — no JS shipped at all
   (the WP site shipped jQuery, Bootstrap 3, slick, magnific, AOS, isotope...).
 
-## Run
+## Design: Bold ("Spray Lab") is the master design (promoted 2026-07-12)
+
+The site previously shipped a faithful white-canvas reproduction of the WordPress
+theme as its master, with three alternative design explorations living side-by-side
+under `variants/` (`premium`, `bold`, `editorial`). The owner reviewed all three and
+picked **Bold** — a food-tech-startup-energy design ("Spray Lab": navy-dominant
+canvas, lime/emerald gradient meshes, oversized display type, diagonal `clip-path`
+section breaks, sticker/badge motifs, bento grids, a "spray in numbers" animated
+counter strip, kinetic scroll reveals). Bold was promoted to become this root
+project outright; `variants/bold/` no longer exists. `variants/premium/` and
+`variants/editorial/` remain as historical alternatives, untouched.
+
+At the same time as the promotion, **Arabic became the default locale**, served at
+the site root with no prefix (previously root was English, and Arabic lived under
+`/ar/...`). See "Arabic-default architecture & full URL map" below.
+
+A full pre-promotion snapshot of the repo (old white-canvas master + all three
+variants incl. `variants/bold/`, old EN-at-root/AR-under-`/ar/` URL scheme) is kept
+on the **`pre-bold-promotion`** git branch — use it to recover old copy/design or to
+diff against for content-drift checks.
+
+### Design tokens & primitives (from the promoted Bold design, formerly `variants/bold/VARIANT.md`)
+
+- **Navy-dominant canvas** — the brand's own ink navy `#092e52` (plus a deeper shade
+  `#061e37`, token `--color-ink-deep`) is the stage; the signature green `#8dbf44`
+  reads as electric on it (6.4:1 contrast, AA for normal text).
+- **Lime→emerald gradient meshes** — layered radial gradients of brand-green shades
+  over navy (`.mesh-navy`), with a faint lime dot-grid texture (`.dotgrid`).
+- **Oversized display type** — IBM Plex Sans Arabic Bold pushed to
+  `clamp(56px…124px)`, uppercase (Latin)/tight-leading (Arabic), via `.display`.
+- **Diagonal section breaks** — `clip-path` wedges (`.diag-top/.diag-bottom/.diag-both`).
+- **Sticker/badge motifs** — dashed-outline chips (`.sticker`) and solid green chips
+  with a hard offset shadow (`.sticker-solid`), rotated a few degrees.
+- **Asymmetric overlapping product renders** — rotated "polaroid" cards
+  (`.render-card`) with deep drop shadows, gently floating (`.floaty`,
+  transform-only, `prefers-reduced-motion`-aware).
+- **"Spray in numbers" animated counter strip** — figures sourced from the site's
+  own copy, animated via `IntersectionObserver`, honoring reduced-motion.
+- **Bento grid** on the home page: product tiles + a benefit tile + a FAQ-teaser
+  tile + a "Shop All" CTA tile, staggered offsets.
+- **Kinetic scroll reveals** — `.reveal` elements fade/slide in on intersection.
+- **Sticky Order Now CTA** — fixed pill on every page (external srkw.co shop link,
+  per-locale URL), positioned with `inset-inline-end` (not physical `right`) so it
+  sits correctly in both LTR and RTL.
+- New color tokens in `src/styles/global.css` `@theme`: `--color-ink-deep #061e37`,
+  `--color-lime #d7f5a2`, `--color-emerald #3f8f56`, `--color-brand-deep #567f2b`
+  (AA 4.7:1 green for text on white). Original brand green/hover, navy, footer/FAQ/
+  rule tokens (table below) are preserved unchanged.
+- Primitives: `.display`, `.eyebrow`, `.mesh-navy`, `.mesh-green`, `.dotgrid`,
+  `.diag-*`, `.btn-cta`, `.btn-ghost`, `.sticker`, `.sticker-solid`, `.tile`/
+  `.tile-hover`, `.render-card`, `.floaty`, `.reveal` (+ delays), `.faq-item`, a
+  global `:focus-visible` ring (green on light, lime on dark via `.on-dark`).
+
+### RTL implementation notes
+
+Every directional CSS/Tailwind rule uses **logical properties**, not physical
+`left`/`right`: `inset-inline-start/end` (Tailwind `start-*`/`end-*`),
+`margin-inline-start/end` (`ms-*`/`me-*`), `padding-inline-start/end` (`ps-*`/`pe-*`),
+`text-align: start/end` (`text-start`/`text-end`), `border-inline-start/end`. This
+makes the whole Bold design (bento grids, header/footer, sticky CTA, product-card
+size stickers) mirror correctly under `dir="rtl"` with zero per-locale CSS
+duplication. Two exceptions, both intentional:
+- The `ProductCard` arrow-chip icon (points toward "more") swaps its SVG path and
+  hover-translate direction based on the `lang` prop — a purely visual mirror that
+  isn't expressible as a CSS logical property (it's a drawn arrow, not a layout rule).
+- `.nav-link::after`'s underline `transform-origin` has no logical-property
+  equivalent in stable CSS, so it uses one explicit `[dir='rtl']` override.
+
+### Run
 
 ```bash
 npm install
 npm run dev       # localhost:4321
-npm run build     # -> dist/  (must pass; last verified 2026-07-07, 18 pages: 9 EN + 9 AR, + /ar/ redirect)
+npm run build     # -> dist/  (must pass; last verified 2026-07-12, ~20 files: 9 EN + 9 AR real pages + 2 legacy redirect stubs)
 npm run preview
 ```
 
@@ -119,60 +187,63 @@ Known intentional differences: product detail pages keep the composed descriptio
 (live pages are title-banner-only — documented in Content notes); AOS scroll-fade animations
 not replicated (content is simply always visible).
 
-## Page inventory
+## Arabic-default architecture & full URL map
 
-### Rebuilt (English, all real copy verbatim)
-| Route | Source | Notes |
-|---|---|---|
-| `/` | src/pages/index.astro | Hero banner, brand intro, Our Vision (verbatim incl. the source's garbled sentence — flag to owner), product grid |
-| `/about/` | src/pages/about.astro | "About Food Hacks" + "Our Factory" (San Ramon). WP used CSS tabs; rebuilt as stacked sections |
-| `/products/` | src/pages/products.astro | Grid from products collection + ItemList schema |
-| `/product/[...slug]` | src/pages/product/[...slug].astro | 3 pages from `src/content/products/*.md` with Product JSON-LD |
-| `/faqs/` | src/pages/faqs.astro | 5 Q&As from `src/content/faqs/*.md`, native `<details>` accordion + FAQPage JSON-LD |
-| `/contact/` | src/pages/contact.astro | Phone/email + form UI (**no backend yet — see TODOs**) |
-| `/return-refund-policy/` | src/pages/return-refund-policy.astro | Verbatim policy text |
+Since the 2026-07-12 Bold promotion, **Arabic is the default locale, served at the
+site root with no prefix**; English moved to `/en/`. This is a deliberate flip from
+the pre-promotion scheme (English at root, Arabic under `/ar/...`) — see the
+"301 redirects" section of DEPLOYMENT.md for the full old→new mapping needed at the
+host level, and the `pre-bold-promotion` git branch for the old scheme's source.
 
-Nav also carries the external **Order Now** link (per locale: EN
+### Full route list (18 real pages + 2 legacy-URL redirects)
+
+| Arabic (default, root, dir=rtl) | Source | English counterpart (`/en/...`, dir=ltr) | Source |
+|---|---|---|---|
+| `/` | src/pages/index.astro | `/en/` | src/pages/en/index.astro |
+| `/about-ar/` | src/pages/about-ar.astro | `/en/about/` | src/pages/en/about.astro |
+| `/products-ar/` | src/pages/products-ar.astro | `/en/products/` | src/pages/en/products.astro |
+| `/faqs-ar/` | src/pages/faqs-ar.astro | `/en/faqs/` | src/pages/en/faqs.astro |
+| `/contact-ar/` | src/pages/contact-ar.astro (form UI-only) | `/en/contact/` | src/pages/en/contact.astro (form UI-only) |
+| `/return-refund-policy-ar/` | src/pages/return-refund-policy-ar.astro | `/en/return-refund-policy/` | src/pages/en/return-refund-policy.astro |
+| `/product/بخاخ-زعفران200-مل-طبيعي-100-فوود-هاكس/` | src/pages/product/[...slug].astro (filters `lang==='ar'`) | `/en/product/saffron-spray-200ml/` | src/pages/en/product/[...slug].astro (filters `lang==='en'`) |
+| `/product/extra-virgin-olive-oil-spray-200ml-2/` | ″ | `/en/product/extra-virgin-olive-oil-spray-200ml/` | ″ |
+| `/product/truffle-flavoured-extra-virgin-olive-oil-spray-125ml-2/` | ″ | `/en/product/truffle-flavoured-extra-virgin-olive-oil-spray-125ml/` | ″ |
+
+Legacy-URL redirects (Astro `redirects` in `astro.config.mjs`, static meta-refresh
+stubs — prefer real host-level 301s per DEPLOYMENT.md): `/ar` → `/`, `/ar/الرئيسية` → `/`.
+
+Slugs are kept EXACTLY as the original live Polylang site (mixed Arabic +
+`-ar`/`-2` suffixes; Arabic slugs are percent-encoded on the wire but written
+decoded in file names/links — same URL either way). Live AR single-FAQ URLs
+(`/ar/faq/<arabic-slug>/`) are folded into `/faqs-ar/`, mirroring the EN
+`/faq/* → /en/faqs/` decision.
+
+Nav carries the external **Order Now** link (per locale: EN
 https://srkw.co/en/product-category/food-hacks/, AR `اطلب الان` →
-https://srkw.co/product-category/فود-هاكس/) plus the language switcher as the last item.
-Orders happen on the srkw.co shop, this site has no cart — that's why product pages on WP were
-title-banners only; their WP `content.rendered` is empty, confirmed via REST API.
+https://srkw.co/product-category/فود-هاكس/, rendered as a sticky bottom pill on every
+page via BaseLayout) plus a bidirectional language switcher in the Header (AR page →
+its EN counterpart and vice versa, driven by `altHref`/`routes` in `src/i18n.ts`).
+Orders happen on the srkw.co shop, this site has no cart.
 
-### Rebuilt (Arabic mirror, migrated 2026-07-07, all real copy verbatim from the live Polylang pages)
+**i18n architecture:** no Astro `i18n` config — plain file-based pages (AR at root,
+EN under `src/pages/en/`) + a `lang` (`'en' | 'ar'`, default `en`) field on both
+content collections, filtered per page. AR products pair with EN via a
+`translationKey` frontmatter field (drives hreflang + the product-page switcher). AR
+product/FAQ `.md` files sit next to the EN ones in the same collections (reused
+unchanged from the pre-promotion AR mirror — no content was recreated or
+retranslated during the Bold merge); product **file names are the live slugs** (the
+AR saffron file name is its Arabic slug). `src/i18n.ts` also carries Bold-only UI
+strings that didn't exist before this promotion (bento-grid labels, counter-strip
+captions, cross-sell headings, etc.) — translated into Arabic as part of this
+merge; see the `t.ar`/`t.en` records for the exact pairs (search for "Bold-variant-
+only UI additions").
 
-Slugs are kept EXACTLY as live (mixed Arabic + Polylang `-ar`/`-2` suffixes; Arabic slugs are
-percent-encoded on the wire but written decoded in file names/links — same URL either way).
-All AR pages render `<html lang="ar" dir="rtl">`; components take a `lang` prop (no duplicated
-markup); shared strings/routes live in `src/i18n.ts`.
-
-| Route (live slug, preserved) | Source | EN counterpart |
-|---|---|---|
-| `/ar/الرئيسية/` | src/pages/ar/الرئيسية.astro | `/` |
-| `/ar/about-ar/` | src/pages/ar/about-ar.astro | `/about/` |
-| `/ar/products-ar/` | src/pages/ar/products-ar.astro | `/products/` |
-| `/ar/faqs-ar/` | src/pages/ar/faqs-ar.astro (5 AR Q&As from the faqs collection) | `/faqs/` |
-| `/ar/contact-ar/` | src/pages/ar/contact-ar.astro (form UI-only, like EN) | `/contact/` |
-| `/ar/return-refund-policy-ar/` | src/pages/ar/return-refund-policy-ar.astro | `/return-refund-policy/` |
-| `/ar/product/بخاخ-زعفران200-مل-طبيعي-100-فوود-هاكس/` | ar/product/[...slug].astro | `/product/saffron-spray-200ml/` |
-| `/ar/product/extra-virgin-olive-oil-spray-200ml-2/` | ar/product/[...slug].astro | `/product/extra-virgin-olive-oil-spray-200ml/` |
-| `/ar/product/truffle-flavoured-extra-virgin-olive-oil-spray-125ml-2/` | ar/product/[...slug].astro | `/product/truffle-flavoured-extra-virgin-olive-oil-spray-125ml/` |
-
-`/ar/` itself 301s to `/ar/الرئيسية/` on live WP; reproduced via `redirects` in
-`astro.config.mjs` (static meta-refresh page — make it a real 301 on the host, see
-DEPLOYMENT.md). Live AR single-FAQ URLs (`/ar/faq/<arabic-slug>/`) are folded into
-`/ar/faqs-ar/`, mirroring the EN `/faq/* → /faqs/` decision.
-
-**i18n architecture:** no Astro `i18n` config — plain file-based `/ar/` pages + a `lang`
-(`'en' | 'ar'`, default `en`) field on both content collections, filtered per page. AR products
-pair with EN via a `translationKey` frontmatter field (drives hreflang + the product-page
-switcher). AR product/FAQ `.md` files sit next to the EN ones in the same collections; product
-**file names are the live slugs** (the AR saffron file name is its Arabic slug).
-
-**Live-content quirks kept verbatim:** the 2nd/3rd AR product titles are English on the live
-AR site too ("Extra Virgin Olive Oil Spray 200mL", "Truffle Flavoured … 125mL"); the AR policy
-list items have stray leading periods/word-joiners. One deliberate improvement: live Polylang
-left the **saffron** EN↔AR pair unlinked ("no-translation" — its switcher/hreflang fell back to
-the AR home); the rebuild links and hreflang-pairs the real counterparts.
+**Live-content quirks kept verbatim:** the 2nd/3rd AR product titles are English on
+the live AR site too ("Extra Virgin Olive Oil Spray 200mL", "Truffle Flavoured …
+125mL"); the AR policy list items have stray leading periods/word-joiners. One
+deliberate improvement carried over from the original AR migration: live Polylang
+left the **saffron** EN↔AR pair unlinked ("no-translation"); this rebuild links and
+hreflang-pairs the real counterparts.
 
 ### Other WP sitemap items
 - WP `footer-sitemap.xml` items (footer-logo/subscribe/contact/social widgets, EN+AR) — content
@@ -204,21 +275,26 @@ including the odd `_20` URL-encoding artifacts like `Banner_20Home_20Page.png`).
 - **No Recipe/Article schema and no RSS** — evaluated and inapplicable: the site has no recipes
   or articles/posts. If the owner adds a recipes/blog section later, add `@astrojs/rss` + an
   `articles` collection with Article/Recipe schema then.
-- `public/robots.txt` (points to `/sitemap-index.xml`), `@astrojs/sitemap` integration.
-- `public/llms.txt` — brand/product/facts summary for generative engines (incl. an AR section).
-- **hreflang**: every page emits `en` + `ar` + `x-default` (x-default → the EN page) alternates
-  in BaseLayout, both directions, plus `og:locale` (`ar_AR` on /ar/) and `og:locale:alternate` —
-  matching the live Yoast/Polylang heads (which emitted en+ar; x-default is an addition).
-  AR pages carry their own live Yoast titles/descriptions. The sitemap includes all AR URLs
-  (percent-encoded).
+- `public/robots.txt` (points to `/sitemap-index.xml`), `@astrojs/sitemap` integration —
+  regenerated automatically on every build from the current page set (18 URLs: 9 AR + 9 EN,
+  no `/ar/` prefixes, no redirect stubs).
+- `public/llms.txt` — brand/product/facts summary for generative engines, updated for the
+  new URL structure (Arabic section uses root URLs, English section uses `/en/...`).
+- **hreflang**: every page emits `ar` + `en` + `x-default` alternates in BaseLayout, both
+  directions, **x-default now points at the Arabic URL** (flipped 2026-07-12 — Arabic is the
+  default locale; previously x-default pointed at EN), plus `og:locale` (`ar_AR` on Arabic
+  pages, `en_US` on `/en/...`) and `og:locale:alternate`. AR pages carry their own live Yoast
+  titles/descriptions. The sitemap includes the AR product URL that needs percent-encoding.
 
 ## Known gaps / TODOs (priority order)
 
-1. **Contact form backend** — WP used Contact Form 7 + reCAPTCHA v3. Wire the form in
-   `contact.astro` to Formspree/Basin/serverless before launch (currently `action="#"`).
-2. **Redirects** — WP FAQ URLs that changed shape should 301: `/faq/<slug>/` → `/faqs/` and
-   `/ar/faq/<slug>/` → `/ar/faqs-ar/`; `/ar/` → `/ar/الرئيسية/` should be a real 301 on the
-   host (the build only emits a meta-refresh page). Product URLs kept their live shapes.
+1. **Contact form backend** — WP used Contact Form 7 + reCAPTCHA v3. Wire the forms in
+   `src/pages/en/contact.astro` and `src/pages/contact-ar.astro` to Formspree/Basin/serverless
+   before launch (currently `action="#"`).
+2. **Redirects** — see DEPLOYMENT.md's "301 redirects" section for the full old→new URL map
+   (old EN-root pages → `/en/...`, old `/ar/...` pages → new AR-at-root) that must be added
+   at the host level before launch, plus the pre-existing WP FAQ-URL redirects
+   (`/faq/<slug>/` → `/en/faqs/`, `/ar/faq/<slug>/` → `/faqs-ar/`).
 3. Product body copy expansion (owner input) + real product photos beyond the 3 renders.
 4. Newsletter — footer promises one; hook up a provider (Mailchimp/Buttondown) or remove the blurb.
 5. Meta Pixel/analytics: the WP site had none on foodhacks.co pages themselves; ask owner if
@@ -237,15 +313,33 @@ including the odd `_20` URL-encoding artifacts like `Banner_20Home_20Page.png`).
 ## Repo map
 
 ```
-astro.config.mjs        # site: https://foodhacks.co, sitemap, tailwind vite plugin
+astro.config.mjs        # site: https://foodhacks.co, sitemap, tailwind vite plugin,
+                         # redirects (/ar -> /, /ar/الرئيسية -> /)
 src/content.config.ts   # products + faqs collections (zod; lang + translationKey fields)
-src/content/            # 6 products (3 EN + 3 AR), 10 faqs (5 EN + 5 AR) (markdown)
-src/i18n.ts             # EN/AR route pairs, nav (per-locale order), switcher, UI strings
-src/layouts/BaseLayout.astro   # SEO head (lang/dir, hreflang, og:locale) + JSON-LD graph builder
-src/components/         # Header, Footer, PageHero, ProductCard (lang-aware)
-src/pages/              # index, about, products, product/[...slug], faqs, contact, return-refund-policy
-src/pages/ar/           # الرئيسية, about-ar, products-ar, faqs-ar, contact-ar, return-refund-policy-ar, product/[...slug]
-src/styles/global.css   # @theme tokens, @font-face, .btn-brand
-public/                 # images/, fonts/, favicon.png, robots.txt, llms.txt
-source-assets/          # originals + MANIFEST.md + raw page snapshots + theme css
+src/content/            # 6 products (3 EN + 3 AR), 10 faqs (5 EN + 5 AR) (markdown) — reused
+                         # verbatim across the Bold promotion, unchanged
+src/i18n.ts             # EN/AR route pairs (AR at root, EN under /en/), nav (per-locale
+                         # order), switcher, UI strings incl. Bold-only bento/counter copy
+src/layouts/BaseLayout.astro   # Bold design (skip-link, sticky Order-Now CTA, reveal/counter
+                         # script) + SEO head (lang/dir, hreflang w/ x-default->AR, og:locale)
+                         # + JSON-LD graph builder
+src/components/         # Header, Footer, PageHero, ProductCard — Bold-styled, lang-aware,
+                         # RTL-safe via CSS logical properties
+src/pages/              # index.astro (AR home, root), about-ar, products-ar, faqs-ar,
+                         # contact-ar, return-refund-policy-ar, product/[...slug] (AR)
+src/pages/en/           # index, about, products, faqs, contact, return-refund-policy,
+                         # product/[...slug] (EN, all under /en/)
+src/styles/global.css   # @theme tokens (incl. Bold's ink-deep/lime/emerald/brand-deep),
+                         # @font-face, Bold primitives (.display/.mesh-navy/.tile/.reveal/...),
+                         # logical-property rules throughout (no left/right)
+public/                 # images/, fonts/, favicon.png, robots.txt, llms.txt (URLs updated
+                         # for the AR-at-root/EN-under-/en/ scheme)
+source-assets/           # originals + MANIFEST.md + raw page snapshots + theme css
+variants/premium/, variants/editorial/   # remaining alternative design explorations
+                         # (variants/bold/ no longer exists — promoted to become this
+                         # root project on 2026-07-12)
 ```
+
+A full pre-promotion snapshot (old white-canvas master, old EN-root/AR-under-`/ar/`
+URL scheme, and `variants/bold/` itself) is preserved on the **`pre-bold-promotion`**
+git branch.

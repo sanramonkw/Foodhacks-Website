@@ -1,28 +1,44 @@
 @import "tailwindcss";
 
 /*
-  Design tokens extracted verbatim from the live WordPress theme
-  (wp-content/themes/foodhacks-wp/style.css, "Theme Name: Food Hacks").
+  BOLD INNOVATION design — "Spray Lab" food-tech energy (promoted to the
+  root site design 2026-07-12, merged with the EN/AR i18n layer).
+  Brand tokens preserved from the live theme (#8dbf44 green, #092e52 navy,
+  IBM Plex Sans Arabic self-hosted). New: navy-dominant canvas, lime to
+  emerald gradient meshes, oversized display type, bento grid, sticker
+  badges, diagonal breaks, scroll reveals + animated counters
+  (IntersectionObserver, transform and opacity only, reduced-motion safe).
+
+  RTL note: directional Tailwind utility classes in the .astro components
+  and pages use logical variants (start-N, end-N, ms-N, me-N, text-start,
+  text-end) instead of physical left-N, right-N, text-left, text-right so
+  the whole design mirrors correctly when dir=rtl (Arabic, the default
+  locale). The couple of primitives here that cannot use a logical CSS
+  property get an explicit dir=rtl override instead (transform-origin has
+  no logical keyword in stable CSS).
 */
 @theme {
-  /* brand colors */
-  --color-brand: #8dbf44;          /* .txt-green / .bg-green / buttons / accordion borders */
-  --color-brand-hover: #acd76e;    /* .panel-projects:hover product-card bg */
-  --color-ink: #092e52;            /* .section-bg1 .content h1, .txt-blue3 (unused on rebuilt pages) */
-  --color-footer: #f2f2f2;         /* footer .bg-gray (light gray, black text) */
-  --color-faq-panel: #e6ffc2;      /* .panel-faq open-answer background */
-  --color-rule: #d9d9d9;           /* hr color */
-  --color-link-hover: #404040;     /* a:hover */
-  --color-nav-hover: #787878;      /* #header nav a:hover / .active */
+  /* brand colors — preserved */
+  --color-brand: #8dbf44;          /* signature green (6.4:1 on ink navy) */
+  --color-brand-hover: #acd76e;
+  --color-ink: #092e52;            /* ink navy */
+  --color-ink-deep: #061e37;       /* deeper navy shade for gradients */
+  --color-lime: #d7f5a2;           /* light shade of brand green (accents on navy) */
+  --color-emerald: #3f8f56;        /* deep shade of brand green (gradient partner) */
+  --color-brand-deep: #567f2b;     /* AA-safe green for text on white (4.7:1) */
+  --color-footer: #f2f2f2;
+  --color-faq-panel: #e6ffc2;
+  --color-rule: #d9d9d9;
+  --color-link-hover: #404040;
+  --color-nav-hover: #787878;
 
   /* typography — self-hosted IBM Plex Sans Arabic, as on the WP theme */
-  --font-body: "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;      /* FontBody */
-  --font-head: "IBM Plex Sans Arabic Bold", "IBM Plex Sans Arabic", sans-serif;   /* FontHead */
-  --font-head2: "IBM Plex Sans Arabic Medium", "IBM Plex Sans Arabic", sans-serif;/* FontHead2 */
+  --font-body: "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
+  --font-head: "IBM Plex Sans Arabic Bold", "IBM Plex Sans Arabic", sans-serif;
+  --font-head2: "IBM Plex Sans Arabic Medium", "IBM Plex Sans Arabic", sans-serif;
 
-  /* layout feel from the theme */
-  --radius-card: 20px;             /* section-page / footer rounded blocks */
-  --radius-btn: 12px;              /* .btn-default */
+  --radius-card: 20px;
+  --radius-btn: 12px;
 }
 
 /* @font-face — same four cuts the theme self-hosts */
@@ -55,130 +71,289 @@
   font-display: swap;
 }
 
-/* base — mirrors body/p/h rules of the original theme */
+/* ---------- base ---------- */
 body {
   font-family: var(--font-body);
   font-size: 16px;
-  color: #000;
+  color: #0b1220;
   background: #fff;
 }
-/* theme: h1,h2,h3 { FontHead } then h3,h4,h5,h6 { FontHead2 } — so h3 ends up FontHead2.
-   Headings have no color rule in the theme; they inherit body #000. */
-h1, h2 {
+h1, h2 { font-family: var(--font-head); }
+h3, h4, h5, h6 { font-family: var(--font-head2); }
+p { line-height: 27px; }
+::selection { color: var(--color-ink); background: var(--color-brand-hover); }
+
+/* strong, consistent focus for keyboard users */
+:focus-visible {
+  outline: 3px solid var(--color-brand);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.on-dark :focus-visible { outline-color: var(--color-lime); }
+
+/* ---------- display type ---------- */
+.display {
   font-family: var(--font-head);
+  text-transform: uppercase;
+  letter-spacing: -0.015em;
+  line-height: 0.98;
 }
-h3, h4, h5, h6 {
+.eyebrow {
   font-family: var(--font-head2);
-}
-p {
-  line-height: 27px;
-}
-::selection {
-  color: #fff;
-  background: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-size: 12px;
 }
 
-/* .btn-default reproduction: green pill, slide-to-black hover gradient */
-.btn-brand {
-  display: inline-block;
+/* ---------- gradient mesh fields ---------- */
+.mesh-navy {
+  background-color: var(--color-ink-deep);
+  background-image:
+    radial-gradient(42rem 28rem at 12% -8%, rgba(141, 191, 68, 0.34), transparent 60%),
+    radial-gradient(38rem 30rem at 95% 12%, rgba(63, 143, 86, 0.38), transparent 62%),
+    radial-gradient(30rem 24rem at 70% 105%, rgba(141, 191, 68, 0.20), transparent 60%),
+    linear-gradient(160deg, var(--color-ink) 0%, var(--color-ink-deep) 70%);
+}
+/* light green field — stays AA (4.5:1+) for ink-navy text across the whole run */
+.mesh-green {
+  background-image: linear-gradient(120deg, var(--color-brand-hover) 0%, var(--color-brand) 100%);
+}
+
+/* faint dotted grid texture for hero fields */
+.dotgrid {
+  background-image: radial-gradient(rgba(215, 245, 162, 0.14) 1px, transparent 1.5px);
+  background-size: 26px 26px;
+}
+
+/* ---------- diagonal section breaks ---------- */
+.diag-bottom { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3.5vw), 0 100%); }
+.diag-top { clip-path: polygon(0 3.5vw, 100% 0, 100% 100%, 0 100%); }
+.diag-both { clip-path: polygon(0 3.5vw, 100% 0, 100% calc(100% - 3.5vw), 0 100%); }
+
+/* ---------- buttons ---------- */
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   border: 0;
-  background: linear-gradient(to right, var(--color-brand) 50%, #000 50%);
-  background-size: 203% 103%;
-  background-position: left bottom;
-  color: #fff;
-  border-radius: var(--radius-btn);
-  padding: 15px 30px;
+  background: var(--color-brand);
+  color: var(--color-ink);
+  font-family: var(--font-head);
   font-size: 15px;
-  font-family: var(--font-head2);
-  text-align: center;
-  transition: all 0.3s ease-out;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 999px;
+  padding: 16px 32px;
   cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+  box-shadow: 0 6px 0 rgba(6, 30, 55, 0.28);
 }
-.btn-brand:hover,
-.btn-brand:focus {
-  background-position: right bottom;
+.btn-cta:hover, .btn-cta:focus-visible {
+  background: var(--color-brand-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 9px 0 rgba(6, 30, 55, 0.28);
+}
+.btn-cta:active { transform: translateY(0); box-shadow: 0 3px 0 rgba(6, 30, 55, 0.28); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 2px solid rgba(215, 245, 162, 0.55);
+  background: transparent;
   color: #fff;
-  transition: all 0.6s ease-out;
+  font-family: var(--font-head);
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 999px;
+  padding: 14px 30px;
+  transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+}
+.btn-ghost:hover, .btn-ghost:focus-visible {
+  border-color: var(--color-brand);
+  background: rgba(141, 191, 68, 0.14);
+  transform: translateY(-3px);
 }
 
-/* header nav link: black, hover #787878 with animated green underline
-   (.navbar-nav > li > a + its :after rule in the theme) */
+/* ---------- sticker / badge motifs ---------- */
+.sticker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-head);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 2px dashed currentColor;
+  white-space: nowrap;
+}
+.sticker-solid {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-head);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: var(--color-brand);
+  color: var(--color-ink);
+  box-shadow: 0 4px 0 rgba(6, 30, 55, 0.25);
+  white-space: nowrap;
+}
+
+/* ---------- header nav (dark bar) ---------- */
 .nav-link {
   font-family: var(--font-head2);
-  font-size: 15px;
-  color: #000;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: #fff;
   transition: color 0.3s;
+  position: relative;
+  padding-bottom: 6px;
 }
-.nav-link:hover,
-.nav-link:focus {
-  color: var(--color-nav-hover);
-}
+.nav-link:hover, .nav-link:focus { color: var(--color-lime); }
 .nav-link::after {
-  display: block;
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
   content: '';
-  padding-top: 10px;
-  border-bottom: 1px solid var(--color-brand);
+  border-bottom: 2px solid var(--color-brand);
   transform: scaleX(0);
+  /* underline grows from the start of reading order; transform-origin has
+     no logical keyword in stable CSS, so fall back to a dir override */
+  transform-origin: left;
   transition: transform 250ms ease-in-out;
 }
-.nav-link:hover::after {
-  transform: scaleX(1);
+[dir='rtl'] .nav-link::after { transform-origin: right; }
+.nav-link:hover::after { transform: scaleX(1); }
+.nav-link-current { color: var(--color-brand); }
+.nav-link-current::after { transform: scaleX(1); }
+
+/* ---------- bento tiles ---------- */
+.tile {
+  border-radius: 24px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
-/* live WP marks the current page's menu item green (except on the homepage,
-   where #header.thisHome forces black — Header.astro only adds this class
-   off-home) */
-.nav-link-current {
-  color: var(--color-brand);
+.tile-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px -18px rgba(6, 30, 55, 0.45);
 }
 
-/* FAQ accordion — reproduction of the theme's .accordion / .panel-faq,
-   on native <details>/<summary> */
+/* rotated product "polaroid" render */
+.render-card {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px -20px rgba(6, 30, 55, 0.55);
+  transition: transform 0.35s ease;
+}
+
+/* ---------- FAQ accordion — bold rows ---------- */
+.faq-item {
+  border: 2px solid var(--color-ink);
+  border-radius: 18px;
+  margin-bottom: 14px;
+  background: #fff;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.faq-item:hover { box-shadow: 6px 6px 0 rgba(141, 191, 68, 0.9); transform: translate(-2px, -2px); }
 .faq-item summary {
   cursor: pointer;
   list-style: none;
-  padding: 20px 15px;
-  border-bottom: 1px solid var(--color-brand);
-  transition: 0.4s;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 22px;
+  font-family: var(--font-head2);
+  font-size: 17px;
+  color: var(--color-ink);
 }
-.faq-item summary::-webkit-details-marker {
-  display: none;
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-num {
+  font-family: var(--font-head);
+  font-size: 13px;
+  color: var(--color-brand-deep);
+  min-width: 2.2em;
 }
-.faq-item summary::after {
-  content: '\2795'; /* heavy plus sign, as in the theme */
-  font-size: 12px;
-  float: inline-end; /* logical: right in LTR, left on the RTL /ar/ pages */
-  margin-inline-start: 5px;
+.faq-icon {
+  margin-inline-start: auto;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: var(--color-brand);
+  color: var(--color-ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-head);
+  font-size: 18px;
+  transition: transform 0.3s ease;
 }
-.faq-item[open] summary::after {
-  content: '\2796'; /* heavy minus sign */
-}
+.faq-icon::before { content: '+'; }
+.faq-item[open] .faq-icon { transform: rotate(45deg); }
 .faq-item .faq-answer {
-  padding: 20px;
-  background-color: var(--color-faq-panel);
-  border-radius: 16px;
-  margin-top: 15px;
+  padding: 4px 22px 22px 22px;
+  background: var(--color-faq-panel);
+  border-top: 2px solid var(--color-ink);
 }
+.faq-item .faq-answer p { padding-top: 16px; }
 
-/* contact form fields — reproduction of the theme's .wpcf7-form input/textarea */
+/* ---------- contact form fields ---------- */
 .field-line {
   background: transparent;
   border: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-  padding: 10px;
+  border-bottom: 2px solid rgba(9, 46, 82, 0.35);
+  padding: 12px 10px;
   width: 100%;
-  color: #000;
+  color: var(--color-ink);
   border-radius: 0;
   margin-bottom: 10px;
   font-size: inherit;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
 }
+.field-line::placeholder { color: rgba(9, 46, 82, 0.62); }
 .field-line:focus {
-  border: 0;
-  color: #000;
-  background: #bff2fa;
+  border-bottom-color: var(--color-brand);
+  background: rgba(141, 191, 68, 0.10);
   box-shadow: none;
   outline: none;
-  border-radius: 8px;
+  border-radius: 8px 8px 0 0;
 }
-textarea.field-line {
-  max-height: 160px;
+textarea.field-line { max-height: 160px; }
+
+/* ---------- scroll reveals (JS adds .is-in; no-JS = always visible) ---------- */
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+html.js .reveal.is-in { opacity: 1; transform: none; }
+html.js .reveal-d1 { transition-delay: 0.08s; }
+html.js .reveal-d2 { transition-delay: 0.16s; }
+html.js .reveal-d3 { transition-delay: 0.24s; }
+
+/* gentle float for hero renders */
+@keyframes floaty {
+  0%, 100% { transform: translateY(0) rotate(var(--tilt, 0deg)); }
+  50% { transform: translateY(-10px) rotate(var(--tilt, 0deg)); }
+}
+.floaty { animation: floaty 7s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .reveal { opacity: 1; transform: none; transition: none; }
+  .floaty { animation: none; }
+  .tile, .btn-cta, .btn-ghost, .faq-item, .render-card { transition: none; }
+}
+
+/* mobile display-type safety */
+@media (max-width: 480px) {
+  .display { letter-spacing: 0; }
 }

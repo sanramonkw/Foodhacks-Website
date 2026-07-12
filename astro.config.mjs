@@ -6,10 +6,13 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://foodhacks.co',
-  // live WP 301s /ar/ -> /ar/الرئيسية/ (the Polylang AR home slug); static
-  // build emits a meta-refresh page here — turn it into a real 301 on the host
+  // Arabic is now the default locale, served at the root with no prefix
+  // (Bold-design promotion, 2026-07-12). Both legacy Polylang AR-home URLs
+  // now land on "/" — static build emits meta-refresh pages here, turn them
+  // into real 301s on the host.
   redirects: {
-    '/ar': '/ar/الرئيسية',
+    '/ar': '/',
+    '/ar/الرئيسية': '/',
   },
   integrations: [sitemap()],
   vite: {

@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { routes, productPath, t } from '../../i18n';
+
+const products = (await getCollection('products', (p) => p.data.lang === 'en')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const itemList = {
+  '@type': 'ItemList',
+  '@id': 'https://foodhacks.co/en/products/#itemlist',
+  name: 'Food Hacks Products',
+  itemListElement: products.map((p, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: new URL(productPath('en', p.id), 'https://foodhacks.co').href,
+    name: p.data.title,
+  })),
+};
+---
+
+<BaseLayout
+  title="Our Products - Food Hacks"
+  description="The Food Hacks range: Saffron Spray, Extra Virgin Olive Oil Spray, and Truffle Flavoured Extra Virgin Olive Oil Spray — 100% natural non-stick cooking sprays."
+  lang="en"
+  altHref={routes.products.ar}
+  schema={[itemList]}
+>
+  <PageHero title="Our Products" subtitle={t.en.threeFlavours} />
+
+  <!-- staggered bento grid of the 3 sprays -->
+  <section class="mx-auto max-w-[1180px] px-4 pb-24 pt-16">
+    <div class="grid gap-6 md:grid-cols-3">
+      {products.map((product, i) => (
+        <div class:list={['reveal', i === 1 && 'reveal-d1 md:translate-y-8', i === 2 && 'reveal-d2']}>
+          <ProductCard product={product} tilt={i % 2 === 0 ? -3 : 3} />
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

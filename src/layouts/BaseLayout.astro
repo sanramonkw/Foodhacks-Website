@@ -1,8 +1,12 @@
 ---
+// BOLD design (promoted 2026-07-12) merged with the EN/AR i18n plumbing:
+// lang/dir, hreflang, og:locale, JSON-LD graph (Organization/WebSite) from
+// the previous master layout, plus Bold's skip-link, sticky Order-Now CTA,
+// scroll-reveal/counter script and the html.js gate.
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { dirFor, t, type Lang } from '../i18n';
+import { dirFor, orderUrl, t, type Lang } from '../i18n';
 
 interface Props {
   title: string;
@@ -23,7 +27,7 @@ const {
   ogImage = '/images/Banner_20Home_20Page.png',
   ogType = 'website',
   schema = [],
-  lang = 'en',
+  lang = 'ar',
   altHref,
 } = Astro.props;
 
@@ -34,7 +38,8 @@ const canonical = new URL(Astro.url.pathname, site).href;
 const ogImageAbs = new URL(ogImage, site).href;
 const altAbs = altHref ? new URL(altHref, site).href : undefined;
 
-// hreflang pairs (live WP emitted en + ar; x-default added, pointing at the EN page)
+// hreflang pairs. Arabic is now the default locale, so x-default points at
+// the AR page (flipped from the pre-promotion layout, which pointed at EN).
 const hreflangs: { hreflang: string; href: string }[] = [];
 if (altAbs) {
   const enHref = lang === 'en' ? canonical : altAbs;
@@ -42,7 +47,7 @@ if (altAbs) {
   hreflangs.push(
     { hreflang: 'en', href: enHref },
     { hreflang: 'ar', href: arHref },
-    { hreflang: 'x-default', href: enHref },
+    { hreflang: 'x-default', href: arHref },
   );
 }
 
@@ -87,6 +92,8 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [organization, website, ...schema],
 };
+
+const ctaHref = orderUrl[lang];
 ---
 
 <!doctype html>
@@ -120,12 +127,87 @@ const jsonLd = {
     <meta name="twitter:image" content={ogImageAbs} />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- flag JS availability so scroll-reveal styles only apply when they can be undone -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body class="min-h-screen bg-white text-black antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-5 focus:py-3 focus:text-white"
+    >
+      {t[lang].skipToContent}
+    </a>
     <Header lang={lang} altHref={altHref} />
-    <main>
+    <main id="main">
       <slot />
     </main>
     <Footer lang={lang} />
+
+    <!-- bold sticky Order Now CTA (external shop, as on the live nav) -->
+    <a
+      href={ctaHref}
+      target="_blank"
+      rel="noopener"
+      class="btn-cta fixed bottom-5 end-5 z-50 !px-6 !py-3.5 !text-[13px] print:hidden"
+      aria-label={t[lang].orderNowAria}
+    >
+      <span aria-hidden="true" class="inline-block h-2 w-2 rounded-full bg-ink"></span>
+      {t[lang].orderNow}
+    </a>
+
+    <!-- kinetic scroll reveals + animated counters.
+         Tiny inline module: IntersectionObserver only, transform/opacity only,
+         fully skipped under prefers-reduced-motion (content stays visible). -->
+    <script is:inline>
+      (function () {
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var reveals = document.querySelectorAll('.reveal');
+        var counters = document.querySelectorAll('[data-count]');
+
+        function finishCounter(el) {
+          el.textContent = el.getAttribute('data-count');
+        }
+
+        if (reduce || !('IntersectionObserver' in window)) {
+          reveals.forEach(function (el) { el.classList.add('is-in'); });
+          counters.forEach(finishCounter);
+          return;
+        }
+
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (!entry.isIntersecting) return;
+              var el = entry.target;
+              el.classList.add('is-in');
+              if (el.hasAttribute('data-count')) animateCount(el);
+              io.unobserve(el);
+            });
+          },
+          { threshold: 0.12, rootMargin: '12% 0px 0px 0px' }
+        );
+
+        function animateCount(el) {
+          var target = parseInt(el.getAttribute('data-count'), 10);
+          if (isNaN(target)) return finishCounter(el);
+          var start = null;
+          var dur = 1200;
+          function step(ts) {
+            if (start === null) start = ts;
+            var p = Math.min((ts - start) / dur, 1);
+            var eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = String(Math.round(target * eased));
+            if (p < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        }
+
+        reveals.forEach(function (el) { io.observe(el); });
+        counters.forEach(function (el) {
+          if (!el.classList.contains('reveal')) io.observe(el);
+        });
+      })();
+    </script>
   </body>
 </html>

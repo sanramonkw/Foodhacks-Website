@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { routes, t } from '../i18n';
+---
+
+<BaseLayout
+  title="سياسة الإرجاع واسترداد الأموال - فود هاكز"
+  description="سياسة الإرجاع واسترداد الأموال لدى فود هاكز: الاستبدال والاسترداد خلال 14 يومًا، ومعالجة عيوب التصنيع خلال 30 يومًا."
+  lang="ar"
+  altHref={routes.policy.en}
+>
+  <PageHero title="سياسة الإرجاع واسترداد الأموال" subtitle={t.ar.fairSimple} />
+
+  <!-- copy verbatim from the live AR page, including its stray leading
+       periods / word-joiner characters inside list items — kept deliberately,
+       like the EN page's double period (ask owner before fixing) -->
+  <section class="mx-auto max-w-4xl space-y-8 px-4 pb-24 pt-16">
+    <div class="tile reveal border-2 border-ink bg-white p-8 shadow-[8px_8px_0_rgba(141,191,68,0.9)] md:p-10">
+      <div class="flex items-baseline gap-4">
+        <span class="display text-[clamp(40px,5vw,64px)] text-brand-deep" aria-hidden="true">14</span>
+        <p class="font-head text-[19px] text-ink"><b>الاستبدال واسترداد الأموال خلال 14 يومًا</b></p>
+      </div>
+      <p class="mt-5">إذا غيرت رأيك بشأن شراء فود هاكز، فيمكنك طلب استبدال أو استرداد الأموال وفقًا للشروط التالية:</p>
+      <ul class="mt-4 list-disc space-y-2 ps-6 marker:text-brand-deep">
+        <li>.⁠الإطار الزمني: اتصل بنا خلال 14 يومًا من تاريخ الشراء</li>
+        <li>الحالة: تأكد من أن منتجك لا يزال في حالته الأصلية غير المفتوحة.</li>
+        <li>⁠إثبات الشراء: اجعل إيصالك أو إثبات الشراء في متناول يدك.</li>
+        <li>.⁠رسوم الشحن: يرجى ملاحظة أن رسوم الشحن غير قابلة للاسترداد</li>
+      </ul>
+      <p class="mt-5">
+        لبدء الإرجاع أو الاستبدال، ما عليك سوى الاتصال بفريق خدمة العملاء لدينا وتزويده بتفاصيل
+        طلبك وسبب الإرجاع. سنرشدك بخطوات ارجاعها مرة أخرى.
+      </p>
+    </div>
+
+    <div class="on-dark tile reveal reveal-d1 mesh-navy relative overflow-hidden p-8 text-white md:p-10">
+      <div class="dotgrid pointer-events-none absolute inset-0" aria-hidden="true"></div>
+      <div class="relative">
+        <div class="flex items-baseline gap-4">
+          <span class="display text-[clamp(40px,5vw,64px)] text-brand" aria-hidden="true">30</span>
+          <p class="font-head text-[19px] text-white"><b>عيب تصنيع (خلال 30 يومًا)</b></p>
+        </div>
+        <p class="mt-5 text-white/85">نحن نهتم بالجودة في فود هاكز إذا لاحظت أي عوائق في التصنيع، فنحن هنا لتصحيح الأمر:</p>
+        <ul class="mt-4 list-disc space-y-2 ps-6 text-white/85 marker:text-brand">
+          <li>الإطار الزمني: أخبرنا بذلك خلال 30 يومًا من تاريخ الشراء.</li>
+          <li>الحالة: يجب أن تكون المشكلة متعلقة بعيب في التصنيع.</li>
+          <li>إثبات الشراء: احتفظ بإيصالك أو إثبات الشراء في متناول يديك.</li>
+        </ul>
+        <p class="mt-5 text-white/85">
+          أرسل لنا رسالة تحتوي على تفاصيل طلبك ووصف المشكلة. سيقدم فريقنا تعليمات حول كيفية حل
+          المشكلة، سواء كان ذلك الاستبدال أو استرداد الأموال.
+        </p>
+        <p class="mt-4 text-white/85">
+          لمعالجة مشكلة التصنيع، يرجى الاتصال بفريق خدمة العملاء لدينا مع وصف المشكلة وتفاصيل طلبك.
+          سنقوم بتقييم المشكلة وإرشادك خلال الخطوات التالية
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

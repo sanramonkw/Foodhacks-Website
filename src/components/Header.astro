@@ -4,6 +4,11 @@
 // the live site, not a button). The last item is the Polylang language
 // switcher: "العربية" on EN pages, "EN" on AR pages — it links to the
 // current page's counterpart in the other language (altHref).
+// BOLD variant: fixed navy bar, logo on a white "sticker" chip (the logo art
+// is green + black, so it needs a light surface), Order Now as a solid CTA.
+// RTL: mobile dropdown hangs from the inline-end side (`end-0`, was `right-0`
+// in the English-only Bold source) so it opens from the correct side in both
+// directions.
 import { nav, orderUrl, routes, switcher, t, type Lang } from '../i18n';
 
 interface Props {
@@ -11,7 +16,7 @@ interface Props {
   /** Counterpart of the current page in the other language (switcher target) */
   altHref?: string;
 }
-const { lang = 'en' } = Astro.props;
+const { lang = 'ar' } = Astro.props;
 const other: Lang = lang === 'en' ? 'ar' : 'en';
 const altHref = Astro.props.altHref ?? routes.home[other];
 const items = nav[lang];
@@ -21,54 +26,63 @@ const home = routes.home[lang];
 const path = decodeURI(Astro.url.pathname);
 const isActive = (href: string) =>
   href === home ? path === decodeURI(home) : path.startsWith(decodeURI(href));
-const isHome = path === decodeURI(home);
 ---
 
-<!-- live #header: fixed, solid white, box-shadow 0 0 14px rgba(0,0,0,0.2),
-     logo 150px wide with 10px vertical margins (header ≈ 90px tall).
-     No spacer below: like the live theme, page content tucks behind it
-     (home hero uses mt, .section-page blocks start 20px from the top). -->
-<header class="fixed inset-x-0 top-0 z-50 bg-white shadow-[0_0_14px_rgba(0,0,0,0.2)]">
-  <div class="mx-auto flex max-w-[1180px] items-center justify-between px-4 py-[10px]">
-    <a href={home} title={t[lang].siteName} rel="home" class="shrink-0">
-      <img src="/images/logo.png" alt={t[lang].siteName} class="w-[150px] h-auto" width="640" height="300" />
+<header class="on-dark fixed inset-x-0 top-0 z-50 border-b-2 border-brand/60 bg-ink-deep/95 backdrop-blur-sm">
+  <div class="mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-4 py-2.5">
+    <a href={home} title={t[lang].siteName} rel="home" class="shrink-0 rounded-2xl bg-white px-3 py-1.5 shadow-[0_4px_0_rgba(141,191,68,0.6)]">
+      <img src="/images/logo.png" alt={t[lang].siteName} class="h-auto w-[108px]" width="640" height="300" />
     </a>
 
-    <nav class="hidden items-center gap-8 lg:flex" aria-label="Main">
+    <nav class="hidden items-center gap-6 xl:gap-7 lg:flex" aria-label="Main">
       {items.map((item) => (
         <a
           href={item.href}
-          class:list={[
-            'nav-link',
-            /* current item is green on inner pages, black on home (#header.thisHome) */
-            isActive(item.href) && !isHome && 'nav-link-current',
-          ]}
+          class:list={['nav-link', isActive(item.href) && 'nav-link-current']}
           aria-current={isActive(item.href) ? 'page' : undefined}
         >
           {item.label}
         </a>
       ))}
-      <a href={orderUrl[lang]} target="_blank" rel="noopener" class="nav-link">{t[lang].orderNow}</a>
+      <a href={orderUrl[lang]} target="_blank" rel="noopener" class="btn-cta !px-6 !py-3 !text-[13px]">
+        {t[lang].orderNow}
+      </a>
       <a href={altHref} lang={other} hreflang={sw.hreflang} class="nav-link">{sw.label}</a>
     </nav>
 
     <!-- mobile nav -->
     <details class="relative lg:hidden">
-      <summary class="cursor-pointer list-none p-2 text-2xl" aria-label={t[lang].openMenu}>&#9776;</summary>
-      <nav class="absolute end-0 mt-2 w-64 rounded-[12px] border border-rule bg-white p-4 shadow-lg" aria-label="Mobile">
-        <ul class="space-y-3">
+      <summary
+        class="flex cursor-pointer list-none items-center gap-2 rounded-full border-2 border-brand px-4 py-2 font-head text-[13px] uppercase tracking-wider text-white"
+        aria-label={t[lang].openMenu}
+      >
+        {t[lang].openMenu}
+      </summary>
+      <nav class="absolute end-0 mt-3 w-72 rounded-3xl border-2 border-brand bg-ink-deep p-5 shadow-[0_24px_48px_-12px_rgba(0,0,0,0.6)]" aria-label="Mobile">
+        <ul class="space-y-4">
           {items.map((item) => (
             <li>
-              <a href={item.href} class:list={['block', isActive(item.href) ? 'text-brand' : 'text-black']}>
+              <a
+                href={item.href}
+                class:list={[
+                  'block font-head2 text-[15px]',
+                  isActive(item.href) ? 'text-brand' : 'text-white',
+                ]}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
                 {item.label}
               </a>
             </li>
           ))}
-          <li>
-            <a href={orderUrl[lang]} target="_blank" rel="noopener" class="block text-black">{t[lang].orderNow}</a>
+          <li class="pt-1">
+            <a href={orderUrl[lang]} target="_blank" rel="noopener" class="btn-cta w-full !py-3 !text-[13px]">
+              {t[lang].orderNow}
+            </a>
           </li>
           <li>
-            <a href={altHref} lang={other} hreflang={sw.hreflang} class="block text-black">{sw.label}</a>
+            <a href={altHref} lang={other} hreflang={sw.hreflang} class="block text-center font-head2 text-[15px] text-white">
+              {sw.label}
+            </a>
           </li>
         </ul>
       </nav>

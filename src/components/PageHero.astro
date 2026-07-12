@@ -1,8 +1,9 @@
 ---
-// Reproduction of the theme's .section-page banner: green (#8dbf44) block,
-// margin 20px / radius 20px, padding-top 140px (its top edge sits behind the
-// fixed 90px header), white 35px h1; optional h3 subtitle pill
-// (span with rgba(0,0,0,0.1) background, radius 30px).
+// BOLD page hero: navy gradient-mesh field with dotted grid texture,
+// oversized uppercase display h1, optional sticker-pill subtitle, diagonal
+// bottom edge. Sits behind the fixed header like the original .section-page.
+// Centered text/layout is already direction-neutral; no logical-property
+// changes were needed beyond that (no icons or asymmetric elements here).
 interface Props {
   title: string;
   subtitle?: string;
@@ -10,12 +11,16 @@ interface Props {
 const { title, subtitle } = Astro.props;
 ---
 
-<section class="m-5 rounded-card bg-brand px-6 pb-5 pt-[140px] text-center">
-  <h1 class="py-[15px] text-[35px] leading-[44px] !text-white">{title}</h1>
-  {subtitle && (
-    <h3 class="m-[10px] mb-[30px] text-[16px] !text-white">
-      <span class="rounded-[30px] bg-black/10 px-5 py-1.5">{subtitle}</span>
-    </h3>
-  )}
-  <slot />
+<section class="on-dark mesh-navy diag-bottom relative overflow-hidden px-6 pb-[calc(3.5vw+56px)] pt-[150px] text-center text-white">
+  <div class="dotgrid pointer-events-none absolute inset-0" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-[1180px]">
+    {subtitle && (
+      <p class="sticker mb-6 rotate-[-2deg] text-lime">{subtitle}</p>
+    )}
+    <h1 class="display mx-auto max-w-5xl text-[clamp(44px,7vw,92px)] text-white">
+      {title}
+    </h1>
+    <div class="mx-auto mt-7 h-[4px] w-[110px] rounded-full bg-brand"></div>
+    <slot />
+  </div>
 </section>

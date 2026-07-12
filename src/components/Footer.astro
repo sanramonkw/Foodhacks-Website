@@ -1,15 +1,14 @@
 ---
 // Footer content verbatim from the live site (footer widgets + socials),
 // per locale (the AR footer mirrors the EN one with Arabic widget copy).
-// Live footer = <footer class="bg-gray">: light #f2f2f2 rounded block
-// (radius/margin 20px, padding 80px 0 50px), black text, columns 3/3/4/2,
-// 16px widget h3 + 60×2px green line, green 38px circular icons.
+// BOLD variant: deep-navy gradient field with diagonal top edge, lime widget
+// headings, green sticker social buttons — same 4 widgets + copyright.
 import { routes, t, type Lang } from '../i18n';
 
 interface Props {
   lang?: Lang;
 }
-const { lang = 'en' } = Astro.props;
+const { lang = 'ar' } = Astro.props;
 const home = routes.home[lang];
 
 const socials = [
@@ -20,31 +19,31 @@ const socials = [
 ];
 const year = new Date().getFullYear();
 const circle =
-  'inline-flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-full bg-brand text-white transition-colors duration-[400ms]';
+  'inline-flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-full bg-brand text-ink transition-colors duration-[400ms]';
 ---
 
-<footer class="m-5 rounded-card bg-footer px-6 pb-[50px] pt-[80px] text-black">
+<footer class="on-dark mesh-navy diag-top mt-16 px-6 pb-10 pt-[calc(3.5vw+70px)] text-white">
   <div class="mx-auto grid max-w-[1180px] gap-10 md:grid-cols-12">
-    <div class="md:col-span-3">
-      <h3 class="mb-[15px] text-[16px]">{t[lang].footerAbout}</h3>
-      <div class="mb-[30px] h-[2px] w-[60px] rounded-[10px] bg-brand"></div>
-      <p class="my-[15px] text-[14px] leading-[24px]">{t[lang].tagline}</p>
+    <div class="text-start md:col-span-3">
+      <h3 class="mb-[15px] font-head text-[15px] uppercase tracking-[0.18em] text-lime">{t[lang].footerAbout}</h3>
+      <div class="mb-[25px] h-[3px] w-[60px] rounded-[10px] bg-brand"></div>
+      <p class="my-[15px] text-[14px] leading-[24px] text-white/85">{t[lang].tagline}</p>
     </div>
 
-    <div class="md:col-span-3">
-      <h3 class="mb-[15px] text-[16px]">{t[lang].footerNewsletter}</h3>
-      <div class="mb-[30px] h-[2px] w-[60px] rounded-[10px] bg-brand"></div>
-      <p class="my-[15px] text-[14px] leading-[24px]">{t[lang].footerNewsletterBody}</p>
+    <div class="text-start md:col-span-3">
+      <h3 class="mb-[15px] font-head text-[15px] uppercase tracking-[0.18em] text-lime">{t[lang].footerNewsletter}</h3>
+      <div class="mb-[25px] h-[3px] w-[60px] rounded-[10px] bg-brand"></div>
+      <p class="my-[15px] text-[14px] leading-[24px] text-white/85">{t[lang].footerNewsletterBody}</p>
     </div>
 
-    <div class="md:col-span-4">
-      <h3 class="mb-[15px] text-[16px]">{t[lang].footerFollow}</h3>
-      <div class="mb-[30px] h-[2px] w-[60px] rounded-[10px] bg-brand"></div>
+    <div class="text-start md:col-span-3">
+      <h3 class="mb-[15px] font-head text-[15px] uppercase tracking-[0.18em] text-lime">{t[lang].footerFollow}</h3>
+      <div class="mb-[25px] h-[3px] w-[60px] rounded-[10px] bg-brand"></div>
       <ul class="flex items-center gap-3">
         {socials.map((s) => (
           <li>
             <a href={s.href} target="_blank" rel="noopener" aria-label={s.label}
-               class:list={[circle, 'hover:bg-black hover:text-brand']}>
+               class:list={[circle, 'hover:bg-lime']}>
               {s.icon === 'x' && (
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93Zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.41Z"/></svg>
               )}
@@ -63,11 +62,11 @@ const circle =
       </ul>
     </div>
 
-    <div class="md:col-span-2">
-      <h3 class="mb-[15px] text-[16px]">{t[lang].footerContact}</h3>
-      <div class="mb-[30px] h-[2px] w-[60px] rounded-[10px] bg-brand"></div>
+    <div class="text-start md:col-span-3">
+      <h3 class="mb-[15px] font-head text-[15px] uppercase tracking-[0.18em] text-lime">{t[lang].footerContact}</h3>
+      <div class="mb-[25px] h-[3px] w-[60px] rounded-[10px] bg-brand"></div>
       <p class="my-[15px] text-[14px] leading-[24px]">
-        <a href="tel:+96522204332" class="flex items-center gap-2 text-black transition-colors duration-[400ms] hover:text-[#999]">
+        <a href="tel:+96522204332" class="flex items-center gap-3 text-white transition-colors duration-[400ms] hover:text-lime">
           <span class={circle}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.85 21 3 13.15 3 3.5a1 1 0 0 1 1-1H7.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.24 1.02l-2.21 2.2Z"/></svg>
           </span>
@@ -75,7 +74,7 @@ const circle =
         </a>
       </p>
       <p class="my-[15px] text-[14px] leading-[24px]">
-        <a href="mailto:info@foodhacks.co" class="flex items-center gap-2 text-black transition-colors duration-[400ms] hover:text-[#999]">
+        <a href="mailto:info@foodhacks.co" class="flex items-center gap-3 text-white transition-colors duration-[400ms] hover:text-lime">
           <span class={circle}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6L22 7"/></svg>
           </span>
@@ -85,9 +84,9 @@ const circle =
     </div>
   </div>
 
-  <div class="mx-auto mt-10 max-w-[1180px] text-center">
-    <p class="text-[14px] leading-[24px]">
-      &copy; {year} <a href={home} title={t[lang].siteName} rel="home" class="text-black transition-colors duration-[400ms] hover:text-[#999]">{t[lang].siteName}</a>. {t[lang].footerRights}
+  <div class="mx-auto mt-12 max-w-[1180px] border-t border-white/15 pt-6 text-center">
+    <p class="text-[14px] leading-[24px] text-white/85">
+      &copy; {year} <a href={home} title={t[lang].siteName} rel="home" class="text-white transition-colors duration-[400ms] hover:text-lime">{t[lang].siteName}</a>. {t[lang].footerRights}
     </p>
   </div>
 </footer>
