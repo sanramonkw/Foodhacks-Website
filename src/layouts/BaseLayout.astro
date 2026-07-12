@@ -110,6 +110,7 @@ const ctaHref = orderUrl[lang];
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {import.meta.env.DEPLOY_TARGET === 'pages' && <meta name="robots" content="noindex, nofollow" />}
     {hreflangs.map((l) => <link rel="alternate" hreflang={l.hreflang} href={l.href} />)}
     <link rel="icon" type="image/png" href={withBase('/favicon.png')} />
     <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
