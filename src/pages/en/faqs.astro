@@ -51,9 +51,10 @@ const faqSchema = {
         </div>
       ))}
 
-      <p class="mt-10 text-center">
-        <a href={withBase(routes.contact.en)} class="btn-cta">{t.en.stillCurious}</a>
-      </p>
+      <div class="mt-10 text-center">
+        <p class="font-head2 text-[17px] text-ink">{t.en.stillCurious}</p>
+        <a href={withBase(routes.contact.en)} class="btn-cta mt-5">{t.en.contactCta}</a>
+      </div>
     </div>
   </section>
 </BaseLayout>

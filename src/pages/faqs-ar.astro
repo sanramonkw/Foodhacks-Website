@@ -25,7 +25,7 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="الأسئلة الشائعة - فود هاكز"
+  title="الأسئلة الشائعة - فود هاكس"
   lang="ar"
   altHref={routes.faqs.en}
   schema={[faqSchema]}
@@ -50,9 +50,10 @@ const faqSchema = {
         </div>
       ))}
 
-      <p class="mt-10 text-center">
-        <a href={withBase(routes.contact.ar)} class="btn-cta">{t.ar.stillCurious}</a>
-      </p>
+      <div class="mt-10 text-center">
+        <p class="font-head2 text-[17px] text-ink">{t.ar.stillCurious}</p>
+        <a href={withBase(routes.contact.ar)} class="btn-cta mt-5">{t.ar.contactCta}</a>
+      </div>
     </div>
   </section>
 </BaseLayout>

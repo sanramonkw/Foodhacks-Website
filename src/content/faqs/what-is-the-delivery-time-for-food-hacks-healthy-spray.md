@@ -1,5 +1,5 @@
 ---
-question: "What is the delivery time for Food Hacks healthy spray?"
+question: "How long does delivery take for Food Hacks Healthy Spray?"
 order: 3
 lang: "en"
 ---

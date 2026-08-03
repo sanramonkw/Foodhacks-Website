@@ -263,12 +263,14 @@ captions, cross-sell headings, etc.) — translated into Arabic as part of this
 merge; see the `t.ar`/`t.en` records for the exact pairs (search for "Bold-variant-
 only UI additions").
 
-**Live-content quirks kept verbatim:** the 2nd/3rd AR product titles are English on
-the live AR site too ("Extra Virgin Olive Oil Spray 200mL", "Truffle Flavoured …
-125mL"); the AR policy list items have stray leading periods/word-joiners. One
-deliberate improvement carried over from the original AR migration: live Polylang
-left the **saffron** EN↔AR pair unlinked ("no-translation"); this rebuild links and
-hreflang-pairs the real counterparts.
+**Live-content quirks:** these were carried over verbatim from WordPress until the
+owner's 2026-08-03 copy review replaced them (see "Owner copy review" below) — the
+2nd/3rd AR product titles used to be English on the live AR site ("Extra Virgin Olive
+Oil Spray 200mL", "Truffle Flavoured … 125mL") and the AR policy list items had stray
+leading periods/word-joiners; both are now fixed. One deliberate improvement carried
+over from the original AR migration: live Polylang left the **saffron** EN↔AR pair
+unlinked ("no-translation"); this rebuild links and hreflang-pairs the real
+counterparts.
 
 ### Other WP sitemap items
 - WP `footer-sitemap.xml` items (footer-logo/subscribe/contact/social widgets, EN+AR) — content
@@ -278,12 +280,72 @@ hreflang-pairs the real counterparts.
 
 - Product `.md` body text: the live product pages have **no** description copy (verified empty in
   WP REST API too), so the one-line bodies were composed from the site's own homepage copy
-  ("Premium Saffron Spray", "100% natural ingredients", etc.). Owner may want to expand these.
-- All other copy (about, vision, FAQs, policy, footer) is verbatim from the live site, including
-  the typo-laden "Our Vision" paragraph and the double period in the refund policy — kept
-  deliberately; ask owner before fixing.
+  ("Premium Saffron Spray", "100% natural ingredients", etc.). The **AR** bodies + titles were
+  then replaced by the owner's own copy in the 2026-08-03 review; the EN bodies are still the
+  composed ones (owner may want to expand them).
+- Copy was originally verbatim from the live WordPress site (typos and all). The **2026-08-03
+  owner copy review** replaced most of it — see "Owner copy review (2026-08-03)" below. What
+  remains verbatim from WP: the EN About-page "About Food Hacks" intro section, the EN product
+  bodies, the footer widgets, and the two FAQ answers the sheet didn't touch.
 - Contact email `info@foodhacks.co` was Cloudflare-obfuscated on the live site; decoded from the
   `data-cfemail` attribute.
+
+## Owner copy review (2026-08-03)
+
+The owner reviewed the deployed GitHub Pages build and returned corrections in a Zoho Sheet
+([public link](https://sheet.zohopublic.com/sheet/open/c5dv3589e895f829a4af6b168eeffa1e30db1),
+sheet tab "فود هاكس", 39 populated rows) laid out as two columns: **A = الغلط** (the wrong /
+current text) and **C = الصح** (the corrected text). Column B is empty/hidden. All of it is now
+applied. Summary of what changed:
+
+- **AR brand spelling is now "فود هاكس" everywhere** (was "فود هاكز", plus one "فوود هاكس" in a
+  product title). This was the single most repeated correction — it touches page titles, JSON-LD
+  `alternateName`, `t.ar.siteName`, product/FAQ frontmatter, body copy, image alts and llms.txt.
+  The **saffron product's file name / URL slug still contains "فوود هاكس"** — that is the live
+  Polylang slug and is deliberately unchanged (see the URL map); only the displayed title changed.
+- **AR product titles are now Arabic** (they were English on the live AR site): `بخاخ الزعفران، 200 مل`,
+  `بخاخ زيت الزيتون البكر الممتاز، 200 مل`, `بخاخ زيت الزيتون البكر الممتاز بنكهة الكمأة، 125 مل`.
+  Slugs/URLs unchanged. AR `size` values switched to Arabic units (`200 مل`) to match.
+- **Rewritten copy blocks:** AR + EN home hero/brand intro + "Our Vision" (the garbled EN
+  "maki achieving maximum health bene ng…" is gone), AR About welcome section (now a proper
+  4-bullet "لماذا رذاذ فود هاكس؟" list), AR + EN San Ramon section, AR + EN return/refund policy
+  (both cards, now with "How to request…" sub-headings; the stray leading periods, word-joiners
+  and the EN double period are gone), 4 AR FAQ answers/questions, 2 EN FAQ entries.
+- The About page's company section therefore carries **two** headings by design: the section h2
+  is "Head Office"/"المقر الرئيسي" (row 34, labelling the building photo) and the story column
+  opens with an h3 "About San Ramon"/"عن سان ريمون" (the title line inside rows 33/35). Both come
+  from the sheet; neither was dropped.
+- **UI string changes** in `src/i18n.ts`: `ourFactory` "Our Factory"/"مصنعنا" → **"Head Office"/"المقر الرئيسي"**
+  (the photo is the head office, not a factory — image alts and llms.txt updated to match),
+  `goodToKnow` → "Good to Know"/"معلومات تهمك", `shopAllCta` (AR) → "تسوق جميع المنتجات",
+  `heroTagline` (AR) → "بخاخات طهي مبتكرة تمنع الالتصاق", `talkToUs` → "Get in Touch"/"تواصل معنا",
+  `stillCurious` → the longer "Couldn't find what you're looking for?…" prompt, and both taglines.
+
+Three judgement calls made while applying the sheet (flag to the owner if they disagree):
+
+1. The sheet writes the parent company as **"San Remo"** and the brand as **"FoodHacks"** in some
+   corrected cells. Kept the established **"San Ramon"** and **"Food Hacks"** spellings (they match
+   the AR "سان ريمون", sanramonkw.com, and the sheet's own other cells).
+2. `talkToUs` → "Get in Touch"/"تواصل معنا" collided with the contact page's hero pill, which
+   already said exactly that. The pill (`contactSubtitle`) now carries the first clause of the
+   owner's own corrected form-intro sentence ("We're here to help" / "يسعدنا تواصلك معنا") and
+   `formIntro` carries the rest — no repetition, no invented words.
+3. `stillCurious` is a full sentence, not a button label, so the FAQs pages now render it as a
+   line of text above a short **Contact Us / تواصل معنا** button (new `contactCta` key).
+
+Two items from the sheet were deliberately **not** published:
+
+- The last paragraph of the AR 14-day policy cell (C28) is a note to the owner, not website copy:
+  "إذا كان المنتج غذائيًا أو يخضع لأنظمة معينة، فتأكدوا من أن هذه السياسة متوافقة مع قوانين حماية
+  المستهلك وسياسة الشركة قبل نشرها على الموقع." Left out — but worth acting on before launch.
+- The **EN About-page intro** has no counterpart in the sheet (only the AR one was rewritten), so
+  it still carries the old WP copy and now reads noticeably weaker than the AR side. **Needs an EN
+  rewrite from the owner.**
+
+The delivery FAQ is worded two ways in the sheet (rows 5/10 for the home teaser vs rows 22/23 for
+the FAQ page). Since the home teaser is generated from the same collection entry, the FAQ-page
+wording won: "How long does delivery take for Food Hacks Healthy Spray?" /
+"كم يستغرق توصيل بخاخ فود هاكس الصحي؟".
 
 ## Assets
 
@@ -342,7 +404,8 @@ astro.config.mjs        # site: https://foodhacks.co, sitemap, tailwind vite plu
                          # redirects (/ar -> /, /ar/الرئيسية -> /)
 src/content.config.ts   # products + faqs collections (zod; lang + translationKey fields)
 src/content/            # 6 products (3 EN + 3 AR), 10 faqs (5 EN + 5 AR) (markdown) — reused
-                         # verbatim across the Bold promotion, unchanged
+                         # verbatim across the Bold promotion; AR titles/bodies + some FAQ
+                         # text rewritten in the 2026-08-03 owner copy review
 src/i18n.ts             # EN/AR route pairs (AR at root, EN under /en/), nav (per-locale
                          # order), switcher, UI strings incl. Bold-only bento/counter copy
 src/layouts/BaseLayout.astro   # Bold design (skip-link, sticky Order-Now CTA, reveal/counter

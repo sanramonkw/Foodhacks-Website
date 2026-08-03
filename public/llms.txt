@@ -4,16 +4,16 @@
 
 ## المنتجات (Products, Arabic — default)
 
-- [بخاخ زعفران200 مل طبيعي 100% فوود هاكس](https://foodhacks.co/product/%D8%A8%D8%AE%D8%A7%D8%AE-%D8%B2%D8%B9%D9%81%D8%B1%D8%A7%D9%86200-%D9%85%D9%84-%D8%B7%D8%A8%D9%8A%D8%B9%D9%8A-100-%D9%81%D9%88%D9%88%D8%AF-%D9%87%D8%A7%D9%83%D8%B3/): بخاخ زعفران فاخر، طبيعي 100%.
-- [Extra Virgin Olive Oil Spray 200mL](https://foodhacks.co/product/extra-virgin-olive-oil-spray-200ml-2/): زيت زيتون بكر ممتاز برذاذ متساوي التوزيع غير لاصق.
-- [Truffle Flavoured Extra Virgin Olive Oil Spray 125mL](https://foodhacks.co/product/truffle-flavoured-extra-virgin-olive-oil-spray-125ml-2/): بخاخ زيت زيتون بكر ممتاز بنكهة الكمأة الفاخرة.
+- [بخاخ الزعفران، 200 مل](https://foodhacks.co/product/%D8%A8%D8%AE%D8%A7%D8%AE-%D8%B2%D8%B9%D9%81%D8%B1%D8%A7%D9%86200-%D9%85%D9%84-%D8%B7%D8%A8%D9%8A%D8%B9%D9%8A-100-%D9%81%D9%88%D9%88%D8%AF-%D9%87%D8%A7%D9%83%D8%B3/): بخاخ الزعفران الفاخر، طبيعي 100%.
+- [بخاخ زيت الزيتون البكر الممتاز، 200 مل](https://foodhacks.co/product/extra-virgin-olive-oil-spray-200ml-2/): زيت زيتون بكر ممتاز برذاذ متساوي التوزيع غير لاصق.
+- [بخاخ زيت الزيتون البكر الممتاز بنكهة الكمأة، 125 مل](https://foodhacks.co/product/truffle-flavoured-extra-virgin-olive-oil-spray-125ml-2/): بخاخ زيت زيتون بكر ممتاز بنكهة الكمأة الفاخرة.
 
 يمكن طلب المنتجات عبر https://srkw.co/product-category/%D9%81%D9%88%D8%AF-%D9%87%D8%A7%D9%83%D8%B3/ (التوصيل عادة خلال 24 ساعة من تأكيد الطلب).
 
 ## الصفحات (Pages, Arabic — default)
 
 - [الرئيسية (Home)](https://foodhacks.co/)
-- [من نحن (About)](https://foodhacks.co/about-ar/): قصة العلامة التجارية ومصنع سان ريمون خلف فود هاكز.
+- [من نحن (About)](https://foodhacks.co/about-ar/): قصة العلامة التجارية وشركة سان ريمون المالكة لـ فود هاكس.
 - [منتجاتنا (Products)](https://foodhacks.co/products-ar/)
 - [الأسئلة الشائعة (FAQs)](https://foodhacks.co/faqs-ar/): الفوائد الصحية، مقاومة الحرارة، المكونات، أوقات التوصيل، طريقة الاستخدام قبل الطبخ.
 - [سياسة الإرجاع واسترداد الأموال (Return & Refund Policy)](https://foodhacks.co/return-refund-policy-ar/): استبدال/استرداد خلال 14 يومًا، تغطية عيوب التصنيع خلال 30 يومًا.
@@ -24,7 +24,7 @@
 The full site is also mirrored in English under /en/. Key pages:
 
 - [Home](https://foodhacks.co/en/)
-- [About us](https://foodhacks.co/en/about/): Brand story and the San Ramon factory behind Food Hacks.
+- [About us](https://foodhacks.co/en/about/): Brand story and San Ramon, the company behind Food Hacks.
 - [Our Products](https://foodhacks.co/en/products/)
 - [Saffron Spray 200mL](https://foodhacks.co/en/product/saffron-spray-200ml/)
 - [Extra Virgin Olive Oil Spray 200mL](https://foodhacks.co/en/product/extra-virgin-olive-oil-spray-200ml/)

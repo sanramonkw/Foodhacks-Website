@@ -12,7 +12,7 @@ const products = (await getCollection('products', (p) => p.data.lang === 'ar')).
 const itemList = {
   '@type': 'ItemList',
   '@id': 'https://foodhacks.co/products-ar/#itemlist',
-  name: 'منتجات فود هاكز',
+  name: 'منتجات فود هاكس',
   inLanguage: 'ar',
   itemListElement: products.map((p, i) => ({
     '@type': 'ListItem',
@@ -24,7 +24,7 @@ const itemList = {
 ---
 
 <BaseLayout
-  title="منتجاتنا - فود هاكز"
+  title="منتجاتنا - فود هاكس"
   lang="ar"
   altHref={routes.products.en}
   schema={[itemList]}
