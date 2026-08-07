@@ -123,7 +123,12 @@ provider, or remove the blurb.
    domain) so no cached/alternate path can serve another tenant's content on this domain.
    Purge any CDN/proxy cache after the switch, then spot-check that every page `<title>`
    contains "Food Hacks".
-2. **301 redirects — full map, required at the host level.** The 2026-07-12 Bold
+2. **301 redirects — full map, required at the host level.** *(Status
+   2026-08-07: NOT APPLIED — `/about/` and `/products/` both returned 404 on
+   the live site, and the custom 404 page was unwired, so nginx's bare error
+   page was passing straight through Cloudflare. `deploy/nginx-redirects.conf`
+   in this repo now implements the map; apply that file rather than hand-typing
+   rules, and see its header for the Cloudflare-vs-origin choice.)* The 2026-07-12 Bold
    promotion made Arabic the default locale at the root and moved English under
    `/en/`. Any inbound links/bookmarks/search results pointing at the **old**
    (pre-promotion) URL shapes must 301 to the **new** shapes below. Astro's static
